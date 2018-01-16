@@ -103,6 +103,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
             LOG.info("Intercepted for annotation - Permission [name={}, label={}, description={}, proxyType={}, proxiedClass={}, method={}]", name, label, description, proxyType, proxiedClassName, methodName);
         }
 
+        // 获取方法参数上的注解值
         String userId = getValueByParameterAnnotation(invocation, UserId.class, String.class);
         String userType = getValueByParameterAnnotation(invocation, UserType.class, String.class);
         String token = getValueByParameterAnnotation(invocation, Token.class, String.class);

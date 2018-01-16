@@ -15,9 +15,12 @@ import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
 public interface PermissionDelegate {
+    // 权限列表入库
     void persist(List<PermissionEntity> permissionEntityList);
 
+    // 权限验证
     boolean authorize(String userId, String userType, String permissionName, String permissionType, String serviceName);
 
+    // 根据Token获取User实体
     UserEntity getUserEntity(String token);
 }

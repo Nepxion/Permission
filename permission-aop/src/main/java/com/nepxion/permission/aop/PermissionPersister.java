@@ -26,7 +26,7 @@ import com.nepxion.permission.PermissionDelegate;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionEntity;
 
-@Component("permissionScanner")
+@Component("permissionPersister")
 public class PermissionPersister implements ApplicationListener<ContextRefreshedEvent> {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionPersister.class);
 
