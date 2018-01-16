@@ -23,13 +23,14 @@ import org.springframework.stereotype.Component;
 
 import com.nepxion.aquarius.common.constant.AquariusConstant;
 import com.nepxion.matrix.aop.AbstractInterceptor;
-import com.nepxion.matrix.util.MatrixUtil;
+import com.nepxion.permission.PermissionDelegate;
 import com.nepxion.permission.annotation.Permission;
 import com.nepxion.permission.annotation.Token;
 import com.nepxion.permission.annotation.UserId;
 import com.nepxion.permission.annotation.UserType;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionType;
+import com.nepxion.permission.entity.UserEntity;
 import com.nepxion.permission.exception.PermissionException;
 
 @Component("permissionInterceptor")
@@ -48,8 +49,12 @@ public class PermissionInterceptor extends AbstractInterceptor {
     @Value("${" + PermissionConstant.PERMISSION_USER_TYPE_WHITELIST + ":}")
     private String whitelist;
 
+    // @Autowired(required = false)
     @Autowired
-    private PermissionAuthorization permissionAuthorization;
+    private PermissionDelegate permissionDelegate;
+
+    @Autowired
+    private PermissionCache permissionCache;
 
     @PostConstruct
     public void initialize() {
@@ -106,16 +111,23 @@ public class PermissionInterceptor extends AbstractInterceptor {
             throw new PermissionException("Annotation [Token] or [UserId] && [UserType] must be in target method");
         }
 
-        // Neptune:这里增加根据token获取userId和userType的方法
+        // 根据token获取userId和userType
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(userType)) {
+            UserEntity userEntity = permissionDelegate.getUserEntity(token);
+            userId = userEntity.getUserId();
+            userType = userEntity.getUserType();
+        }
 
         // 检查用户类型白名单，决定某个类型的用户是否要执行权限验证拦截
         boolean checkUserTypeFilters = checkUserTypeFilters(userType);
         if (checkUserTypeFilters) {
-            Boolean authorized = permissionAuthorization.authorize(userId, userType, name, PermissionType.SERVICE.getValue(), serviceName);
-            if (authorized != null && authorized) {
+            boolean authorized = permissionCache.authorize(userId, userType, name, PermissionType.SERVICE.getValue(), serviceName);
+            if (authorized) {
                 return invocation.proceed();
             } else {
-                executeNoPermission(invocation, name, label);
+                String parameterTypesValue = getMethodParameterTypesValue(invocation);
+
+                throw new PermissionException("No permision to proceed method [name=" + methodName + ", parameterTypes=" + parameterTypesValue + "], permissionName=" + name + ", permissionLabel=" + label);
             }
         }
 
@@ -132,14 +144,5 @@ public class PermissionInterceptor extends AbstractInterceptor {
         }
 
         return false;
-    }
-
-    private void executeNoPermission(MethodInvocation invocation, String name, String label) {
-        Method method = invocation.getMethod();
-        String methodName = method.getName();
-        Class<?>[] parameterTypes = method.getParameterTypes();
-        String parameterTypesValue = MatrixUtil.toString(parameterTypes);
-
-        throw new PermissionException("No permision to proceed method [name=" + methodName + ", parameterTypes=" + parameterTypesValue + "], permissionName=" + name + ", permissionLabel=" + label);
     }
 }

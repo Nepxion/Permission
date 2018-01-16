@@ -22,6 +22,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import com.nepxion.permission.PermissionDelegate;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionEntity;
 
@@ -34,6 +35,9 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
 
     @Autowired
     private PermissionAutoScanProxy permissionAutoScanProxy;
+
+    @Autowired
+    private PermissionDelegate permissionDelegate;
 
     @PostConstruct
     public void initialize() {
