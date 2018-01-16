@@ -55,6 +55,8 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
                     LOG.info("PermissionEntity={}", permissionEntity);
                 }
                 LOG.info("------------------------------------------------------------");
+
+                permissionDelegate.persist(permissionEntityList);
             }
         }
     }
