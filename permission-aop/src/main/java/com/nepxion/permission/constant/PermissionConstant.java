@@ -14,7 +14,8 @@ public class PermissionConstant {
     public static final String PERMISSION_INTERCEPTION_ENABLED = "permission.interception.enabled";
     public static final String PERMISSION_AUTOMATIC_PERSIST_ENABLED = "permission.automatic.persist.enabled";
     public static final String PERMISSION_USER_TYPE_WHITELIST = "permission.user.type.whitelist";
-    
+    public static final String PERMISSION_CACHE_INVOKE_ENABLED = "permission.cache.invoke.enabled";
+
     public static final String SERVICE_NAME = "spring.application.name";
     public static final String SERVICE_OWNER = "eureka.instance.metadataMap.owner";
 }

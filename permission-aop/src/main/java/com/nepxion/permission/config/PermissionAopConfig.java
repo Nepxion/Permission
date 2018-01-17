@@ -14,6 +14,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages = { "com.nepxion.aquarius.cache", "com.nepxion.permission.aop" })
-public class PermissionConfig {
+public class PermissionAopConfig {
 
 }

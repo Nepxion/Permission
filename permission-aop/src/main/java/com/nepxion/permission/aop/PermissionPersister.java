@@ -58,7 +58,7 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
                     }
                     permissionDelegate.persist(permissionEntityList);
                 } else {
-                    LOG.warn("No PermissionEntity list to persist");
+                    LOG.warn("PermissionEntity list is empty");
                 }
                 LOG.info("------------------------------------------------------------");
             }
