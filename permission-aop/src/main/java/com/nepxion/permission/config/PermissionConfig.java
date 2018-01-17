@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = { "com.nepxion.aquarius", "com.nepxion.permission" })
+@ComponentScan(basePackages = { "com.nepxion.aquarius.cache", "com.nepxion.permission.aop" })
 public class PermissionConfig {
 
 }

@@ -76,39 +76,38 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
     @Override
     protected void methodAnnotationScanned(Class<?> targetClass, Method method, Class<? extends Annotation> methodAnnotation) {
         if (automaticPersistEnabled) {
-            if (methodAnnotation != Permission.class) {
-                return;
+            if (methodAnnotation == Permission.class) {
+                Permission permissionAnnotation = method.getAnnotation(Permission.class);
+
+                String name = permissionAnnotation.name();
+                if (StringUtils.isEmpty(name)) {
+                    throw new PermissionException("Annotation [Permission]'s name is null or empty");
+                }
+
+                String label = permissionAnnotation.label();
+
+                String description = permissionAnnotation.description();
+                // 如果description为赋值，自动取类名、方法名和参数类型组合赋值
+                if (StringUtils.isEmpty(description)) {
+                    String className = targetClass.getName();
+                    String methodName = method.getName();
+                    Class<?>[] parameterTypes = method.getParameterTypes();
+                    String parameterTypesValue = MatrixUtil.toString(parameterTypes);
+
+                    description = className + "." + methodName + "(" + parameterTypesValue + ")";
+                }
+
+                PermissionEntity permissionEntity = new PermissionEntity();
+                permissionEntity.setName(name);
+                permissionEntity.setLabel(label);
+                permissionEntity.setType(PermissionType.SERVICE.getValue());
+                permissionEntity.setDescription(description);
+                permissionEntity.setServiceName(serviceName);
+                permissionEntity.setCreateOwner(owner);
+                permissionEntity.setUpdateOwner(owner);
+
+                permissionEntityList.add(permissionEntity);
             }
-
-            Permission permissionAnnotation = method.getAnnotation(Permission.class);
-
-            String name = permissionAnnotation.name();
-            if (StringUtils.isEmpty(name)) {
-                throw new PermissionException("Annotation [Permission]'s name is null or empty");
-            }
-
-            String label = permissionAnnotation.label();
-
-            String description = permissionAnnotation.description();
-            if (StringUtils.isEmpty(description)) {
-                String className = targetClass.getName();
-                String methodName = method.getName();
-                Class<?>[] parameterTypes = method.getParameterTypes();
-                String parameterTypesValue = MatrixUtil.toString(parameterTypes);
-
-                description = className + "." + methodName + "(" + parameterTypesValue + ")";
-            }
-
-            PermissionEntity permissionEntity = new PermissionEntity();
-            permissionEntity.setName(name);
-            permissionEntity.setLabel(label);
-            permissionEntity.setType(PermissionType.SERVICE.getValue());
-            permissionEntity.setDescription(description);
-            permissionEntity.setServiceName(serviceName);
-            permissionEntity.setCreateOwner(owner);
-            permissionEntity.setUpdateOwner(owner);
-
-            permissionEntityList.add(permissionEntity);
         }
     }
 

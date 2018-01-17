@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +52,15 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
                 LOG.info("Start to persist with following permission list...");
                 LOG.info("------------------------------------------------------------");
                 List<PermissionEntity> permissionEntityList = permissionAutoScanProxy.getPermissionEntityList();
-                for (PermissionEntity permissionEntity : permissionEntityList) {
-                    LOG.info("PermissionEntity={}", permissionEntity);
+                if (CollectionUtils.isNotEmpty(permissionEntityList)) {
+                    for (PermissionEntity permissionEntity : permissionEntityList) {
+                        LOG.info("PermissionEntity={}", permissionEntity);
+                    }
+                    permissionDelegate.persist(permissionEntityList);
+                } else {
+                    LOG.warn("No PermissionEntity list to persist");
                 }
                 LOG.info("------------------------------------------------------------");
-
-                permissionDelegate.persist(permissionEntityList);
             }
         }
     }
