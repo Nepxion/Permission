@@ -12,13 +12,13 @@ package com.nepxion.permission.impl;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.nepxion.permission.PermissionDelegate;
 import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
-@Service
+@Component("permissionDelegateImpl")
 public class PermissionDelegateImpl implements PermissionDelegate {
     @Override
     public void persist(List<PermissionEntity> permissionEntityList) {

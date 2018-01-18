@@ -15,8 +15,7 @@
         <module>permission-entity</module>
         <module>permission-framework</module>
         <module>permission-service</module>
-        <module>permission-example-server</module>
-        <module>permission-example-client</module>
+        <module>permission-springcloud-example</module>
     </modules>
 
     <properties>
