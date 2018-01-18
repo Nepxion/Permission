@@ -20,11 +20,13 @@ import com.nepxion.permission.entity.UserEntity;
 
 @Service
 public class ExampleDelegateImpl implements PermissionDelegate {
+    // 权限列表入库
     @Override
     public void persist(List<PermissionEntity> permissionEntityList) {
-        
+
     }
 
+    // 权限验证
     @Override
     public boolean authorize(String userId, String userType, String permissionName, String permissionType, String serviceName) {
         if (StringUtils.equals(userId, "zhangsan")) {
@@ -32,10 +34,11 @@ public class ExampleDelegateImpl implements PermissionDelegate {
         } else if (StringUtils.equals(userId, "lisi")) {
             return false;
         }
-        
+
         return true;
     }
 
+    // 根据Token获取User实体
     @Override
     public UserEntity getUserEntity(String token) {
         if (StringUtils.equals(token, "abcd1234")) {
