@@ -38,7 +38,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>com.nepxion</groupId>
             <artifactId>permission-aop</artifactId>
             <version>${permission.version}</version>
         </dependency>

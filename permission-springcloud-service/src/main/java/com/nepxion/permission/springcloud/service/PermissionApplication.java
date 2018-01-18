@@ -1,4 +1,4 @@
-package com.nepxion.permission;
+package com.nepxion.permission.springcloud.service;
 
 /**
  * <p>Title: Nepxion Permission</p>

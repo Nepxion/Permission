@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <artifactId>permission-service</artifactId>
-    <name>Nepxion Permission Service</name>
+    <groupId>com.nepxion</groupId>
+    <artifactId>permission-springcloud-service</artifactId>
+    <name>Nepxion Permission Spring Cloud Service</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
+    <version>1.0.0</version>
     <description>Nepxion Permission is a permission system based on Redis with Nepxion Matrix AOP framework and Aquarius framework</description>
     <url>http://www.nepxion.com</url>
 
