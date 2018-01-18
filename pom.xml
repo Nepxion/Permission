@@ -14,7 +14,7 @@
         <module>permission-aop</module>
         <module>permission-entity</module>
         <module>permission-framework</module>
-        <module>permission-springcloud-service</module>
+        <module>permission-service</module>
         <module>permission-springcloud-example</module>
     </modules>
 
