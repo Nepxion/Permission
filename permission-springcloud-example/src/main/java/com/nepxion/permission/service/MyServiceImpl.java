@@ -1,4 +1,4 @@
-package com.nepxion.permission.example.service;
+package com.nepxion.permission.service;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExampleServiceImpl implements ExampleService {
-    private static final Logger LOG = LoggerFactory.getLogger(ExampleServiceImpl.class);
+public class MyServiceImpl implements MyService {
+    private static final Logger LOG = LoggerFactory.getLogger(MyServiceImpl.class);
 
     @Override
     public int doA(String userId, String userType, String value) {

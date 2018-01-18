@@ -1,4 +1,4 @@
-package com.nepxion.permission.example;
+package com.nepxion.permission;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -16,17 +16,17 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Import;
 
 import com.nepxion.aquarius.common.context.AquariusContextAware;
-import com.nepxion.permission.example.service.ExampleService;
+import com.nepxion.permission.service.MyService;
 
 @SpringBootApplication
 @Import({ com.nepxion.permission.config.PermissionConfig.class })
-public class ExampleApplication {
-    private static final Logger LOG = LoggerFactory.getLogger(ExampleApplication.class);
+public class MyApplication {
+    private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(ExampleApplication.class).web(true).run(args);
+        new SpringApplicationBuilder(MyApplication.class).web(true).run(args);
 
-        ExampleService exampleService = AquariusContextAware.getBean(ExampleService.class);
+        MyService exampleService = AquariusContextAware.getBean(MyService.class);
         LOG.info("Result : {}", exampleService.doA("zhangsan", "LDAP", "valueA"));
         LOG.info("Result : {}", exampleService.doB("abcd1234", "valueB"));
     }

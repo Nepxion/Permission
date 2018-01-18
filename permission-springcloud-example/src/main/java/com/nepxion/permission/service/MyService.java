@@ -1,4 +1,4 @@
-package com.nepxion.permission.example.service;
+package com.nepxion.permission.service;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -14,7 +14,7 @@ import com.nepxion.permission.annotation.Token;
 import com.nepxion.permission.annotation.UserId;
 import com.nepxion.permission.annotation.UserType;
 
-public interface ExampleService {
+public interface MyService {
     @Permission(name = "A-Permission", label = "A权限")
     int doA(@UserId String userId, @UserType String userType, String value);
 
