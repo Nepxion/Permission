@@ -19,14 +19,14 @@ public class ExampleServiceImpl implements ExampleService {
 
     @Override
     public int doA(String userId, String userType, String value) {
-        LOG.info("====={}", value);
+        LOG.info("===== doA被调用");
 
         return 123;
     }
 
     @Override
     public String doB(String userId, String value) {
-        LOG.info("-----{}", value);
+        LOG.info("----- doB被调用");
         
         return "abc";
     }
