@@ -1,4 +1,4 @@
-package com.nepxion.permission.example.service;
+package com.nepxion.permission.impl;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -19,7 +19,7 @@ import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
 @Service
-public class ExamplePermissionDelegate implements PermissionDelegate {
+public class PermissionDelegateImpl implements PermissionDelegate {
     @Override
     public void persist(List<PermissionEntity> permissionEntityList) {
         
