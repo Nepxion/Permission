@@ -17,7 +17,7 @@
     <properties>
         <spring.cloud.version>Dalston.SR4</spring.cloud.version>
         <!-- <spring.cloud.version>Edgware.RELEASE</spring.cloud.version> -->
-        <swagger.version>2.7.0</swagger.version>
+        <permission.version>1.0.0</permission.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -36,20 +36,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>permission-framework</artifactId>
+            <version>${permission.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
         </dependency>
     </dependencies>
 
