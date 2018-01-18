@@ -27,6 +27,18 @@ import com.nepxion.permission.entity.UserEntity;
 @RestController
 @Api(tags = { "权限接口" })
 public class PermissionController {
+    static {
+        System.out.println("");
+        System.out.println("╔═══╗");
+        System.out.println("║╔═╗║");
+        System.out.println("║╚═╝╠══╦═╦╗╔╦╦══╦══╦╦══╦══╗");
+        System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
+        System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
+        System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
+        System.out.println("Nepxion Permission  v1.0.0");
+        System.out.println("");
+    }
+
     @PostConstruct
     private void initialize() {
 
