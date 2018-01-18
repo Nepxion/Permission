@@ -125,9 +125,9 @@ public class MyApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder(MyApplication.class).web(true).run(args);
 
-        MyService exampleService = AquariusContextAware.getBean(MyService.class);
-        LOG.info("Result : {}", exampleService.doA("zhangsan", "LDAP", "valueA"));
-        LOG.info("Result : {}", exampleService.doB("abcd1234", "valueB"));
+        MyService myService = AquariusContextAware.getBean(MyService.class);
+        LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
+        LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
     }
 }
 ```
