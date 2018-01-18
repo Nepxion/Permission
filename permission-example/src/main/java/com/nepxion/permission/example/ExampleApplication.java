@@ -19,7 +19,7 @@ import com.nepxion.aquarius.common.context.AquariusContextAware;
 import com.nepxion.permission.example.service.ExampleService;
 
 @SpringBootApplication
-@Import({ com.nepxion.permission.config.PermissionAopConfig.class })
+@Import({ com.nepxion.permission.config.PermissionConfig.class })
 public class ExampleApplication {
     private static final Logger LOG = LoggerFactory.getLogger(ExampleApplication.class);
 
