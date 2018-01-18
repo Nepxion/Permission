@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 import com.nepxion.aquarius.common.context.AquariusContextAware;
@@ -21,7 +20,6 @@ import com.nepxion.permission.example.service.ExampleService;
 
 @SpringBootApplication
 @Import({ com.nepxion.permission.config.PermissionAopConfig.class })
-@ComponentScan(basePackages = { "com.nepxion.permission.example" })
 public class ExampleApplication {
     private static final Logger LOG = LoggerFactory.getLogger(ExampleApplication.class);
 
