@@ -1,4 +1,4 @@
-package com.nepxion.permission.springcloud.example;
+package com.nepxion.permission.example;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -16,7 +16,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Import;
 
 import com.nepxion.aquarius.common.context.AquariusContextAware;
-import com.nepxion.permission.springcloud.example.service.ExampleService;
+import com.nepxion.permission.example.service.ExampleService;
 
 @SpringBootApplication
 @Import({ com.nepxion.permission.config.PermissionAopConfig.class })

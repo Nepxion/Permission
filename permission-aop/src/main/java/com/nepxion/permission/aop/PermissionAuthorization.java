@@ -25,7 +25,7 @@ import com.nepxion.permission.constant.PermissionConstant;
 public class PermissionAuthorization {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionAuthorization.class);
 
-    @Value("${" + PermissionConstant.PERMISSION_CACHE_INVOKE_ENABLED + ":false}")
+    @Value("${" + PermissionConstant.PERMISSION_CACHE_INVOKE_ENABLED + ":true}")
     private Boolean cacheInvokeEnabled;
 
     @Autowired
