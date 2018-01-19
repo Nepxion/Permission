@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class PermissionType implements Serializable {
     private static final long serialVersionUID = 6102187790951666119L;
 
-    public static final PermissionType SERVICE = new PermissionType("服务级", "SERVICE");
+    public static final PermissionType API = new PermissionType("接口级", "API");
     public static final PermissionType GATEWAY = new PermissionType("网关级", "GATEWAY");
     public static final PermissionType UI = new PermissionType("界面级", "UI");
 
@@ -53,8 +53,8 @@ public class PermissionType implements Serializable {
     }
 
     public PermissionType fromString(String value) {
-        if (StringUtils.equalsIgnoreCase(value, SERVICE.getValue())) {
-            return SERVICE;
+        if (StringUtils.equalsIgnoreCase(value, API.getValue())) {
+            return API;
         } else if (StringUtils.equalsIgnoreCase(value, GATEWAY.getValue())) {
             return GATEWAY;
         } else if (StringUtils.equalsIgnoreCase(value, UI.getValue())) {

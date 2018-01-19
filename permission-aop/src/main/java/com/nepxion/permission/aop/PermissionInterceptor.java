@@ -122,7 +122,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
         // 检查用户类型白名单，决定某个类型的用户是否要执行权限验证拦截
         boolean checkUserTypeFilters = checkUserTypeFilters(userType);
         if (checkUserTypeFilters) {
-            boolean authorized = permissionAuthorization.authorize(userId, userType, name, PermissionType.SERVICE.getValue(), serviceName);
+            boolean authorized = permissionAuthorization.authorize(userId, userType, name, PermissionType.API.getValue(), serviceName);
             if (authorized) {
                 return invocation.proceed();
             } else {

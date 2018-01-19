@@ -112,7 +112,7 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
                 PermissionEntity permissionEntity = new PermissionEntity();
                 permissionEntity.setName(name);
                 permissionEntity.setLabel(label);
-                permissionEntity.setType(PermissionType.SERVICE.getValue());
+                permissionEntity.setType(PermissionType.API.getValue());
                 permissionEntity.setDescription(description);
                 permissionEntity.setServiceName(serviceName);
                 permissionEntity.setCreateOwner(owner);

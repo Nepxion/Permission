@@ -26,7 +26,7 @@ public class PermissionEntity extends Entity {
     }
 
     public void setType(String type) {
-        if (!StringUtils.equals(type, PermissionType.SERVICE.getValue()) && !StringUtils.equals(type, PermissionType.GATEWAY.getValue()) && !StringUtils.equals(type, PermissionType.UI.getValue())) {
+        if (!StringUtils.equals(type, PermissionType.API.getValue()) && !StringUtils.equals(type, PermissionType.GATEWAY.getValue()) && !StringUtils.equals(type, PermissionType.UI.getValue())) {
             throw new IllegalArgumentException("Mismatched type with value=" + type);
         }
 
