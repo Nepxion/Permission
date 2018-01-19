@@ -99,15 +99,13 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
                 String label = permissionAnnotation.label();
 
                 String description = permissionAnnotation.description();
-                // 如果description为赋值，自动取类名、方法名和参数类型组合赋值
-                if (StringUtils.isEmpty(description)) {
-                    String className = targetClass.getName();
-                    String methodName = method.getName();
-                    Class<?>[] parameterTypes = method.getParameterTypes();
-                    String parameterTypesValue = MatrixUtil.toString(parameterTypes);
 
-                    description = className + "." + methodName + "(" + parameterTypesValue + ")";
-                }
+                // 取类名、方法名和参数类型组合赋值
+                String className = targetClass.getName();
+                String methodName = method.getName();
+                Class<?>[] parameterTypes = method.getParameterTypes();
+                String parameterTypesValue = MatrixUtil.toString(parameterTypes);
+                String resource = className + "." + methodName + "(" + parameterTypesValue + ")";
 
                 PermissionEntity permissionEntity = new PermissionEntity();
                 permissionEntity.setName(name);
@@ -115,6 +113,7 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
                 permissionEntity.setType(PermissionType.API.getValue());
                 permissionEntity.setDescription(description);
                 permissionEntity.setServiceName(serviceName);
+                permissionEntity.setResource(resource);
                 permissionEntity.setCreateOwner(owner);
                 permissionEntity.setUpdateOwner(owner);
 

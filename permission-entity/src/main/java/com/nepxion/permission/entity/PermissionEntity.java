@@ -19,7 +19,7 @@ public class PermissionEntity extends Entity {
     private static final long serialVersionUID = -82541551905707852L;
 
     private String type;
-    private String url;
+    private String resource;
 
     public String getType() {
         return type;
@@ -33,12 +33,12 @@ public class PermissionEntity extends Entity {
         this.type = type;
     }
 
-    public String getUrl() {
-        return url;
+    public String getResource() {
+        return resource;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setResource(String resource) {
+        this.resource = resource;
     }
 
     @Override

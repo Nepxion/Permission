@@ -16,7 +16,7 @@ import com.nepxion.permission.annotation.UserType;
 
 public interface MyService {
     // 基于userId和userType的权限验证
-    @Permission(name = "A-Permission", label = "A权限")
+    @Permission(name = "A-Permission", label = "A权限", description = "A权限的描述")
     int doA(@UserId String userId, @UserType String userType, String value);
 
     // 基于token的权限验证
