@@ -17,7 +17,7 @@ import com.nepxion.permission.constant.PermissionConstant;
 
 @Component("permissionAop")
 public class PermissionAop {
-    @Value("${" + PermissionConstant.PERMISSION_SCAN_PACKAGES + "}")
+    @Value("${" + PermissionConstant.PERMISSION_SCAN_PACKAGES + ":}")
     private String scanPackages;
 
     @Bean("permissionAutoScanProxy")
