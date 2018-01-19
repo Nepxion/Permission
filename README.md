@@ -46,7 +46,7 @@ server.port=2222
 eureka.instance.metadataMap.owner=Haojun Ren
 
 # Permission config
-# 扫描含有@Permission注解的接口或者类所在目录
+# 扫描含有@Permission注解的接口或者类所在目录（可以不配置，但如果不配置，则扫描全局，会稍微降低性能）
 permission.scan.packages=com.nepxion.permission.service
 # 如果开启，默认每次服务启动时候，会往权限系统的数据库插入权限（权限不存在则插入，权限存在则覆盖）
 permission.automatic.persist.enabled=true
@@ -58,7 +58,7 @@ permission.cache.invoke.enabled=true
 # Cache config
 prefix=permission
 cache.type=redisCache
-# 扫描含有@Cacheable注解的接口或者类所在目录，不需要改
+# 扫描含有@Cacheable注解的接口或者类所在目录，不需要改（可以不配置，但如果不配置，则扫描全局，会稍微降低性能）
 cache.scan.packages=com.nepxion.permission
 
 # Frequent log print
@@ -86,7 +86,7 @@ import com.nepxion.permission.annotation.UserType;
 
 public interface MyService {
     // 基于userId和userType的权限验证
-    @Permission(name = "A-Permission", label = "A权限")
+    @Permission(name = "A-Permission", label = "A权限", description = "A权限的描述")
     int doA(@UserId String userId, @UserType String userType, String value);
 
     // 基于token的权限验证
@@ -169,7 +169,7 @@ public class MyDelegateImpl implements PermissionDelegate {
     public boolean authorize(String userId, String userType, String permissionName, String permissionType, String serviceName) {
         // 验证用户是否有权限
         // 需要和用户系统做对接，userId一般为登录名，userType为用户系统类型。目前支持多用户类型，所以通过userType来区分同名登录用户，例如财务系统有用户叫zhangsan，支付系统也有用户叫zhangsan
-        // permissionName即在@Permission注解上定义的name，permissionType为权限类型，目前支持服务级，网关级，界面级三种类型的权限(参考PermissionType.java类的定义)，以支持最大范围的权限微服务系统。服务级的权限即API权限
+        // permissionName即在@Permission注解上定义的name，permissionType为权限类型，目前支持接口权限(API)，网关权限(GATEWAY)，界面权限(UI)三种类型的权限(参考PermissionType.java类的定义)
         // serviceName即服务名，在application.properties里定义的spring.application.name
         // 对于验证结果，在后端实现分布式缓存，可以避免频繁调用数据库而出现性能问题
         // 示例描述用户zhangsan有权限，用户lisi没权限
