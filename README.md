@@ -1,7 +1,7 @@
 # Nepxion Permission
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Permission/blob/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/permission.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20permission)
-[![Javadocs](http://www.javadoc.io/badge/com.nepxion/permission.svg)](http://www.javadoc.io/doc/com.nepxion/permission)
+[![Javadocs](http://www.javadoc.io/badge/com.nepxion/permission-aop.svg)](http://www.javadoc.io/doc/com.nepxion/permission-aop)
 [![Build Status](https://travis-ci.org/Nepxion/Permission.svg?branch=master)](https://travis-ci.org/Nepxion/Permission)
 
 Nepxion Permission是一款基于Redis分布式缓存权限调用系统，实现对业务系统中API的权限控制。它采用Nepxion Matrix AOP框架进行切面架构，提供注解调用方式
