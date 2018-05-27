@@ -40,7 +40,7 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
         System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
         System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
         System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
-        System.out.println("Nepxion Permission  v1.0.3");
+        System.out.println("Nepxion Permission  v1.0.4");
         System.out.println("");
     }
 
