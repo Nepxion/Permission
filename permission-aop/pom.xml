@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>permission-entity</artifactId>
+            <artifactId>permission-api</artifactId>
         </dependency>
 
         <dependency>

@@ -23,11 +23,11 @@ import org.springframework.stereotype.Component;
 
 import com.nepxion.aquarius.common.constant.AquariusConstant;
 import com.nepxion.matrix.aop.AbstractInterceptor;
-import com.nepxion.permission.PermissionDelegate;
 import com.nepxion.permission.annotation.Permission;
 import com.nepxion.permission.annotation.Token;
 import com.nepxion.permission.annotation.UserId;
 import com.nepxion.permission.annotation.UserType;
+import com.nepxion.permission.api.PermissionApi;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionType;
 import com.nepxion.permission.entity.UserEntity;
@@ -51,7 +51,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
     // @Autowired(required = false)
     @Autowired
-    private PermissionDelegate permissionDelegate;
+    private PermissionApi permissionApi;
 
     @Autowired
     private PermissionAuthorization permissionAuthorization;
@@ -114,7 +114,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
         // 根据token获取userId和userType
         if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(userType)) {
-            UserEntity userEntity = permissionDelegate.getUserEntity(token);
+            UserEntity userEntity = permissionApi.getUserEntity(token);
             userId = userEntity.getUserId();
             userType = userEntity.getUserType();
         }

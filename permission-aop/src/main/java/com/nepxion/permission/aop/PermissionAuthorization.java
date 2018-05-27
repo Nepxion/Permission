@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.nepxion.aquarius.cache.annotation.Cacheable;
-import com.nepxion.permission.PermissionDelegate;
+import com.nepxion.permission.api.PermissionApi;
 import com.nepxion.permission.constant.PermissionConstant;
 
 @Component("permissionAuthorization")
@@ -29,7 +29,7 @@ public class PermissionAuthorization {
     private Boolean cacheInvokeEnabled;
 
     @Autowired
-    private PermissionDelegate permissionDelegate;
+    private PermissionApi permissionApi;
 
     // 通过自动装配的方式，自身调用自身的注解方法
     @Autowired
@@ -51,7 +51,7 @@ public class PermissionAuthorization {
     }
 
     public boolean authorizeInvoke(String userId, String userType, String permissionName, String permissionType, String serviceName) {
-        boolean authorized = permissionDelegate.authorize(userId, userType, permissionName, permissionType, serviceName);
+        boolean authorized = permissionApi.authorize(userId, userType, permissionName, permissionType, serviceName);
 
         LOG.info("Authorized={} for userId={}, userType={}, permissionName={}, permissionType={}, serviceName={}", authorized, userId, userType, permissionName, permissionType, serviceName);
 

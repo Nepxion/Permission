@@ -11,8 +11,9 @@
     <url>http://www.nepxion.com</url>
 
     <modules>
-        <module>permission-aop</module>
         <module>permission-entity</module>
+        <module>permission-api</module>
+        <module>permission-aop</module>
         <module>permission-springcloud-example</module>
     </modules>
 
@@ -32,13 +33,19 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>permission-aop</artifactId>
+                <artifactId>permission-entity</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>permission-entity</artifactId>
+                <artifactId>permission-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>permission-aop</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
