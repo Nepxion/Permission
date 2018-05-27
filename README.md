@@ -19,17 +19,18 @@ Nepxion Permission是一款基于Redis分布式缓存权限调用系统，实现
 
 ### 注意
 
-Nepxion Permission提供简单易用的AOP框架，并非是全面的权限管理和调用系统，鉴于不同公司有不同权限架构，那么使用者需要自行去实现如下模块：
+Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-client-example），并非是全面的权限管理和调用系统，鉴于不同公司有不同权限架构，那么使用者需要自行去实现如下模块（参考permission-springcloud-service-example）：
 
     1. 实现基于权限-角色-用户三层体系的数据库模型(Pojo类已在permission-entity里实现)，并提供相关的增删改查接口
     2. 实现基于界面的权限-角色-用户的操作功能
-    3. 实现和相关用户系统等多对接	
+    3. 实现和相关用户系统等多对接
     4. 实现基于权限验证的分布式缓存功能，例如验证缓存和失效(如果使用者有这样的需求)
     5. 实现基于Token的权限验证功能，和相关单点登录系统等做对接(如果使用者有这样的需求)
     6. 实现提供UI权限和API GATEWAY权限的接入(如果使用者有这样的需求)
 
 ### 依赖
 
+客户端依赖
 ```xml
 <dependency>
   <groupId>com.nepxion</groupId>
@@ -38,16 +39,30 @@ Nepxion Permission提供简单易用的AOP框架，并非是全面的权限管�
 </dependency>
 ```
 
+服务端依赖
+```xml
+<dependency>
+  <groupId>com.nepxion</groupId>
+  <artifactId>permission-entity</artifactId>
+  <version>${permission.version}</version>
+</dependency>
+```
+
 ### 配置
+
+客户端配置
 ```xml
 # Spring cloud config
-spring.application.name=permission-springcloud-example
-server.port=2222
+spring.application.name=permission-springcloud-client-example
+server.port=1234
 eureka.instance.metadataMap.owner=Haojun Ren
+eureka.client.serviceUrl.defaultZone=http://10.0.75.1:9528/eureka/
+
+service.cluster.name=permission-springcloud-service-example
 
 # Permission config
 # 扫描含有@Permission注解的接口或者类所在目录（可以不配置，但如果不配置，则扫描全局，会稍微降低性能）
-permission.scan.packages=com.nepxion.permission.service
+permission.scan.packages=com.nepxion.permission.client.service
 # 如果开启，默认每次服务启动时候，会往权限系统的数据库插入权限（权限不存在则插入，权限存在则覆盖）
 permission.automatic.persist.enabled=true
 # 权限系统验证拦截的用户类型白名单（例如用户类型是LDAP，那么对LDAP的用户做权限验证拦截）,多个值以“;”分隔
@@ -132,7 +147,7 @@ public class MyApplication {
 }
 ```
 
-模拟实现Delegate接口
+模拟实现权限对数据库的相关接口（简单示例）
 ```java
 package com.nepxion.permission.service;
 
@@ -148,25 +163,38 @@ package com.nepxion.permission.service;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.nepxion.permission.PermissionDelegate;
 import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
-// 该接口实现可以跟随业务系统远程调用数据库，也可以通过调用远程独立的权限微服务的API(建议)来实现(例如通过Feign来做远程调用)
-@Service
-public class MyDelegateImpl implements PermissionDelegate {
+// 该接口实现提供给调用端的Feign接口，需要实现的逻辑是权限数据入库，验证，以及缓存的操作
+@RestController
+public class PermissionServiceImpl {
+    private static final Logger LOG = LoggerFactory.getLogger(PermissionServiceImpl.class);
+
     // 权限列表入库
-    @Override
-    public void persist(List<PermissionEntity> permissionEntityList) {
+    @RequestMapping(value = "/persist", method = RequestMethod.POST)
+    public void persist(@RequestBody List<PermissionEntity> permissionEntityList) {
         // 实现权限扫描结果到数据库的入库
         // 需要注意，权限的重复入库问题，一般遵循“不存在则插入，存在则覆盖”的原则
+        LOG.info("权限列表入库：{}", permissionEntityList);
     }
 
     // 权限验证
-    @Override
-    public boolean authorize(String userId, String userType, String permissionName, String permissionType, String serviceName) {
+    @RequestMapping(value = "/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
+    public boolean authorize(
+            @PathVariable(value = "userId") String userId,
+            @PathVariable(value = "userType") String userType,
+            @PathVariable(value = "permissionName") String permissionName,
+            @PathVariable(value = "permissionType") String permissionType,
+            @PathVariable(value = "serviceName") String serviceName) {
         // 验证用户是否有权限
         // 需要和用户系统做对接，userId一般为登录名，userType为用户系统类型。目前支持多用户类型，所以通过userType来区分同名登录用户，例如财务系统有用户叫zhangsan，支付系统也有用户叫zhangsan
         // permissionName即在@Permission注解上定义的name，permissionType为权限类型，目前支持接口权限(API)，网关权限(GATEWAY)，界面权限(UI)三种类型的权限(参考PermissionType.java类的定义)
@@ -183,8 +211,8 @@ public class MyDelegateImpl implements PermissionDelegate {
     }
 
     // 根据Token获取User实体
-    @Override
-    public UserEntity getUserEntity(String token) {
+    @RequestMapping(value = "/getUserEntity/{token}", method = RequestMethod.GET)
+    public UserEntity getUserEntity(@PathVariable(value = "token") String token) {
         // 当前端登录后，它希望送token到后端，查询出用户信息(并以此调用authorize接口做权限验证，permission-aop已经实现，使用者并不需要关心)
         // 需要和单点登录系统，例如OAuth或者JWT等系统做对接
         // 示例描述token为abcd1234对应的用户为lisi

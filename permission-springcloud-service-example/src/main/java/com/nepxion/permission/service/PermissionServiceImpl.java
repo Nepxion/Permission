@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
-// 该接口实现可以跟随业务系统远程调用数据库，也可以通过调用远程独立的权限微服务的API(建议)来实现(例如通过Feign来做远程调用)
+// 该接口实现提供给调用端的Feign接口，需要实现的逻辑是权限数据入库，验证，以及缓存的操作
 @RestController
 public class PermissionServiceImpl {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionServiceImpl.class);
