@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
-@FeignClient(value = "${service.cluster.name}")
+@FeignClient(value = "${permission.service.name}")
 public interface PermissionDelegate {
     // 权限列表入库
     @RequestMapping(value = "/persist", method = RequestMethod.POST)
