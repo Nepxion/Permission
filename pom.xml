@@ -10,14 +10,21 @@
     <description>Nepxion Permission is a permission system based on Redis with Nepxion Matrix AOP framework and Aquarius framework</description>
     <url>http://www.nepxion.com</url>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.6.RELEASE</version>
+    </parent>
+
     <modules>
         <module>permission-entity</module>
-        <module>permission-api</module>
         <module>permission-aop</module>
-        <module>permission-springcloud-example</module>
+        <module>permission-springcloud-service-example</module>
+        <module>permission-springcloud-client-example</module>
     </modules>
 
     <properties>
+        <spring.cloud.version>Dalston.SR4</spring.cloud.version>
         <matrix.version>1.0.9</matrix.version>
         <aquarius.version>1.0.11</aquarius.version>
         <commons.lang3.version>3.6</commons.lang3.version>
@@ -34,12 +41,6 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>permission-entity</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>permission-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -77,6 +78,14 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons.io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
