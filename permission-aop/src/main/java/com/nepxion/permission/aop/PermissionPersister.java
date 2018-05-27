@@ -23,8 +23,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import com.nepxion.permission.api.PermissionApi;
 import com.nepxion.permission.constant.PermissionConstant;
+import com.nepxion.permission.delegate.PermissionDelegate;
 import com.nepxion.permission.entity.PermissionEntity;
 
 @Component("permissionPersister")
@@ -38,7 +38,7 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
     private PermissionAutoScanProxy permissionAutoScanProxy;
 
     @Autowired
-    private PermissionApi permissionApi;
+    private PermissionDelegate permissionDelegate;
 
     @PostConstruct
     public void initialize() {
@@ -56,7 +56,7 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
                     for (PermissionEntity permissionEntity : permissionEntityList) {
                         LOG.info("PermissionEntity={}", permissionEntity);
                     }
-                    permissionApi.persist(permissionEntityList);
+                    permissionDelegate.persist(permissionEntityList);
                 } else {
                     LOG.warn("PermissionEntity list is empty");
                 }
