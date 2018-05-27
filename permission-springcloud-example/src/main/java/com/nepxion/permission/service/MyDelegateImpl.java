@@ -14,13 +14,13 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.nepxion.permission.PermissionDelegate;
+import com.nepxion.permission.api.PermissionApi;
 import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
 // 该接口实现可以跟随业务系统远程调用数据库，也可以通过调用远程独立的权限微服务的API(建议)来实现(例如通过Feign来做远程调用)
 @Service
-public class MyDelegateImpl implements PermissionDelegate {
+public class MyDelegateImpl implements PermissionApi {
     // 权限列表入库
     @Override
     public void persist(List<PermissionEntity> permissionEntityList) {
