@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.nepxion.aquarius.common.constant.AquariusConstant;
-import com.nepxion.matrix.aop.AbstractInterceptor;
+import com.nepxion.matrix.proxy.aop.AbstractInterceptor;
 import com.nepxion.permission.annotation.Permission;
 import com.nepxion.permission.annotation.Token;
 import com.nepxion.permission.annotation.UserId;

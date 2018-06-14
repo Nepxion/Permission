@@ -18,10 +18,10 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.nepxion.matrix.aop.DefaultAutoScanProxy;
-import com.nepxion.matrix.mode.ProxyMode;
-import com.nepxion.matrix.mode.ScanMode;
-import com.nepxion.matrix.util.MatrixUtil;
+import com.nepxion.matrix.proxy.aop.DefaultAutoScanProxy;
+import com.nepxion.matrix.proxy.mode.ProxyMode;
+import com.nepxion.matrix.proxy.mode.ScanMode;
+import com.nepxion.matrix.proxy.util.ProxyUtil;
 import com.nepxion.permission.annotation.Permission;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionEntity;
@@ -104,7 +104,7 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
                 String className = targetClass.getName();
                 String methodName = method.getName();
                 Class<?>[] parameterTypes = method.getParameterTypes();
-                String parameterTypesValue = MatrixUtil.toString(parameterTypes);
+                String parameterTypesValue = ProxyUtil.toString(parameterTypes);
                 String resource = className + "." + methodName + "(" + parameterTypesValue + ")";
 
                 PermissionEntity permissionEntity = new PermissionEntity();
