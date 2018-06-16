@@ -152,7 +152,7 @@ public class MyApplication {
 
 ### 服务端
 
-模拟实现权限对数据库的相关接口（简单示例）
+模拟实现权限对数据库的相关接口，请自行实现相关和数据库，缓存的操作逻辑
 ```java
 package com.nepxion.permission.service;
 
