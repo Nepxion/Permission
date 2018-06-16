@@ -1,4 +1,4 @@
-package com.nepxion.permission.config;
+package com.nepxion.permission.configuration;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -14,6 +14,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages = { "com.nepxion.aquarius", "com.nepxion.permission" })
-public class PermissionConfig {
+public class PermissionConfiguration {
 
 }

@@ -11,27 +11,22 @@ package com.nepxion.permission.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.ConfigurableApplicationContext;
 
-import com.nepxion.permission.client.context.MyContextAware;
+import com.nepxion.permission.annotation.EnablePermission;
 import com.nepxion.permission.client.service.MyService;
-import com.nepxion.permission.delegate.PermissionDelegate;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@EnableFeignClients(basePackageClasses = { PermissionDelegate.class })
-@Import({ com.nepxion.permission.config.PermissionConfig.class })
+@EnablePermission
 public class MyApplication {
     private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(MyApplication.class).web(true).run(args);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class, args);
 
-        MyService myService = MyContextAware.getBean(MyService.class);
+        MyService myService = applicationContext.getBean(MyService.class);
         LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
         LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
     }

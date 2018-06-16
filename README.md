@@ -59,6 +59,8 @@ eureka.instance.metadataMap.owner=Haojun Ren
 eureka.client.serviceUrl.defaultZone=http://10.0.75.1:9528/eureka/
 
 # Permission config
+# 权限拦截开启和关闭，不加这行，视为开启
+# permission.enabled=true
 # 权限系统的服务名，作为Feign的寻址名
 permission.service.name=permission-springcloud-service-example
 # 扫描含有@Permission注解的接口或者类所在目录（可以不配置，但如果不配置，则扫描全局，会稍微降低性能）
@@ -110,9 +112,9 @@ public interface MyService {
 }
 ```
 
-SpringCloud应用入口，需要导入PermissionConfig激活权限验证功能
+SpringCloud应用入口，需要加上@EnablePermission注解激活权限拦截功能（当然也可以在配置文件里面permission.enabled=false关闭它）
 ```java
-package com.nepxion.permission;
+package com.nepxion.permission.client;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -125,22 +127,22 @@ package com.nepxion.permission;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.ConfigurableApplicationContext;
 
-import com.nepxion.aquarius.common.context.AquariusContextAware;
-import com.nepxion.permission.service.MyService;
+import com.nepxion.permission.annotation.EnablePermission;
+import com.nepxion.permission.client.service.MyService;
 
 @SpringBootApplication
-@Import({ com.nepxion.permission.config.PermissionConfig.class })
+@EnablePermission
 public class MyApplication {
     private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(MyApplication.class).web(true).run(args);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class, args);
 
-        MyService myService = AquariusContextAware.getBean(MyService.class);
+        MyService myService = applicationContext.getBean(MyService.class);
         LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
         LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
     }
