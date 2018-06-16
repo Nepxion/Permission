@@ -62,22 +62,21 @@ eureka.client.serviceUrl.defaultZone=http://10.0.75.1:9528/eureka/
 
 # Permission config
 # 权限拦截开启和关闭，不加这行，视为开启
-# permission.enabled=true
+permission.enabled=true
 # 权限系统的服务名，作为Feign的寻址名
 permission.service.name=permission-springcloud-service-example
 # 扫描含有@Permission注解的接口或者类所在目录（可以不配置，但如果不配置，则扫描全局，会稍微降低性能）
-permission.scan.packages=com.nepxion.permission.client.service
+permission.scan.packages=com.nepxion.permission.example.client.service
 # 如果开启，默认每次服务启动时候，会往权限系统的数据库插入权限（权限不存在则插入，权限存在则覆盖）
 permission.automatic.persist.enabled=true
 # 权限系统验证拦截的用户类型白名单（例如用户类型是LDAP，那么对LDAP的用户做权限验证拦截）,多个值以“;”分隔
 permission.user.type.whitelist=LDAP
-# 如果开启，先从分布式缓存去获取权限验证结果，如果缓存不存在，则调用后端去获取权限验证结果；如果关闭，每次调用后端去获取权限验证结果
-permission.cache.invoke.enabled=true
 
 # Cache config
 prefix=permission
+cache.enabled=true
 cache.type=redisCache
-# 扫描含有@Cacheable，@CacheEvict，CachePut等注解的接口或者类所在目录（可以不配置，但如果不配置，则扫描全局，会稍微降低性能）
+# 扫描含有@Cacheable，@CacheEvict，@CachePut等注解的接口或者类所在目录（可以不配置，但如果不配置，则扫描全局，会稍微降低性能）
 cache.scan.packages=com.nepxion.permission
 
 # Frequent log print
@@ -86,7 +85,7 @@ frequent.log.print=true
 
 在接口上添加@Permission注解，实现API权限验证功能
 ```java
-package com.nepxion.permission.service;
+package com.nepxion.permission.example.client.service;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -113,9 +112,9 @@ public interface MyService {
 }
 ```
 
-SpringCloud应用入口，需要加上@EnablePermission注解激活权限拦截功能（当然也可以在配置文件里面permission.enabled=false关闭它）
+SpringCloud应用入口，需要加上@EnablePermission注解激活权限拦截功能（当然也可以在配置文件里面permission.enabled=false关闭它），@EnableCache从缓存获取权限数据
 ```java
-package com.nepxion.permission.client;
+package com.nepxion.permission.example.client;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -132,11 +131,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import com.nepxion.aquarius.cache.annotation.EnableCache;
 import com.nepxion.permission.annotation.EnablePermission;
-import com.nepxion.permission.client.service.MyService;
+import com.nepxion.permission.example.client.service.MyService;
 
 @SpringBootApplication
 @EnablePermission
+@EnableCache
 public class MyApplication {
     private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
 
@@ -154,7 +155,7 @@ public class MyApplication {
 
 模拟实现权限对数据库的相关接口，请自行实现相关和数据库，缓存的操作逻辑
 ```java
-package com.nepxion.permission.service;
+package com.nepxion.permission.example.service;
 
 /**
  * <p>Title: Nepxion Permission</p>
