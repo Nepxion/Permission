@@ -48,7 +48,9 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 </dependency>
 ```
 
-### 配置
+## 示例
+
+### 客户端
 
 客户端配置
 ```xml
@@ -82,7 +84,6 @@ cache.scan.packages=com.nepxion.permission
 frequent.log.print=true
 ```
 
-## 示例
 在接口上添加@Permission注解，实现API权限验证功能
 ```java
 package com.nepxion.permission.service;
@@ -148,6 +149,8 @@ public class MyApplication {
     }
 }
 ```
+
+### 服务端
 
 模拟实现权限对数据库的相关接口（简单示例）
 ```java
@@ -231,7 +234,7 @@ public class PermissionServiceImpl {
 }
 ```
 
-调用结果
+### 调用结果
 ```java
 permission 2018-01-18 17:18:33,382 INFO [main] c.n.p.a.PermissionInterceptor [PermissionInterceptor.java:103] - Intercepted for annotation - Permission [name=A-Permission, label=A权限, description=, proxyType=Reflective Aop Proxy, proxiedClass=com.nepxion.permission.service.MyServiceImpl, method=doA]
 permission 2018-01-18 17:18:33,442 INFO [main] c.n.a.c.a.CacheInterceptor [CacheInterceptor.java:120] - Intercepted for annotation - Cacheable [key=permission_cache_zhangsan_LDAP_A-Permission_SERVICE_permission-springcloud-example, expire=-1, proxyType=Cglib Aop Proxy, proxiedClass=com.nepxion.permission.aop.PermissionAuthorization, method=authorizeCache]
