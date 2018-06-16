@@ -34,7 +34,7 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 ```xml
 <dependency>
   <groupId>com.nepxion</groupId>
-  <artifactId>permission-aop</artifactId>
+  <artifactId>permission-aop-starter</artifactId>
   <version>${permission.version}</version>
 </dependency>
 ```
