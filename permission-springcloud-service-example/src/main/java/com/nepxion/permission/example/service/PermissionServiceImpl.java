@@ -1,4 +1,4 @@
-package com.nepxion.permission.service;
+package com.nepxion.permission.example.service;
 
 /**
  * <p>Title: Nepxion Permission</p>

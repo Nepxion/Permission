@@ -1,4 +1,4 @@
-package com.nepxion.permission.client;
+package com.nepxion.permission.example.client;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -16,7 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.nepxion.permission.annotation.EnablePermission;
-import com.nepxion.permission.client.service.MyService;
+import com.nepxion.permission.example.client.service.MyService;
 
 @SpringBootApplication
 @EnablePermission
