@@ -9,11 +9,11 @@ package com.nepxion.permission.aop;
  * @version 1.0
  */
 
-import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import com.nepxion.matrix.selector.AbstractImportSelector;
+import com.nepxion.matrix.selector.RelaxedPropertyResolver;
 import com.nepxion.permission.annotation.EnablePermission;
 
 @Order(Ordered.LOWEST_PRECEDENCE - 100)

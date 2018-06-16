@@ -15,11 +15,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import com.nepxion.aquarius.cache.annotation.EnableCache;
 import com.nepxion.permission.annotation.EnablePermission;
 import com.nepxion.permission.example.client.service.MyService;
 
 @SpringBootApplication
 @EnablePermission
+@EnableCache
 public class MyApplication {
     private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
 
