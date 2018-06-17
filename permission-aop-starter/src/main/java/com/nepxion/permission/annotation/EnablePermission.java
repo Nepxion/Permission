@@ -21,7 +21,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
 
 import com.nepxion.permission.aop.PermissionImportSelector;
-import com.nepxion.permission.delegate.PermissionDelegate;
+import com.nepxion.permission.api.PermissionResource;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -29,7 +29,7 @@ import com.nepxion.permission.delegate.PermissionDelegate;
 @Inherited
 @Import(PermissionImportSelector.class)
 @EnableDiscoveryClient
-@EnableFeignClients(basePackageClasses = { PermissionDelegate.class })
+@EnableFeignClients(basePackageClasses = { PermissionResource.class })
 public @interface EnablePermission {
 
 }

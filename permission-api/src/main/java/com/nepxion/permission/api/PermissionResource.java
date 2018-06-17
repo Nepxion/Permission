@@ -1,4 +1,4 @@
-package com.nepxion.permission.delegate;
+package com.nepxion.permission.api;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -21,7 +21,7 @@ import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
 @FeignClient(value = "${permission.service.name}")
-public interface PermissionDelegate {
+public interface PermissionResource {
     // 权限列表入库
     @RequestMapping(value = "/persist", method = RequestMethod.POST)
     void persist(@RequestBody List<PermissionEntity> permissionEntityList);

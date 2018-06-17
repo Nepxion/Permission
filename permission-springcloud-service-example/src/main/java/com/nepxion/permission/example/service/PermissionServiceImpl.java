@@ -20,15 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nepxion.permission.api.PermissionResource;
 import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.UserEntity;
 
 // 该接口实现提供给调用端的Feign接口，需要实现的逻辑是权限数据入库，验证，以及缓存的操作
 @RestController
-public class PermissionServiceImpl {
+public class PermissionServiceImpl implements PermissionResource {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
     // 权限列表入库
+    @Override
     @RequestMapping(value = "/persist", method = RequestMethod.POST)
     public void persist(@RequestBody List<PermissionEntity> permissionEntityList) {
         // 实现权限扫描结果到数据库的入库
@@ -37,6 +39,7 @@ public class PermissionServiceImpl {
     }
 
     // 权限验证
+    @Override
     @RequestMapping(value = "/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
     public boolean authorize(
             @PathVariable(value = "userId") String userId,
@@ -60,6 +63,7 @@ public class PermissionServiceImpl {
     }
 
     // 根据Token获取User实体
+    @Override
     @RequestMapping(value = "/getUserEntity/{token}", method = RequestMethod.GET)
     public UserEntity getUserEntity(@PathVariable(value = "token") String token) {
         // 当前端登录后，它希望送token到后端，查询出用户信息(并以此调用authorize接口做权限验证，permission-aop已经实现，使用者并不需要关心)

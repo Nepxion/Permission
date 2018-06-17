@@ -12,6 +12,7 @@
 
     <modules>
         <module>permission-entity</module>
+        <module>permission-api</module>
         <module>permission-aop</module>
         <module>permission-aop-starter</module>
         <module>permission-springcloud-service-example</module>
@@ -36,6 +37,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>permission-entity</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>permission-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
