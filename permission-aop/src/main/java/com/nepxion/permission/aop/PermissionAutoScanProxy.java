@@ -14,7 +14,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.aopalliance.intercept.MethodInterceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -28,7 +27,6 @@ import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.PermissionType;
 import com.nepxion.permission.exception.PermissionException;
 
-// 通过全局拦截器实现对类头部注解的扫描和代理
 public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
     private static final long serialVersionUID = 3188054573736878865L;
 
@@ -53,8 +51,7 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
     @Value("${" + PermissionConstant.SERVICE_OWNER + ":Unknown}")
     private String owner;
 
-    @SuppressWarnings("rawtypes")
-    private Class[] commonInterceptorClasses;
+    private String[] commonInterceptorNames;
 
     @SuppressWarnings("rawtypes")
     private Class[] methodAnnotations;
@@ -65,14 +62,13 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
         super(scanPackages, ProxyMode.BY_METHOD_ANNOTATION_ONLY, ScanMode.FOR_METHOD_ANNOTATION_ONLY);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected Class<? extends MethodInterceptor>[] getCommonInterceptors() {
-        if (commonInterceptorClasses == null) {
-            commonInterceptorClasses = new Class[] { PermissionInterceptor.class };
+    protected String[] getCommonInterceptorNames() {
+        if (commonInterceptorNames == null) {
+            commonInterceptorNames = new String[] { "permissionInterceptor" };
         }
 
-        return commonInterceptorClasses;
+        return commonInterceptorNames;
     }
 
     @SuppressWarnings("unchecked")

@@ -20,8 +20,8 @@
 
     <properties>
         <spring.cloud.version>Dalston.SR4</spring.cloud.version>
-        <matrix.version>1.0.13</matrix.version>
-        <aquarius.version>1.0.13</aquarius.version>
+        <matrix.version>1.0.15</matrix.version>
+        <aquarius.version>1.0.15</aquarius.version>
         <commons.lang3.version>3.6</commons.lang3.version>
         <commons.collections4.version>4.1</commons.collections4.version>
         <commons.io.version>2.5</commons.io.version>

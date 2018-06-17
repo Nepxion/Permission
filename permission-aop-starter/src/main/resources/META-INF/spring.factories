@@ -1,2 +1,2 @@
 com.nepxion.permission.annotation.EnablePermission=\
-com.nepxion.permission.config.PermissionConfig
+com.nepxion.permission.config.PermissionAopConfig

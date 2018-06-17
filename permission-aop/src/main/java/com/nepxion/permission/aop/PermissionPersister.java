@@ -21,13 +21,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.delegate.PermissionDelegate;
 import com.nepxion.permission.entity.PermissionEntity;
 
-@Component("permissionPersister")
 public class PermissionPersister implements ApplicationListener<ContextRefreshedEvent> {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionPersister.class);
 
