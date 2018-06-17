@@ -39,7 +39,7 @@
     <dependencies>
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>permission-api</artifactId>
+            <artifactId>permission-service-starter</artifactId>
             <version>${permission.version}</version>
         </dependency>
 

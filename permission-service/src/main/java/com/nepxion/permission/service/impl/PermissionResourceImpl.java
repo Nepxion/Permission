@@ -1,4 +1,4 @@
-package com.nepxion.permission.example.service;
+package com.nepxion.permission.service.impl;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -26,8 +26,8 @@ import com.nepxion.permission.entity.UserEntity;
 
 // 该接口实现提供给调用端的Feign接口，需要实现的逻辑是权限数据入库，验证，以及缓存的操作
 @RestController
-public class PermissionServiceImpl implements PermissionResource {
-    private static final Logger LOG = LoggerFactory.getLogger(PermissionServiceImpl.class);
+public class PermissionResourceImpl implements PermissionResource {
+    private static final Logger LOG = LoggerFactory.getLogger(PermissionResourceImpl.class);
 
     // 权限列表入库
     @Override
