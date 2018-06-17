@@ -15,6 +15,6 @@
 @title Nepxion Permission
 @color 0a
 
-call mvn clean deploy -DskipTests -e -P release -pl permission-aop -am
+call mvn clean deploy -DskipTests -e -P release -pl permission-aop-starter -am
 
 pause
