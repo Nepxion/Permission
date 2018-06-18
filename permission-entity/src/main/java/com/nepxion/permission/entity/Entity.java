@@ -9,6 +9,7 @@ package com.nepxion.permission.entity;
  * @version 1.0
  */
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -16,7 +17,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Entity implements IEntity {
+public class Entity implements Serializable {
     private static final long serialVersionUID = 2531125512416143641L;
 
     private Integer id;
@@ -29,92 +30,74 @@ public class Entity implements IEntity {
     private String updateOwner;
     private Date updateTime;
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public String getLabel() {
         return label;
     }
 
-    @Override
     public void setLabel(String label) {
         this.label = label;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
 
-    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Override
     public String getServiceName() {
         return serviceName;
     }
 
-    @Override
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName.toLowerCase();
     }
 
-    @Override
     public String getCreateOwner() {
         return createOwner;
     }
 
-    @Override
     public void setCreateOwner(String createOwner) {
         this.createOwner = createOwner;
     }
 
-    @Override
     public Date getCreateTime() {
         return createTime;
     }
 
-    @Override
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    @Override
     public String getUpdateOwner() {
         return updateOwner;
     }
 
-    @Override
     public void setUpdateOwner(String updateOwner) {
         this.updateOwner = updateOwner;
     }
 
-    @Override
     public Date getUpdateTime() {
         return updateTime;
     }
 
-    @Override
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
