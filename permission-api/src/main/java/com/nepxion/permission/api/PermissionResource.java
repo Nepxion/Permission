@@ -22,8 +22,8 @@ import com.nepxion.permission.entity.PermissionType;
 
 @FeignClient(value = "${permission.service.name}")
 public interface PermissionResource {
-    @RequestMapping(value = "/permission/getPermissionTypes", method = RequestMethod.GET)
-    PermissionType[] getPermissionTypes();
+    @RequestMapping(value = "/permission/getAllPermissionTypes", method = RequestMethod.GET)
+    PermissionType[] getAllPermissionTypes();
 
     @RequestMapping(value = "/permission/getPermission/{id}", method = RequestMethod.GET)
     PermissionEntity getPermission(@PathVariable(value = "id") Long id);
@@ -53,16 +53,16 @@ public interface PermissionResource {
     List<PermissionEntity> getPermissionsByRoleIds(@RequestBody List<Long> roleIds);
 
     @RequestMapping(value = "/permission/insertPermission", method = RequestMethod.POST)
-    void insertPermission(@RequestBody PermissionEntity permission);
+    PermissionEntity insertPermission(@RequestBody PermissionEntity permission);
 
     @RequestMapping(value = "/permission/insertUpdatePermission", method = RequestMethod.POST)
-    void insertUpdatePermission(@RequestBody PermissionEntity permission);
+    PermissionEntity insertUpdatePermission(@RequestBody PermissionEntity permission);
 
     @RequestMapping(value = "/permission/insertPermissions", method = RequestMethod.POST)
-    void insertPermissions(@RequestBody List<PermissionEntity> permissions);
+    List<PermissionEntity> insertPermissions(@RequestBody List<PermissionEntity> permissions);
 
     @RequestMapping(value = "/permission/insertUpdatePermissions", method = RequestMethod.POST)
-    void insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions);
+    List<PermissionEntity> insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions);
 
     @RequestMapping(value = "/permission/updatePermission", method = RequestMethod.PUT)
     void updatePermission(@RequestBody PermissionEntity permission);

@@ -9,6 +9,7 @@ package com.nepxion.permission.service.impl;
  * @version 1.0
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class PermissionResourceImpl implements PermissionResource {
     private PermissionMapper permissionMapper;
 
     @Override
-    public PermissionType[] getPermissionTypes() {
+    public PermissionType[] getAllPermissionTypes() {
         return new PermissionType[] { PermissionType.API, PermissionType.GATEWAY, PermissionType.UI };
     }
 
@@ -77,51 +78,59 @@ public class PermissionResourceImpl implements PermissionResource {
     }
 
     @Override
-    public void insertPermission(@RequestBody PermissionEntity permission) {
+    public PermissionEntity insertPermission(@RequestBody PermissionEntity permission) {
         permission.validateName();
 
         permissionMapper.insertPermission(permission);
 
-        /*Long id = permission.getId();
+        Long id = permission.getId();
 
-        return permissionMapper.getPermission(id);*/
+        return permissionMapper.getPermission(id);
     }
 
     @Override
-    public void insertUpdatePermission(@RequestBody PermissionEntity permission) {
+    public PermissionEntity insertUpdatePermission(@RequestBody PermissionEntity permission) {
         permission.validateName();
 
         permissionMapper.insertUpdatePermission(permission);
 
-        /*Long id = permission.getId();
+        Long id = permission.getId();
 
-        return permissionMapper.getPermission(id);*/
+        return permissionMapper.getPermission(id);
     }
 
     @Override
-    public void insertPermissions(@RequestBody List<PermissionEntity> permissions) {
+    public List<PermissionEntity> insertPermissions(@RequestBody List<PermissionEntity> permissions) {
         for (PermissionEntity permission : permissions) {
             permission.validateName();
         }
 
         permissionMapper.insertPermissions(permissions);
 
-        /*List<Long> ids = new ArrayList<Long>();
+        List<Long> ids = new ArrayList<Long>();
         for (PermissionEntity permission : permissions) {
             Long id = permission.getId();
             ids.add(id);
         }
 
-        return permissionMapper.getPermissions(ids);*/
+        return permissionMapper.getPermissions(ids);
     }
 
     @Override
-    public void insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions) {
+    public List<PermissionEntity> insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions) {
         for (PermissionEntity permission : permissions) {
             permission.validateName();
         }
 
         permissionMapper.insertUpdatePermissions(permissions);
+
+        List<Long> ids = new ArrayList<Long>();
+        for (PermissionEntity permission : permissions) {
+            Long id = permission.getId();
+            ids.add(id);
+        }
+
+        return permissionMapper.getPermissions(ids);
     }
 
     @Override
@@ -149,6 +158,10 @@ public class PermissionResourceImpl implements PermissionResource {
 
     @Override
     public void persist(@RequestBody List<PermissionEntity> permissions) {
-        insertUpdatePermissions(permissions);
+        for (PermissionEntity permission : permissions) {
+            permission.validateName();
+        }
+
+        permissionMapper.insertUpdatePermissions(permissions);
     }
 }

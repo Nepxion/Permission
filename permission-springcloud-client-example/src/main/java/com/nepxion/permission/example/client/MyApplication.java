@@ -29,7 +29,16 @@ public class MyApplication {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class, args);
 
         MyService myService = applicationContext.getBean(MyService.class);
-        LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
-        LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
+        try {
+            LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
+        } catch (Exception e) {
+            LOG.error("Error", e);
+        }
+        
+        try {
+            LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
+        } catch (Exception e) {
+            LOG.error("Error", e);
+        }
     }
 }
