@@ -14,7 +14,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class RolePermissionEntity extends Entity {
+public class RolePermissionEntity extends BasicEntity {
     private static final long serialVersionUID = -8798208584420759097L;
 
     // 做一定的冗余设计，避免多表查询

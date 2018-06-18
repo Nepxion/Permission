@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Entity implements Serializable {
+public class BasicEntity implements Serializable {
     private static final long serialVersionUID = 2531125512416143641L;
 
     private Integer id;

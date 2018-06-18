@@ -9,6 +9,6 @@ package com.nepxion.permission.entity;
  * @version 1.0
  */
 
-public class RoleEntity extends Entity {
+public class RoleEntity extends BasicEntity {
     private static final long serialVersionUID = -4116501863109621719L;
 }

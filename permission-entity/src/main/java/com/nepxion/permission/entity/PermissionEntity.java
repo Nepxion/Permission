@@ -15,7 +15,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class PermissionEntity extends Entity {
+public class PermissionEntity extends BasicEntity {
     private static final long serialVersionUID = -82541551905707852L;
 
     private String type;
