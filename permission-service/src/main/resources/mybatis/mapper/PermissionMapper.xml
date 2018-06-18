@@ -16,20 +16,20 @@
         <result column="update_owner" property="updateOwner" jdbcType="VARCHAR" />        
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
-    
+
     <!-- 基准的查询列 -->
     <sql id="baseColumnList">
         id, name, label, type, description, service_name, resource, create_owner, create_time, update_owner, update_time
     </sql>
-    
+
     <select id="getPermission" parameterType="java.lang.Integer" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from permission where id=#{id, jdbcType=INTEGER}
     </select>
-    
+
     <select id="getAllPermissions" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from permission
     </select>
-    
+
     <select id="getPermissions" parameterType="java.util.List" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from permission
         where id in
@@ -37,19 +37,26 @@
             #{item, jdbcType=INTEGER}
         </foreach>
     </select>
-    
+
     <select id="getPermissionsByServiceName" parameterType="java.lang.String" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from permission where service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
-    
+
     <select id="getPermissionsByTypeAndServiceName" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from permission where type=#{type, jdbcType=VARCHAR} and service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
-	
+
     <select id="getPermissionByNameAndTypeAndServiceName" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from permission where name=#{name, jdbcType=VARCHAR} and type=#{type, jdbcType=VARCHAR} and service_name=#{serviceName, jdbcType=VARCHAR}
-    </select>	
-    
+    </select>
+
+    <select id="getPermissionsByResources" resultMap="baseResultMap">
+        select <include refid="baseColumnList" /> from permission where resource in 
+        <foreach collection="list" item="resource" index="index" separator="," open="(" close=")">
+            #{resource, jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
     <select id="getPermissionsByRoleId" parameterType="java.lang.Integer" resultMap="baseResultMap">
         select 
             p.id,  
@@ -64,8 +71,8 @@
             p.update_owner, 
             p.update_time 
         from permission p, role_permission r where p.id=r.permission_id and r.role_id=#{roleId, jdbcType=INTEGER}
-    </select>    
-    
+    </select>
+
     <select id="getPermissionsByRoleIds" parameterType="java.lang.Integer" resultMap="baseResultMap">
         select 
             p.id, 
@@ -84,25 +91,18 @@
             #{roleId, jdbcType=INTEGER}
         </foreach>
     </select> 
-    
-    <select id="getPermissionsByResources" resultMap="baseResultMap">
-        select <include refid="baseColumnList" /> from permission where resource in 
-        <foreach collection="list" item="resource" index="index" separator="," open="(" close=")">
-            #{resource, jdbcType=VARCHAR}
-        </foreach>
-    </select>
-    
+
     <insert id="insertPermission" parameterType="Permission" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
         values(#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{resouce, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
     </insert>
-    
+
     <insert id="insertUpdatePermission" parameterType="Permission" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
         values(#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{resouce, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
         on duplicate key update name=values(name), label=values(label), description=values(description), resouce=values(resouce), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
     </insert>
-    
+
     <insert id="insertPermissions" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
         values 
@@ -110,7 +110,7 @@
             (#{item.id, jdbcType=INTEGER}, #{item.name, jdbcType=VARCHAR}, #{item.label, jdbcType=VARCHAR}, #{item.type, jdbcType=VARCHAR}, #{item.description, jdbcType=VARCHAR}, #{item.serviceName, jdbcType=VARCHAR}, #{resouce, jdbcType=VARCHAR}, #{item.createOwner, jdbcType=VARCHAR}, #{item.updateOwner, jdbcType=VARCHAR})
         </foreach>
     </insert>
-    
+
     <insert id="insertUpdatePermissions" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
         values 
@@ -119,7 +119,7 @@
         </foreach>
         on duplicate key update name=values(name), label=values(label), description=values(description), resouce=values(resouce), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
     </insert>
-    
+
     <update id="updatePermission" parameterType="Permission">
         update permission
         set name=#{name, jdbcType=VARCHAR}, 
@@ -132,11 +132,11 @@
             update_owner=#{updateOwner, jdbcType=VARCHAR} 
         where id=#{id, jdbcType=INTEGER}
     </update>
-    
+
     <delete id="deletePermission" parameterType="java.lang.Integer">
         delete from permission where id=#{id, jdbcType=INTEGER}
     </delete>
-    
+
     <delete id="deletePermissions" parameterType="java.util.List">
         delete from permission 
         where id in
@@ -144,7 +144,7 @@
             #{item, jdbcType=INTEGER}
         </foreach>
     </delete>
-    
+
     <select id="authorize" resultType="java.lang.Integer">
         select u.role_id from user_role u where u.user_id=#{userId, jdbcType=CHAR} and u.user_type=#{userType, jdbcType=CHAR} and exists (select 'a' from permission p, role_permission r where r.permission_id=p.id and p.name=#{permissionName, jdbcType=VARCHAR} and p.type=#{permissionType, jdbcType=VARCHAR} and p.service_name=#{serviceName, jdbcType=VARCHAR} and u.role_id=r.role_id)
     </select>
