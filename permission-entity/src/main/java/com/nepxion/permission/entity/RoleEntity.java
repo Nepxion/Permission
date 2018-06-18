@@ -9,16 +9,22 @@ package com.nepxion.permission.entity;
  * @version 1.0
  */
 
+import org.apache.commons.lang3.StringUtils;
+
 public class RoleEntity extends BasicEntity {
     private static final long serialVersionUID = -4116501863109621719L;
 
-    private BoundStatus boundStatus = BoundStatus.UNKNOWN;
+    private String boundStatus = BoundStatus.UNKNOWN.getValue();
 
-    public BoundStatus getBoundStatus() {
+    public String getBoundStatus() {
         return boundStatus;
     }
 
-    public void setBoundType(BoundStatus boundStatus) {
+    public void setBoundStatus(String boundStatus) {
+        if (!StringUtils.equals(boundStatus, BoundStatus.YES.getValue()) && !StringUtils.equals(boundStatus, BoundStatus.NO.getValue()) && !StringUtils.equals(boundStatus, BoundStatus.UNKNOWN.getValue())) {
+            throw new IllegalArgumentException("Mismatched bound status with value=" + boundStatus);
+        }
+
         this.boundStatus = boundStatus;
     }
 }

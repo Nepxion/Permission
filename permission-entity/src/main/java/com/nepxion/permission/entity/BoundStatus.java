@@ -27,11 +27,11 @@ public class BoundStatus extends BasicType {
     }
 
     public BoundStatus fromString(String value) {
-        if (StringUtils.equalsIgnoreCase(value, YES.getValue())) {
+        if (StringUtils.equals(value, YES.getValue())) {
             return YES;
-        } else if (StringUtils.equalsIgnoreCase(value, NO.getValue())) {
+        } else if (StringUtils.equals(value, NO.getValue())) {
             return NO;
-        } else if (StringUtils.equalsIgnoreCase(value, UNKNOWN.getValue())) {
+        } else if (StringUtils.equals(value, UNKNOWN.getValue())) {
             return UNKNOWN;
         }
 

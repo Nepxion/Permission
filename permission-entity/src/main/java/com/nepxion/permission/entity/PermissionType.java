@@ -27,11 +27,11 @@ public class PermissionType extends BasicType {
     }
 
     public PermissionType fromString(String value) {
-        if (StringUtils.equalsIgnoreCase(value, API.getValue())) {
+        if (StringUtils.equals(value, API.getValue())) {
             return API;
-        } else if (StringUtils.equalsIgnoreCase(value, GATEWAY.getValue())) {
+        } else if (StringUtils.equals(value, GATEWAY.getValue())) {
             return GATEWAY;
-        } else if (StringUtils.equalsIgnoreCase(value, UI.getValue())) {
+        } else if (StringUtils.equals(value, UI.getValue())) {
             return UI;
         }
 

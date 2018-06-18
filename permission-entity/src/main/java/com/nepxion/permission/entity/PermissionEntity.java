@@ -19,7 +19,7 @@ public class PermissionEntity extends BasicEntity {
 
     private String type;
     private String resource;
-    private BoundStatus boundStatus = BoundStatus.UNKNOWN;
+    private String boundStatus = BoundStatus.UNKNOWN.getValue();
 
     public String getType() {
         return type;
@@ -41,11 +41,15 @@ public class PermissionEntity extends BasicEntity {
         this.resource = resource;
     }
 
-    public BoundStatus getBoundStatus() {
+    public String getBoundStatus() {
         return boundStatus;
     }
 
-    public void setBoundType(BoundStatus boundStatus) {
+    public void setBoundStatus(String boundStatus) {
+        if (!StringUtils.equals(boundStatus, BoundStatus.YES.getValue()) && !StringUtils.equals(boundStatus, BoundStatus.NO.getValue()) && !StringUtils.equals(boundStatus, BoundStatus.UNKNOWN.getValue())) {
+            throw new IllegalArgumentException("Mismatched bound status with value=" + boundStatus);
+        }
+
         this.boundStatus = boundStatus;
     }
 
