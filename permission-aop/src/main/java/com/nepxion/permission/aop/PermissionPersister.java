@@ -49,14 +49,14 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
             if (event.getApplicationContext().getParent() instanceof AnnotationConfigApplicationContext) {
                 LOG.info("Start to persist with following permission list...");
                 LOG.info("------------------------------------------------------------");
-                List<PermissionEntity> permissionEntityList = permissionAutoScanProxy.getPermissionEntityList();
-                if (CollectionUtils.isNotEmpty(permissionEntityList)) {
-                    for (PermissionEntity permissionEntity : permissionEntityList) {
-                        LOG.info("PermissionEntity={}", permissionEntity);
+                List<PermissionEntity> permissions = permissionAutoScanProxy.getPermissions();
+                if (CollectionUtils.isNotEmpty(permissions)) {
+                    for (PermissionEntity permission : permissions) {
+                        LOG.info("Permission={}", permission);
                     }
-                    permissionResource.persist(permissionEntityList);
+                    permissionResource.persist(permissions);
                 } else {
-                    LOG.warn("PermissionEntity list is empty");
+                    LOG.warn("Permission list is empty");
                 }
                 LOG.info("------------------------------------------------------------");
             }

@@ -56,7 +56,7 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
     @SuppressWarnings("rawtypes")
     private Class[] methodAnnotations;
 
-    private List<PermissionEntity> permissionEntityList = new ArrayList<PermissionEntity>();
+    private List<PermissionEntity> permissions = new ArrayList<PermissionEntity>();
 
     public PermissionAutoScanProxy(String scanPackages) {
         super(scanPackages, ProxyMode.BY_METHOD_ANNOTATION_ONLY, ScanMode.FOR_METHOD_ANNOTATION_ONLY);
@@ -103,22 +103,22 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
                 String parameterTypesValue = ProxyUtil.toString(parameterTypes);
                 String resource = className + "." + methodName + "(" + parameterTypesValue + ")";
 
-                PermissionEntity permissionEntity = new PermissionEntity();
-                permissionEntity.setName(name);
-                permissionEntity.setLabel(label);
-                permissionEntity.setType(PermissionType.API.getValue());
-                permissionEntity.setDescription(description);
-                permissionEntity.setServiceName(serviceName);
-                permissionEntity.setResource(resource);
-                permissionEntity.setCreateOwner(owner);
-                permissionEntity.setUpdateOwner(owner);
+                PermissionEntity permission = new PermissionEntity();
+                permission.setName(name);
+                permission.setLabel(label);
+                permission.setType(PermissionType.API.getValue());
+                permission.setDescription(description);
+                permission.setServiceName(serviceName);
+                permission.setResource(resource);
+                permission.setCreateOwner(owner);
+                permission.setUpdateOwner(owner);
 
-                permissionEntityList.add(permissionEntity);
+                permissions.add(permission);
             }
         }
     }
 
-    public List<PermissionEntity> getPermissionEntityList() {
-        return permissionEntityList;
+    public List<PermissionEntity> getPermissions() {
+        return permissions;
     }
 }

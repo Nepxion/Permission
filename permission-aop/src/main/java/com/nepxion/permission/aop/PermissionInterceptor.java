@@ -115,9 +115,9 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
         // 根据token获取userId和userType
         if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(userType)) {
-            UserEntity userEntity = userResource.getUserEntity(token);
-            userId = userEntity.getUserId();
-            userType = userEntity.getUserType();
+            UserEntity user = userResource.getUser(token);
+            userId = user.getUserId();
+            userType = user.getUserType();
         }
 
         // 检查用户类型白名单，决定某个类型的用户是否要执行权限验证拦截
