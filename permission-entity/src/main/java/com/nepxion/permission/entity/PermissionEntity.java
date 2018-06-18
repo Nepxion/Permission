@@ -9,6 +9,9 @@ package com.nepxion.permission.entity;
  * @version 1.0
  */
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -39,6 +42,23 @@ public class PermissionEntity extends BasicEntity {
 
     public void setResource(String resource) {
         this.resource = resource;
+    }
+
+    // 校验权限名，只能是字母，数字，空格，下划线，中划线这5种组合
+    public void validateName() {
+        String name = getName();
+        if (StringUtils.isEmpty(name)) {
+            throw new IllegalArgumentException("Permission name can't be null or empty");
+        }
+
+        String regEx = "^[\\s0-9a-zA-Z_.-]+$"; // 只能包含字母，数字，空格，下划线，中划线，英文句号
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(name);
+
+        boolean matched = matcher.matches();
+        if (!matched) {
+            throw new IllegalArgumentException("Permission name is only allowed to hold one of the followings : [A-Z, a-z, 0-9, blank, _, -, .]");
+        }
     }
 
     @Override

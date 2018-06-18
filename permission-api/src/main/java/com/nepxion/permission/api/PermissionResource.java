@@ -22,15 +22,15 @@ import com.nepxion.permission.entity.PermissionType;
 
 @FeignClient(value = "${permission.service.name}")
 public interface PermissionResource {
-    // 获取权限类型列表
     @RequestMapping(value = "/permission/getPermissionTypes", method = RequestMethod.GET)
     PermissionType[] getPermissionTypes();
 
-    // 权限列表入库
-    @RequestMapping(value = "/permission/persist", method = RequestMethod.POST)
-    void persist(@RequestBody List<PermissionEntity> permissionEntityList);
+    @RequestMapping(value = "/permission/getPermission/{id}", method = RequestMethod.GET)
+    PermissionEntity getPermission(@PathVariable(value = "id") Integer id);
 
-    // 权限验证
+    @RequestMapping(value = "/permission/persist", method = RequestMethod.POST)
+    void persist(@RequestBody List<PermissionEntity> permissions);
+
     @RequestMapping(value = "/permission/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
     boolean authorize(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "permissionName") String permissionName, @PathVariable(value = "permissionType") String permissionType, @PathVariable(value = "serviceName") String serviceName);
 }
