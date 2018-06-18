@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.omniprimeinc.commonservice.permission.services.mapper.PermissionMapper">
+<mapper namespace="com.nepxion.permission.service.mapper.PermissionMapper">
     <!-- 基准的结果映射 -->
     <resultMap id="baseResultMap" type="Permission">
         <id column="id" property="id" jdbcType="INTEGER" />
@@ -13,7 +13,7 @@
         <result column="resource" property="resource" jdbcType="VARCHAR" />
         <result column="create_owner" property="createOwner" jdbcType="VARCHAR" />
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-        <result column="update_owner" property="updateOwner" jdbcType="VARCHAR" />        
+        <result column="update_owner" property="updateOwner" jdbcType="VARCHAR" />
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
 
@@ -94,20 +94,20 @@
 
     <insert id="insertPermission" parameterType="Permission" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
-        values(#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{resouce, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
+        values(#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{resource, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertUpdatePermission" parameterType="Permission" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
-        values(#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{resouce, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
-        on duplicate key update name=values(name), label=values(label), description=values(description), resouce=values(resouce), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
+        values(#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{resource, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
+        on duplicate key update name=values(name), label=values(label), description=values(description), resource=values(resource), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
     </insert>
 
     <insert id="insertPermissions" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
         values 
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.id, jdbcType=INTEGER}, #{item.name, jdbcType=VARCHAR}, #{item.label, jdbcType=VARCHAR}, #{item.type, jdbcType=VARCHAR}, #{item.description, jdbcType=VARCHAR}, #{item.serviceName, jdbcType=VARCHAR}, #{resouce, jdbcType=VARCHAR}, #{item.createOwner, jdbcType=VARCHAR}, #{item.updateOwner, jdbcType=VARCHAR})
+            (#{item.id, jdbcType=INTEGER}, #{item.name, jdbcType=VARCHAR}, #{item.label, jdbcType=VARCHAR}, #{item.type, jdbcType=VARCHAR}, #{item.description, jdbcType=VARCHAR}, #{item.serviceName, jdbcType=VARCHAR}, #{item.resource, jdbcType=VARCHAR}, #{item.createOwner, jdbcType=VARCHAR}, #{item.updateOwner, jdbcType=VARCHAR})
         </foreach>
     </insert>
 
@@ -115,9 +115,9 @@
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
         values 
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.id, jdbcType=INTEGER}, #{item.name, jdbcType=VARCHAR}, #{item.label, jdbcType=VARCHAR}, #{item.type, jdbcType=VARCHAR}, #{item.description, jdbcType=VARCHAR}, #{item.serviceName, jdbcType=VARCHAR}, #{resouce, jdbcType=VARCHAR}, #{item.createOwner, jdbcType=VARCHAR}, #{item.updateOwner, jdbcType=VARCHAR})
+            (#{item.id, jdbcType=INTEGER}, #{item.name, jdbcType=VARCHAR}, #{item.label, jdbcType=VARCHAR}, #{item.type, jdbcType=VARCHAR}, #{item.description, jdbcType=VARCHAR}, #{item.serviceName, jdbcType=VARCHAR}, #{item.resource, jdbcType=VARCHAR}, #{item.createOwner, jdbcType=VARCHAR}, #{item.updateOwner, jdbcType=VARCHAR})
         </foreach>
-        on duplicate key update name=values(name), label=values(label), description=values(description), resouce=values(resouce), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
+        on duplicate key update name=values(name), label=values(label), description=values(description), resource=values(resource), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
     </insert>
 
     <update id="updatePermission" parameterType="Permission">

@@ -18,7 +18,7 @@
 
     <!-- Spring与MyBatis整合，扫描所有Mapper接口，查找类路径下的映射器并自动将它们创建成MapperFactoryBean，然后创建各自接口的动态代理类 -->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.omniprimeinc.commonservice.permission.services.mapper" />
+        <property name="basePackage" value="com.nepxion.permission.service.mapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
 

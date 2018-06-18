@@ -46,7 +46,6 @@ public class PermissionResourceImpl implements PermissionResource {
     public void persist(@RequestBody List<PermissionEntity> permissions) {
         for (PermissionEntity permission : permissions) {
             permission.validateName();
-
             permission.setUpdateTime(new Date());
         }
         permissionMapper.insertUpdatePermissions(permissions);
