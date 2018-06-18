@@ -100,7 +100,7 @@
     <insert id="insertUpdatePermission" parameterType="Permission" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 
         values(#{id, jdbcType=INTEGER}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{type, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{resource, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
-        on duplicate key update name=values(name), label=values(label), description=values(description), resource=values(resource), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
+        on duplicate key update label=values(label), description=values(description), resource=values(resource), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
     </insert>
 
     <insert id="insertPermissions" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
@@ -117,7 +117,7 @@
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.id, jdbcType=INTEGER}, #{item.name, jdbcType=VARCHAR}, #{item.label, jdbcType=VARCHAR}, #{item.type, jdbcType=VARCHAR}, #{item.description, jdbcType=VARCHAR}, #{item.serviceName, jdbcType=VARCHAR}, #{item.resource, jdbcType=VARCHAR}, #{item.createOwner, jdbcType=VARCHAR}, #{item.updateOwner, jdbcType=VARCHAR})
         </foreach>
-        on duplicate key update name=values(name), label=values(label), description=values(description), resource=values(resource), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
+        on duplicate key update label=values(label), description=values(description), resource=values(resource), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
     </insert>
 
     <update id="updatePermission" parameterType="Permission">
