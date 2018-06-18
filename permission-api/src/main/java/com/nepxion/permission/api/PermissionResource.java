@@ -62,7 +62,7 @@ public interface PermissionResource {
     List<PermissionEntity> insertPermissions(@RequestBody List<PermissionEntity> permissions);
 
     @RequestMapping(value = "/permission/insertUpdatePermissions", method = RequestMethod.POST)
-    List<PermissionEntity> insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions);
+    void insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions);
 
     @RequestMapping(value = "/permission/updatePermission", method = RequestMethod.PUT)
     void updatePermission(@RequestBody PermissionEntity permission);

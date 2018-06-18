@@ -117,20 +117,12 @@ public class PermissionResourceImpl implements PermissionResource {
     }
 
     @Override
-    public List<PermissionEntity> insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions) {
+    public void insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions) {
         for (PermissionEntity permission : permissions) {
             permission.validateName();
         }
 
         permissionMapper.insertUpdatePermissions(permissions);
-
-        List<Long> ids = new ArrayList<Long>();
-        for (PermissionEntity permission : permissions) {
-            Long id = permission.getId();
-            ids.add(id);
-        }
-
-        return permissionMapper.getPermissions(ids);
     }
 
     @Override
