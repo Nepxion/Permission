@@ -16,11 +16,11 @@ import org.apache.ibatis.annotations.Param;
 import com.nepxion.permission.entity.PermissionEntity;
 
 public interface PermissionMapper {
-    PermissionEntity getPermission(Integer id);
+    PermissionEntity getPermission(Long id);
 
     List<PermissionEntity> getAllPermissions();
 
-    List<PermissionEntity> getPermissions(List<Integer> ids);
+    List<PermissionEntity> getPermissions(List<Long> ids);
 
     List<PermissionEntity> getPermissionsByServiceName(String serviceName);
 
@@ -30,9 +30,9 @@ public interface PermissionMapper {
 
     List<PermissionEntity> getPermissionsByResources(List<String> resources);
 
-    List<PermissionEntity> getPermissionsByRoleId(Integer roleId);
+    List<PermissionEntity> getPermissionsByRoleId(Long roleId);
 
-    List<PermissionEntity> getPermissionsByRoleIds(List<Integer> roleIds);
+    List<PermissionEntity> getPermissionsByRoleIds(List<Long> roleIds);
 
     void insertPermission(PermissionEntity permission);
 
@@ -45,9 +45,9 @@ public interface PermissionMapper {
 
     void updatePermission(PermissionEntity permission);
 
-    void deletePermission(Integer id);
+    void deletePermission(Long id);
 
-    void deletePermissions(List<Integer> ids);
+    void deletePermissions(List<Long> ids);
 
-    List<Integer> authorize(@Param("userId") String userId, @Param("userType") String userType, @Param("permissionName") String permissionName, @Param("permissionType") String permissionType, @Param("serviceName") String serviceName);
+    List<Long> authorize(@Param("userId") String userId, @Param("userType") String userType, @Param("permissionName") String permissionName, @Param("permissionType") String permissionType, @Param("serviceName") String serviceName);
 }

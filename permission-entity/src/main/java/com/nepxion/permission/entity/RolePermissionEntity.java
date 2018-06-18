@@ -18,21 +18,21 @@ public class RolePermissionEntity extends BasicEntity {
     private static final long serialVersionUID = -8798208584420759097L;
 
     // 做一定的冗余设计，避免多表查询
-    private Integer roleId;
+    private Long roleId;
     private String roleName;
     private RoleEntity roleEntity;
 
     // 做一定的冗余设计，避免多表查询
-    private Integer permissionId;
+    private Long permissionId;
     private String permissionName;
     private String permissionType;
     private PermissionEntity permissionEntity;
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
@@ -52,11 +52,11 @@ public class RolePermissionEntity extends BasicEntity {
         this.roleEntity = roleEntity;
     }
 
-    public Integer getPermissionId() {
+    public Long getPermissionId() {
         return permissionId;
     }
 
-    public void setPermissionId(Integer permissionId) {
+    public void setPermissionId(Long permissionId) {
         this.permissionId = permissionId;
     }
 

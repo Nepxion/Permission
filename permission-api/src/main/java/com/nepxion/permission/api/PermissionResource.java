@@ -26,7 +26,7 @@ public interface PermissionResource {
     PermissionType[] getPermissionTypes();
 
     @RequestMapping(value = "/permission/getPermission/{id}", method = RequestMethod.GET)
-    PermissionEntity getPermission(@PathVariable(value = "id") Integer id);
+    PermissionEntity getPermission(@PathVariable(value = "id") Long id);
 
     @RequestMapping(value = "/permission/persist", method = RequestMethod.POST)
     void persist(@RequestBody List<PermissionEntity> permissions);

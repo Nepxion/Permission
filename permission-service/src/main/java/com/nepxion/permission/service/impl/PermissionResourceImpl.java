@@ -38,7 +38,7 @@ public class PermissionResourceImpl implements PermissionResource {
     }
 
     @Override
-    public PermissionEntity getPermission(@PathVariable(value = "id") Integer id) {
+    public PermissionEntity getPermission(@PathVariable(value = "id") Long id) {
         return permissionMapper.getPermission(id);
     }
 

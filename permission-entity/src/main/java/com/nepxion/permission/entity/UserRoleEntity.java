@@ -21,7 +21,7 @@ public class UserRoleEntity extends BasicEntity {
     private String userType;
 
     // 做一定的冗余设计，避免多表查询
-    private Integer roleId;
+    private Long roleId;
     private String roleName;
     private RoleEntity roleEntity;
 
@@ -41,11 +41,11 @@ public class UserRoleEntity extends BasicEntity {
         this.userType = userType;
     }
 
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
