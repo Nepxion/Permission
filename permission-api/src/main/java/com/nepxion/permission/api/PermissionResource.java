@@ -18,10 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nepxion.permission.entity.PermissionEntity;
+import com.nepxion.permission.entity.PermissionType;
 import com.nepxion.permission.entity.UserEntity;
 
 @FeignClient(value = "${permission.service.name}")
 public interface PermissionResource {
+    // 获取权限类型列表
+    @RequestMapping(value = "/getPermissionTypes", method = RequestMethod.GET)
+    PermissionType[] getPermissionTypes();
+
     // 权限列表入库
     @RequestMapping(value = "/persist", method = RequestMethod.POST)
     void persist(@RequestBody List<PermissionEntity> permissionEntityList);

@@ -22,12 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.permission.api.PermissionResource;
 import com.nepxion.permission.entity.PermissionEntity;
+import com.nepxion.permission.entity.PermissionType;
 import com.nepxion.permission.entity.UserEntity;
 
 // 该接口实现提供给调用端的Feign接口，需要实现的逻辑是权限数据入库，验证，以及缓存的操作
 @RestController
 public class PermissionResourceImpl implements PermissionResource {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionResourceImpl.class);
+
+    @Override
+    @RequestMapping(value = "/getPermissionTypes", method = RequestMethod.GET)
+    public PermissionType[] getPermissionTypes() {
+        return new PermissionType[] { PermissionType.API, PermissionType.GATEWAY, PermissionType.UI };
+    }
 
     // 权限列表入库
     @Override
