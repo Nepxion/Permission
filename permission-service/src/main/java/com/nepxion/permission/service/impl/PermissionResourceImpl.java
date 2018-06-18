@@ -16,8 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.permission.api.PermissionResource;
@@ -30,14 +28,12 @@ public class PermissionResourceImpl implements PermissionResource {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionResourceImpl.class);
 
     @Override
-    @RequestMapping(value = "/getPermissionTypes", method = RequestMethod.GET)
     public PermissionType[] getPermissionTypes() {
         return new PermissionType[] { PermissionType.API, PermissionType.GATEWAY, PermissionType.UI };
     }
 
     // 权限列表入库
     @Override
-    @RequestMapping(value = "/persist", method = RequestMethod.POST)
     public void persist(@RequestBody List<PermissionEntity> permissionEntityList) {
         // 实现权限扫描结果到数据库的入库
         // 需要注意，权限的重复入库问题，一般遵循“不存在则插入，存在则覆盖”的原则
@@ -46,13 +42,7 @@ public class PermissionResourceImpl implements PermissionResource {
 
     // 权限验证
     @Override
-    @RequestMapping(value = "/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
-    public boolean authorize(
-            @PathVariable(value = "userId") String userId,
-            @PathVariable(value = "userType") String userType,
-            @PathVariable(value = "permissionName") String permissionName,
-            @PathVariable(value = "permissionType") String permissionType,
-            @PathVariable(value = "serviceName") String serviceName) {
+    public boolean authorize(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "permissionName") String permissionName, @PathVariable(value = "permissionType") String permissionType, @PathVariable(value = "serviceName") String serviceName) {
         // 验证用户是否有权限
         // 需要和用户系统做对接，userId一般为登录名，userType为用户系统类型。目前支持多用户类型，所以通过userType来区分同名登录用户，例如财务系统有用户叫zhangsan，支付系统也有用户叫zhangsan
         // permissionName即在@Permission注解上定义的name，permissionType为权限类型，目前支持接口权限(API)，网关权限(GATEWAY)，界面权限(UI)三种类型的权限(参考PermissionType.java类的定义)

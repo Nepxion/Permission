@@ -32,10 +32,5 @@ public interface PermissionResource {
 
     // 权限验证
     @RequestMapping(value = "/permission/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
-    boolean authorize(
-            @PathVariable(value = "userId") String userId,
-            @PathVariable(value = "userType") String userType,
-            @PathVariable(value = "permissionName") String permissionName,
-            @PathVariable(value = "permissionType") String permissionType,
-            @PathVariable(value = "serviceName") String serviceName);
+    boolean authorize(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "permissionName") String permissionName, @PathVariable(value = "permissionType") String permissionType, @PathVariable(value = "serviceName") String serviceName);
 }
