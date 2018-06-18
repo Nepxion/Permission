@@ -10,7 +10,7 @@ drop table if exists permission;
 
 create table permission
 (
-   id                   int(16) unsigned not null auto_increment comment '主键',
+   id                   bigint(20) unsigned not null auto_increment comment '主键',
    name                 varchar(64) binary not null comment '英文名',
    label                varchar(64) binary not null comment '中文名',
    type                 varchar(64) binary not null comment '类型',
@@ -35,7 +35,7 @@ drop table if exists role;
 
 create table role
 (
-   id                   int(16) unsigned not null auto_increment comment '主键',
+   id                   bigint(20) unsigned not null auto_increment comment '主键',
    name                 varchar(64) binary not null comment '英文名',
    label                varchar(64) binary not null comment '中文名',
    description          varchar(512) binary comment '描述', 
@@ -58,9 +58,9 @@ drop table if exists role_permission;
 
 create table role_permission
 (
-   id                   int(16) unsigned not null auto_increment comment '主键',
-   role_id              int(16) unsigned not null comment '角色ID',
-   permission_id        int(16) unsigned not null comment '权限ID',
+   id                   bigint(20) unsigned not null auto_increment comment '主键',
+   role_id              bigint(20) unsigned not null comment '角色ID',
+   permission_id        bigint(20) unsigned not null comment '权限ID',
    name                 varchar(64) binary not null comment '英文名',
    label                varchar(64) binary not null comment '中文名',
    description          varchar(512) binary comment '描述',
@@ -84,10 +84,10 @@ drop table if exists user_role;
 
 create table user_role
 (
-   id                   int(16) unsigned not null auto_increment comment '主键',
+   id                   bigint(20) unsigned not null auto_increment comment '主键',
    user_id              char(36) binary not null comment '用户ID',
    user_type            char(36) binary not null comment '用户类型',   
-   role_id              int(16) unsigned not null comment '角色ID',
+   role_id              bigint(20) unsigned not null comment '角色ID',
    name                 varchar(64) binary not null comment '英文名',
    label                varchar(64) binary not null comment '中文名',
    description          varchar(512) binary comment '描述',
