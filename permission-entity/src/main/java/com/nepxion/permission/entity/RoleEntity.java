@@ -12,13 +12,13 @@ package com.nepxion.permission.entity;
 public class RoleEntity extends BasicEntity {
     private static final long serialVersionUID = -4116501863109621719L;
 
-    private BoundType boundType = BoundType.UNKNOWN;
+    private BoundStatus boundStatus = BoundStatus.UNKNOWN;
 
-    public BoundType getBoundType() {
-        return boundType;
+    public BoundStatus getBoundStatus() {
+        return boundStatus;
     }
 
-    public void setBoundType(BoundType boundType) {
-        this.boundType = boundType;
+    public void setBoundType(BoundStatus boundStatus) {
+        this.boundStatus = boundStatus;
     }
 }

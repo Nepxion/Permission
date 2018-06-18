@@ -19,7 +19,7 @@ public class PermissionEntity extends BasicEntity {
 
     private String type;
     private String resource;
-    private BoundType boundType = BoundType.UNKNOWN;
+    private BoundStatus boundStatus = BoundStatus.UNKNOWN;
 
     public String getType() {
         return type;
@@ -41,12 +41,12 @@ public class PermissionEntity extends BasicEntity {
         this.resource = resource;
     }
 
-    public BoundType getBoundType() {
-        return boundType;
+    public BoundStatus getBoundStatus() {
+        return boundStatus;
     }
 
-    public void setBoundType(BoundType boundType) {
-        this.boundType = boundType;
+    public void setBoundType(BoundStatus boundStatus) {
+        this.boundStatus = boundStatus;
     }
 
     // 校验权限名，只能是字母，数字，空格，下划线，中划线这5种组合
