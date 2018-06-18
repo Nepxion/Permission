@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.nepxion.permission.entity.PermissionEntity" alias="PermissionEntity" />
+        <typeAlias type="com.nepxion.permission.entity.RoleEntity" alias="RoleEntity" />
+        <typeAlias type="com.nepxion.permission.entity.RolePermissionEntity" alias="RolePermissionEntity" />
+        <typeAlias type="com.nepxion.permission.entity.UserRoleEntity" alias="UserRoleEntity" />
+        <typeAlias type="com.nepxion.permission.entity.UserEntity" alias="UserEntity" />
+    </typeAliases>
+</configuration>
