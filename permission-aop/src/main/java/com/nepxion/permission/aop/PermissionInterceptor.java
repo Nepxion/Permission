@@ -27,6 +27,7 @@ import com.nepxion.permission.annotation.Token;
 import com.nepxion.permission.annotation.UserId;
 import com.nepxion.permission.annotation.UserType;
 import com.nepxion.permission.api.PermissionResource;
+import com.nepxion.permission.api.UserResource;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionType;
 import com.nepxion.permission.entity.UserEntity;
@@ -49,6 +50,9 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
     @Autowired
     private PermissionResource permissionResource;
+
+    @Autowired
+    private UserResource userResource;
 
     @Autowired
     private PermissionAuthorization permissionAuthorization;
@@ -111,7 +115,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
         // 根据token获取userId和userType
         if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(userType)) {
-            UserEntity userEntity = permissionResource.getUserEntity(token);
+            UserEntity userEntity = userResource.getUserEntity(token);
             userId = userEntity.getUserId();
             userType = userEntity.getUserType();
         }

@@ -19,28 +19,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.PermissionType;
-import com.nepxion.permission.entity.UserEntity;
 
 @FeignClient(value = "${permission.service.name}")
 public interface PermissionResource {
     // 获取权限类型列表
-    @RequestMapping(value = "/getPermissionTypes", method = RequestMethod.GET)
+    @RequestMapping(value = "/permission/getPermissionTypes", method = RequestMethod.GET)
     PermissionType[] getPermissionTypes();
 
     // 权限列表入库
-    @RequestMapping(value = "/persist", method = RequestMethod.POST)
+    @RequestMapping(value = "/permission/persist", method = RequestMethod.POST)
     void persist(@RequestBody List<PermissionEntity> permissionEntityList);
 
     // 权限验证
-    @RequestMapping(value = "/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/permission/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
     boolean authorize(
             @PathVariable(value = "userId") String userId,
             @PathVariable(value = "userType") String userType,
             @PathVariable(value = "permissionName") String permissionName,
             @PathVariable(value = "permissionType") String permissionType,
             @PathVariable(value = "serviceName") String serviceName);
-
-    // 根据Token获取User实体
-    @RequestMapping(value = "/getUserEntity/{token}", method = RequestMethod.GET)
-    UserEntity getUserEntity(@PathVariable(value = "token") String token);
 }
