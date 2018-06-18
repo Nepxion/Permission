@@ -31,6 +31,9 @@ public class TestApplication {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(TestApplication.class, args);
 
         PermissionResource permissionResource = applicationContext.getBean(PermissionResource.class);
+
         LOG.info("===== PermissionTypes : {}", Arrays.asList(permissionResource.getPermissionTypes()));
+
+        LOG.info("===== Permission: {}", permissionResource.getPermission(1L));
     }
 }

@@ -28,9 +28,51 @@ public interface PermissionResource {
     @RequestMapping(value = "/permission/getPermission/{id}", method = RequestMethod.GET)
     PermissionEntity getPermission(@PathVariable(value = "id") Long id);
 
+    @RequestMapping(value = "/permission/getAllPermissions", method = RequestMethod.GET)
+    List<PermissionEntity> getAllPermissions();
+
+    @RequestMapping(value = "/permission/getPermissions", method = RequestMethod.POST)
+    List<PermissionEntity> getPermissions(@RequestBody List<Long> ids);
+
+    @RequestMapping(value = "/permission/getPermissionsByServiceName/{serviceName}", method = RequestMethod.GET)
+    List<PermissionEntity> getPermissionsByServiceName(@PathVariable(value = "serviceName") String serviceName);
+
+    @RequestMapping(value = "/permission/getPermissionsByTypeAndServiceName/{type}/{serviceName}", method = RequestMethod.GET)
+    List<PermissionEntity> getPermissionsByTypeAndServiceName(@PathVariable(value = "type") String type, @PathVariable(value = "serviceName") String serviceName);
+
+    @RequestMapping(value = "/permission/getPermissionByNameAndTypeAndServiceName/{name}/{type}/{serviceName}", method = RequestMethod.GET)
+    PermissionEntity getPermissionByNameAndTypeAndServiceName(@PathVariable(value = "name") String name, @PathVariable(value = "type") String type, @PathVariable(value = "serviceName") String serviceName);
+
+    @RequestMapping(value = "/permission/getPermissionsByResources", method = RequestMethod.POST)
+    List<PermissionEntity> getPermissionsByResources(@RequestBody List<String> resources);
+
+    @RequestMapping(value = "/permission/getPermissionsByRoleId/{roleId}", method = RequestMethod.GET)
+    List<PermissionEntity> getPermissionsByRoleId(@PathVariable(value = "roleId") Long roleId);
+
+    @RequestMapping(value = "/permission/getPermissionsByRoleIds", method = RequestMethod.POST)
+    List<PermissionEntity> getPermissionsByRoleIds(@RequestBody List<Long> roleIds);
+
+    @RequestMapping(value = "/permission/insertPermission", method = RequestMethod.POST)
+    void insertPermission(@RequestBody PermissionEntity permission);
+
+    @RequestMapping(value = "/permission/insertUpdatePermission", method = RequestMethod.POST)
+    void insertUpdatePermission(@RequestBody PermissionEntity permission);
+
+    @RequestMapping(value = "/permission/insertPermissions", method = RequestMethod.POST)
+    void insertPermissions(@RequestBody List<PermissionEntity> permissions);
+
+    @RequestMapping(value = "/permission/insertUpdatePermissions", method = RequestMethod.POST)
+    void insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions);
+
+    @RequestMapping(value = "/permission/updatePermission", method = RequestMethod.PUT)
+    void updatePermission(@RequestBody PermissionEntity permission);
+
+    @RequestMapping(value = "/permission/deletePermission/{id}", method = RequestMethod.DELETE)
+    void deletePermission(@PathVariable(value = "id") Long id);
+
+    @RequestMapping(value = "/permission/deletePermissions", method = RequestMethod.POST)
+    void deletePermissions(@RequestBody List<Long> ids);
+
     @RequestMapping(value = "/permission/persist", method = RequestMethod.POST)
     void persist(@RequestBody List<PermissionEntity> permissions);
-
-    @RequestMapping(value = "/permission/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
-    boolean authorize(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "permissionName") String permissionName, @PathVariable(value = "permissionType") String permissionType, @PathVariable(value = "serviceName") String serviceName);
 }

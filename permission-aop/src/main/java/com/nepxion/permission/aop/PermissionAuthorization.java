@@ -14,13 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nepxion.aquarius.cache.annotation.Cacheable;
-import com.nepxion.permission.api.PermissionResource;
+import com.nepxion.permission.api.AuthorizationResource;
 
 public class PermissionAuthorization {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionAuthorization.class);
 
     @Autowired
-    private PermissionResource permissionResource;
+    private AuthorizationResource authorizationResource;
 
     // 通过自动装配的方式，自身调用自身的注解方法
     @Autowired
@@ -32,7 +32,7 @@ public class PermissionAuthorization {
 
     @Cacheable(name = "cache", key = "#userId + \"_\" + #userType + \"_\" + #permissionName + \"_\" + #permissionType + \"_\" + #serviceName", expire = -1L)
     public boolean authorizeCache(String userId, String userType, String permissionName, String permissionType, String serviceName) {
-        boolean authorized = permissionResource.authorize(userId, userType, permissionName, permissionType, serviceName);
+        boolean authorized = authorizationResource.authorize(userId, userType, permissionName, permissionType, serviceName);
 
         LOG.info("Authorized={} for userId={}, userType={}, permissionName={}, permissionType={}, serviceName={}", authorized, userId, userType, permissionName, permissionType, serviceName);
 

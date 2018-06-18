@@ -9,12 +9,8 @@ package com.nepxion.permission.service.impl;
  * @version 1.0
  */
 
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +23,6 @@ import com.nepxion.permission.service.mapper.PermissionMapper;
 
 @RestController
 public class PermissionResourceImpl implements PermissionResource {
-    private static final Logger LOG = LoggerFactory.getLogger(PermissionResourceImpl.class);
-
     @Autowired
     private PermissionMapper permissionMapper;
 
@@ -43,21 +37,118 @@ public class PermissionResourceImpl implements PermissionResource {
     }
 
     @Override
-    public void persist(@RequestBody List<PermissionEntity> permissions) {
+    public List<PermissionEntity> getAllPermissions() {
+        return permissionMapper.getAllPermissions();
+    }
+
+    @Override
+    public List<PermissionEntity> getPermissions(@RequestBody List<Long> ids) {
+        return permissionMapper.getPermissions(ids);
+    }
+
+    @Override
+    public List<PermissionEntity> getPermissionsByServiceName(@PathVariable(value = "serviceName") String serviceName) {
+        return permissionMapper.getPermissionsByServiceName(serviceName);
+    }
+
+    @Override
+    public List<PermissionEntity> getPermissionsByTypeAndServiceName(@PathVariable(value = "type") String type, @PathVariable(value = "serviceName") String serviceName) {
+        return permissionMapper.getPermissionsByTypeAndServiceName(type, serviceName);
+    }
+
+    @Override
+    public PermissionEntity getPermissionByNameAndTypeAndServiceName(@PathVariable(value = "name") String name, @PathVariable(value = "type") String type, @PathVariable(value = "serviceName") String serviceName) {
+        return permissionMapper.getPermissionByNameAndTypeAndServiceName(name, type, serviceName);
+    }
+
+    @Override
+    public List<PermissionEntity> getPermissionsByResources(@RequestBody List<String> resources) {
+        return permissionMapper.getPermissionsByResources(resources);
+    }
+
+    @Override
+    public List<PermissionEntity> getPermissionsByRoleId(@PathVariable(value = "roleId") Long roleId) {
+        return permissionMapper.getPermissionsByRoleId(roleId);
+    }
+
+    @Override
+    public List<PermissionEntity> getPermissionsByRoleIds(@RequestBody List<Long> roleIds) {
+        return permissionMapper.getPermissionsByRoleIds(roleIds);
+    }
+
+    @Override
+    public void insertPermission(@RequestBody PermissionEntity permission) {
+        permission.validateName();
+
+        permissionMapper.insertPermission(permission);
+
+        /*Long id = permission.getId();
+
+        return permissionMapper.getPermission(id);*/
+    }
+
+    @Override
+    public void insertUpdatePermission(@RequestBody PermissionEntity permission) {
+        permission.validateName();
+
+        permissionMapper.insertUpdatePermission(permission);
+
+        /*Long id = permission.getId();
+
+        return permissionMapper.getPermission(id);*/
+    }
+
+    @Override
+    public void insertPermissions(@RequestBody List<PermissionEntity> permissions) {
         for (PermissionEntity permission : permissions) {
             permission.validateName();
         }
+
+        permissionMapper.insertPermissions(permissions);
+
+        /*List<Long> ids = new ArrayList<Long>();
+        for (PermissionEntity permission : permissions) {
+            Long id = permission.getId();
+            ids.add(id);
+        }
+
+        return permissionMapper.getPermissions(ids);*/
+    }
+
+    @Override
+    public void insertUpdatePermissions(@RequestBody List<PermissionEntity> permissions) {
+        for (PermissionEntity permission : permissions) {
+            permission.validateName();
+        }
+
         permissionMapper.insertUpdatePermissions(permissions);
     }
 
     @Override
-    public boolean authorize(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "permissionName") String permissionName, @PathVariable(value = "permissionType") String permissionType, @PathVariable(value = "serviceName") String serviceName) {
-        if (StringUtils.equals(userId, "zhangsan")) {
-            return true;
-        } else if (StringUtils.equals(userId, "lisi")) {
-            return false;
-        }
+    public void updatePermission(@RequestBody PermissionEntity permission) {
+        permission.validateName();
 
-        return true;
+        permissionMapper.updatePermission(permission);
+    }
+
+    @Override
+    public void deletePermission(@PathVariable(value = "id") Long id) {
+        //        if (rolePermissionMapper.containsPermission(id) != 0) {
+        //            throw new ServiceException("Delete permission error by id=" + id + ", it has been referenced by a role");
+        //        }
+        //
+        //        permissionMapper.deletePermission(id);
+    }
+
+    @Override
+    public void deletePermissions(@RequestBody List<Long> ids) {
+        //        if (CollectionUtils.isNotEmpty(ids)) {
+        //            permissionMapper.deletePermissions(ids);
+        //        }
+    }
+
+    @Override
+    public void persist(@RequestBody List<PermissionEntity> permissions) {
+        insertUpdatePermissions(permissions);
     }
 }
