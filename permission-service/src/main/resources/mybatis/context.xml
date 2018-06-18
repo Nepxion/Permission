@@ -12,8 +12,8 @@
     <!-- MyBatis文件配置，扫描所有Mapper文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="druidDataSource" />
-        <property name="mapperLocations" value="classpath:mapper/*.xml" />
-        <property name="configLocation" value="classpath:config.xml" />
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml" />
+        <property name="configLocation" value="classpath:mybatis/config.xml" />
     </bean>
 
     <!-- Spring与MyBatis整合，扫描所有Mapper接口，查找类路径下的映射器并自动将它们创建成MapperFactoryBean，然后创建各自接口的动态代理类 -->
