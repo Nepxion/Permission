@@ -31,7 +31,7 @@ import com.nepxion.permission.api.UserResource;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionType;
 import com.nepxion.permission.entity.UserEntity;
-import com.nepxion.permission.exception.PermissionException;
+import com.nepxion.permission.exception.PermissionAopException;
 
 public class PermissionInterceptor extends AbstractInterceptor {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionInterceptor.class);
@@ -89,11 +89,11 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
     private Object invokePermission(MethodInvocation invocation, String name, String label, String description) throws Throwable {
         if (StringUtils.isEmpty(serviceName)) {
-            throw new PermissionException("Service name is null or empty");
+            throw new PermissionAopException("Service name is null or empty");
         }
 
         if (StringUtils.isEmpty(name)) {
-            throw new PermissionException("Annotation [Permission]'s name is null or empty");
+            throw new PermissionAopException("Annotation [Permission]'s name is null or empty");
         }
 
         String proxyType = getProxyType(invocation);
@@ -110,7 +110,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
         String token = getValueByParameterAnnotation(invocation, Token.class, String.class);
 
         if (StringUtils.isEmpty(token) && (StringUtils.isEmpty(userId) || StringUtils.isEmpty(userType))) {
-            throw new PermissionException("Annotation [Token] or [UserId] && [UserType] must be in target method");
+            throw new PermissionAopException("Annotation [Token] or [UserId] && [UserType] must be in target method");
         }
 
         // 根据token获取userId和userType
@@ -129,7 +129,7 @@ public class PermissionInterceptor extends AbstractInterceptor {
             } else {
                 String parameterTypesValue = getMethodParameterTypesValue(invocation);
 
-                throw new PermissionException("No permision to proceed method [name=" + methodName + ", parameterTypes=" + parameterTypesValue + "], permissionName=" + name + ", permissionLabel=" + label);
+                throw new PermissionAopException("No permision to proceed method [name=" + methodName + ", parameterTypes=" + parameterTypesValue + "], permissionName=" + name + ", permissionLabel=" + label);
             }
         }
 

@@ -25,7 +25,7 @@ import com.nepxion.permission.annotation.Permission;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionEntity;
 import com.nepxion.permission.entity.PermissionType;
-import com.nepxion.permission.exception.PermissionException;
+import com.nepxion.permission.exception.PermissionAopException;
 
 public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
     private static final long serialVersionUID = 3188054573736878865L;
@@ -89,7 +89,7 @@ public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
 
                 String name = permissionAnnotation.name();
                 if (StringUtils.isEmpty(name)) {
-                    throw new PermissionException("Annotation [Permission]'s name is null or empty");
+                    throw new PermissionAopException("Annotation [Permission]'s name is null or empty");
                 }
 
                 String label = permissionAnnotation.label();

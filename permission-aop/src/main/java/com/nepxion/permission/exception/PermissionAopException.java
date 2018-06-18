@@ -9,22 +9,22 @@ package com.nepxion.permission.exception;
  * @version 1.0
  */
 
-public class PermissionException extends RuntimeException {
+public class PermissionAopException extends RuntimeException {
     private static final long serialVersionUID = 36896074604270451L;
 
-    public PermissionException() {
+    public PermissionAopException() {
         super();
     }
 
-    public PermissionException(String message) {
+    public PermissionAopException(String message) {
         super(message);
     }
 
-    public PermissionException(String message, Throwable cause) {
+    public PermissionAopException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public PermissionException(Throwable cause) {
+    public PermissionAopException(Throwable cause) {
         super(cause);
     }
 }
