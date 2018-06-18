@@ -17,12 +17,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class RolePermissionEntity extends Entity {
     private static final long serialVersionUID = -8798208584420759097L;
 
-    // 做一定的冗余设计，存取数据方便
+    // 做一定的冗余设计，避免多表查询
     private Integer roleId;
     private String roleName;
     private RoleEntity roleEntity;
 
-    // 做一定的冗余设计，存取数据方便
+    // 做一定的冗余设计，避免多表查询
     private Integer permissionId;
     private String permissionName;
     private String permissionType;

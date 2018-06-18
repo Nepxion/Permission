@@ -20,7 +20,7 @@ public class UserRoleEntity extends Entity {
     private String userId;
     private String userType;
 
-    // 做一定的冗余设计，存取数据方便
+    // 做一定的冗余设计，避免多表查询
     private Integer roleId;
     private String roleName;
     private RoleEntity roleEntity;
