@@ -13,16 +13,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class PermissionEntity extends BasicEntity {
     private static final long serialVersionUID = -82541551905707852L;
 
     private String type;
     private String resource;
+    private BoundType boundType = BoundType.UNKNOWN;
 
     public String getType() {
         return type;
@@ -44,6 +41,14 @@ public class PermissionEntity extends BasicEntity {
         this.resource = resource;
     }
 
+    public BoundType getBoundType() {
+        return boundType;
+    }
+
+    public void setBoundType(BoundType boundType) {
+        this.boundType = boundType;
+    }
+
     // 校验权限名，只能是字母，数字，空格，下划线，中划线这5种组合
     public void validateName() {
         String name = getName();
@@ -59,20 +64,5 @@ public class PermissionEntity extends BasicEntity {
         if (!matched) {
             throw new IllegalArgumentException("Permission name is only allowed to hold one of the followings : [A-Z, a-z, 0-9, blank, _, -, .]");
         }
-    }
-
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        return EqualsBuilder.reflectionEquals(this, object);
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

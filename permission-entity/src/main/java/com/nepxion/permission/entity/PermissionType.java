@@ -9,47 +9,21 @@ package com.nepxion.permission.entity;
  * @version 1.0
  */
 
-import java.io.Serializable;
-
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class PermissionType implements Serializable {
+public class PermissionType extends BasicType {
     private static final long serialVersionUID = 6102187790951666119L;
 
     public static final PermissionType API = new PermissionType("接口权限", "API");
     public static final PermissionType GATEWAY = new PermissionType("网关权限", "GATEWAY");
     public static final PermissionType UI = new PermissionType("界面权限", "UI");
 
-    private String name;
-    private String value;
-
     public PermissionType() {
-
+        super();
     }
 
     public PermissionType(String name, String value) {
-        this.name = name;
-        this.value = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
+        super(name, value);
     }
 
     public PermissionType fromString(String value) {
@@ -62,20 +36,5 @@ public class PermissionType implements Serializable {
         }
 
         return null;
-    }
-
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        return EqualsBuilder.reflectionEquals(this, object);
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

@@ -52,6 +52,9 @@ public interface PermissionResource {
     @RequestMapping(value = "/permission/getPermissionsByRoleIds", method = RequestMethod.POST)
     List<PermissionEntity> getPermissionsByRoleIds(@RequestBody List<Long> roleIds);
 
+    @RequestMapping(value = "/permission/indicateBoundPermissions", method = RequestMethod.POST)
+    List<PermissionEntity> indicateBoundPermissions(@RequestBody List<PermissionEntity> permissions);
+
     @RequestMapping(value = "/permission/insertPermission", method = RequestMethod.POST)
     PermissionEntity insertPermission(@RequestBody PermissionEntity permission);
 

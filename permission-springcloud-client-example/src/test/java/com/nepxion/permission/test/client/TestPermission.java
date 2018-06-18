@@ -32,7 +32,7 @@ public class TestPermission {
     public void test() {
         // getAllPermissionTypes();
         // getPermission();
-        // getAllPermissions();
+        getAllPermissions();
         // getPermissions();
         // getPermissionsByServiceName();
         // getPermissionsByTypeAndServiceName();
@@ -40,13 +40,14 @@ public class TestPermission {
         // getPermissionsByResources();
         // getPermissionsByRoleId();
         // getPermissionsByRoleIds();
+        // indicateBoundPermissions();
         // insertPermission();
         // insertUpdatePermission();
         // insertPermissions();
         // insertUpdatePermissions();
         // updatePermission();
-        deletePermission();
-        deletePermissions();
+        // deletePermission();
+        // deletePermissions();
     }
 
     public void getAllPermissionTypes() {
@@ -86,6 +87,10 @@ public class TestPermission {
     }
 
     public void getPermissionsByRoleIds() {
+
+    }
+
+    public void indicateBoundPermissions() {
 
     }
 
