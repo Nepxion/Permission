@@ -39,16 +39,16 @@
         select <include refid="baseColumnList" /> from user_role where id=#{id, jdbcType=BIGINT}
     </select>
 
+    <select id="queryAllUserRoles" resultMap="baseResultMap">
+        select <include refid="baseColumnList" /> from user_role
+    </select>
+
     <select id="queryUserRoles" parameterType="java.util.List" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from user_role
         where id in
         <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
             #{item, jdbcType=BIGINT}
         </foreach>
-    </select>
-
-    <select id="queryAllUserRoles" resultMap="baseResultMap">
-        select <include refid="baseColumnList" /> from user_role
     </select>
 
     <select id="queryUserRolesByServiceName" parameterType="java.lang.String" resultMap="baseResultMap">

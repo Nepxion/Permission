@@ -28,16 +28,16 @@
         select <include refid="baseColumnList" /> from role_permission where id=#{id, jdbcType=BIGINT}
     </select>
 
+    <select id="queryAllRolePermissions" resultMap="baseResultMap">
+        select <include refid="baseColumnList" /> from role_permission
+    </select>
+
     <select id="queryRolePermissions" parameterType="java.util.List" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from role_permission
         where id in
         <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
             #{item, jdbcType=BIGINT}
         </foreach>
-    </select>
-
-    <select id="queryAllRolePermissions" resultMap="baseResultMap">
-        select <include refid="baseColumnList" /> from role_permission
     </select>
 
     <select id="queryRolePermissionsByServiceName" parameterType="java.lang.String" resultMap="baseResultMap">
