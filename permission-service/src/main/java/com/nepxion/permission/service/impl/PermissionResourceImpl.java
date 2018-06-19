@@ -41,6 +41,7 @@ public class PermissionResourceImpl implements PermissionResource {
     // 权限验证
     @Override
     public boolean authorize(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "permissionName") String permissionName, @PathVariable(value = "permissionType") String permissionType, @PathVariable(value = "serviceName") String serviceName) {
+        LOG.info("权限获取： userId={}, userType={}, permissionName={}, permissionType={}, serviceName={}", userId, userType, permissionName, permissionType, serviceName);
         // 验证用户是否有权限
         // 需要和用户系统做对接，userId一般为登录名，userType为用户系统类型。目前支持多用户类型，所以通过userType来区分同名登录用户，例如财务系统有用户叫zhangsan，支付系统也有用户叫zhangsan
         // permissionName即在@Permission注解上定义的name，permissionType为权限类型，目前支持接口权限(API)，网关权限(GATEWAY)，界面权限(UI)三种类型的权限(参考PermissionType.java类的定义)
