@@ -58,39 +58,15 @@
     </select>
 
     <select id="getPermissionsByRoleId" parameterType="java.lang.Long" resultMap="baseResultMap">
-        select 
-            p.id,  
-            p.name, 
-            p.label, 
-            p.type, 
-            p.description,
-            p.service_name,
-            p.resource,
-            p.create_owner, 
-            p.create_time, 
-            p.update_owner, 
-            p.update_time 
-        from permission p, role_permission r where p.id=r.permission_id and r.role_id=#{roleId, jdbcType=BIGINT}
+        select select <include refid="baseColumnList" /> from permission p, role_permission r where p.id=r.permission_id and r.role_id=#{roleId, jdbcType=BIGINT}
     </select>
 
-    <select id="getPermissionsByRoleIds" parameterType="java.lang.Long" resultMap="baseResultMap">
-        select 
-            p.id, 
-            p.name, 
-            p.label, 
-            p.type, 
-            p.description, 
-            p.service_name,
-            p.resource,
-            p.create_owner, 
-            p.create_time, 
-            p.update_owner, 
-            p.update_time 
-        from permission p, role_permission r where p.id=r.permission_id and r.role_id in 
+    <select id="getPermissionsByRoleIds" parameterType="java.util.List" resultMap="baseResultMap">
+        select select <include refid="baseColumnList" /> from permission p, role_permission r where p.id=r.permission_id and r.role_id in 
         <foreach collection="list" item="roleId" index="index" separator="," open="(" close=")">
             #{roleId, jdbcType=BIGINT}
         </foreach>
-    </select> 
+    </select>
 
     <insert id="insertPermission" parameterType="Permission" useGeneratedKeys="true" keyProperty="id">
         insert into permission(id, name, label, type, description, service_name, resource, create_owner, update_owner) 

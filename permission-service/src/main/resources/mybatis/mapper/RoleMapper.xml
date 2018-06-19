@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nepxion.permission.service.mapper.RolenMapper">
+    <!-- 基准的结果映射 -->
+    <resultMap id="baseResultMap" type="Role">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="label" property="label" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+        <result column="create_owner" property="createOwner" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_owner" property="updateOwner" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <!-- 基准的查询列 -->
+    <sql id="baseColumnList">
+        id, name, label, description, service_name, create_owner, create_time, update_owner, update_time
+    </sql>
+
+    <select id="getRole" parameterType="java.lang.Long" resultMap="baseResultMap">
+        select <include refid="baseColumnList" /> from role where id=#{id, jdbcType=BIGINT}
+    </select>
+
+    <select id="getAllRoles" resultMap="baseResultMap">
+        select <include refid="baseColumnList" /> from role
+    </select>
+
+    <select id="getRoles" parameterType="java.util.List" resultMap="baseResultMap">
+        select <include refid="baseColumnList" /> from role
+        where id in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item, jdbcType=BIGINT}
+        </foreach>
+    </select>
+
+    <select id="getRolesByServiceName" parameterType="java.lang.String" resultMap="baseResultMap">
+        select <include refid="baseColumnList" /> from role where service_name=#{serviceName, jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryRoleByNameAndServiceName" resultMap="baseResultMap">
+        select <include refid="baseColumnList" /> from role where name=#{name, jdbcType=VARCHAR} and service_name=#{serviceName, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getRolesByPermissionId" parameterType="java.lang.Long" resultMap="baseResultMap">
+        select select <include refid="baseColumnList" /> from role r, role_permission p where r.id=p.role_id and p.permission_id=#{permissionId, jdbcType=BIGINT}
+    </select>
+
+    <select id="getRolesByPermissionIds" parameterType="java.util.List" resultMap="baseResultMap">
+        select select <include refid="baseColumnList" /> from role r, role_permission p where r.id=p.role_id and p.permission_id in 
+        <foreach collection="list" item="permissionId" index="index" separator="," open="(" close=")">
+            #{permissionId, jdbcType=BIGINT}
+        </foreach>
+    </select>
+
+    <select id="getRolesByUserIdAndUserType" resultMap="baseResultMap">
+        select select <include refid="baseColumnList" /> from role r, user_role u where r.id=u.role_id and u.user_id=#{userId, jdbcType=CHAR} and u.user_type=#{userType, jdbcType=CHAR}
+    </select>
+
+    <insert id="insertRole" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
+        insert into role(id, name, label, description, service_name, create_owner, update_owner)
+        values(#{id, jdbcType=BIGINT}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertUpdateRole" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
+        insert into role(id, name, label, description, service_name, create_owner, update_owner)
+        values(#{id, jdbcType=BIGINT}, #{name, jdbcType=VARCHAR}, #{label, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{serviceName, jdbcType=VARCHAR}, #{createOwner, jdbcType=VARCHAR}, #{updateOwner, jdbcType=VARCHAR})
+        on duplicate key update label=values(label), description=values(description), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
+    </insert>
+    
+    <insert id="insertRoles" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into role(id, name, label, description, service_name, create_owner, update_owner) 
+        values 
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id, jdbcType=BIGINT}, #{item.name, jdbcType=VARCHAR}, #{item.label, jdbcType=VARCHAR}, #{item.description, jdbcType=VARCHAR}, #{item.serviceName, jdbcType=VARCHAR}, #{item.createOwner, jdbcType=VARCHAR}, #{item.updateOwner, jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <insert id="insertUpdateRoles" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into role(id, name, label, description, service_name, create_owner, update_owner)
+        values 
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id, jdbcType=BIGINT}, #{item.name, jdbcType=VARCHAR}, #{item.label, jdbcType=VARCHAR}, #{item.description, jdbcType=VARCHAR}, #{item.serviceName, jdbcType=VARCHAR}, #{item.createOwner, jdbcType=VARCHAR}, #{item.updateOwner, jdbcType=VARCHAR})
+        </foreach>
+        on duplicate key update label=values(label), description=values(description), create_owner=values(create_owner), update_time=now(), update_owner=values(update_owner)
+    </insert>
+
+    <update id="updateRole" parameterType="Role">
+        update role
+        set name=#{name, jdbcType=VARCHAR}, 
+            label=#{label, jdbcType=VARCHAR}, 
+            description=#{description, jdbcType=VARCHAR}, 
+            service_name=#{serviceName, jdbcType=VARCHAR}, 
+            create_owner=#{createOwner, jdbcType=VARCHAR}, 
+            update_owner=#{updateOwner, jdbcType=VARCHAR} 
+        where id=#{id, jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteRole" parameterType="java.lang.Long">
+        delete from role where id=#{id, jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteRoles" parameterType="java.util.List">
+        delete from role 
+        where id in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item, jdbcType=BIGINT}
+        </foreach>
+    </delete>
+</mapper>
