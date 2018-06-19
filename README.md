@@ -145,17 +145,28 @@ public class MyApplication {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class, args);
 
         MyService myService = applicationContext.getBean(MyService.class);
-        LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
-        LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
+        try {
+            LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
+        } catch (Exception e) {
+            LOG.error("Error", e);
+        }
+        
+        try {
+            LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
+        } catch (Exception e) {
+            LOG.error("Error", e);
+        }
     }
 }
 ```
 
 ### 服务端
 
-模拟实现权限对数据库的相关接口，请自行实现相关和数据库，缓存的操作逻辑
+需要实现permission-api的两个Feign接口PermissionResource和UserResource
+
+模拟实现权限对数据库的相关接口，请自行实现相关和数据库，缓存等操作逻辑
 ```java
-package com.nepxion.permission.example.service;
+package com.nepxion.permission.service.impl;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -173,34 +184,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nepxion.permission.api.PermissionResource;
 import com.nepxion.permission.entity.PermissionEntity;
-import com.nepxion.permission.entity.UserEntity;
 
 // 该接口实现提供给调用端的Feign接口，需要实现的逻辑是权限数据入库，验证，以及缓存的操作
 @RestController
-public class PermissionServiceImpl {
-    private static final Logger LOG = LoggerFactory.getLogger(PermissionServiceImpl.class);
+public class PermissionResourceImpl implements PermissionResource {
+    private static final Logger LOG = LoggerFactory.getLogger(PermissionResourceImpl.class);
 
     // 权限列表入库
-    @RequestMapping(value = "/persist", method = RequestMethod.POST)
-    public void persist(@RequestBody List<PermissionEntity> permissionEntityList) {
+    @Override
+    public void persist(@RequestBody List<PermissionEntity> permissions) {
+        for (PermissionEntity permission : permissions) {
+            permission.validateName();
+        }
+
         // 实现权限扫描结果到数据库的入库
         // 需要注意，权限的重复入库问题，一般遵循“不存在则插入，存在则覆盖”的原则
-        LOG.info("权限列表入库：{}", permissionEntityList);
+        LOG.info("权限列表入库：{}", permissions);
     }
 
     // 权限验证
-    @RequestMapping(value = "/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
-    public boolean authorize(
-            @PathVariable(value = "userId") String userId,
-            @PathVariable(value = "userType") String userType,
-            @PathVariable(value = "permissionName") String permissionName,
-            @PathVariable(value = "permissionType") String permissionType,
-            @PathVariable(value = "serviceName") String serviceName) {
+    @Override
+    public boolean authorize(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "permissionName") String permissionName, @PathVariable(value = "permissionType") String permissionType, @PathVariable(value = "serviceName") String serviceName) {
+        LOG.info("权限获取： userId={}, userType={}, permissionName={}, permissionType={}, serviceName={}", userId, userType, permissionName, permissionType, serviceName);
         // 验证用户是否有权限
         // 需要和用户系统做对接，userId一般为登录名，userType为用户系统类型。目前支持多用户类型，所以通过userType来区分同名登录用户，例如财务系统有用户叫zhangsan，支付系统也有用户叫zhangsan
         // permissionName即在@Permission注解上定义的name，permissionType为权限类型，目前支持接口权限(API)，网关权限(GATEWAY)，界面权限(UI)三种类型的权限(参考PermissionType.java类的定义)
@@ -215,19 +224,47 @@ public class PermissionServiceImpl {
 
         return true;
     }
+}
+```
+
+```java
+package com.nepxion.permission.service.impl;
+
+/**
+ * <p>Title: Nepxion Permission</p>
+ * <p>Description: Nepxion Permission</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nepxion.permission.api.UserResource;
+import com.nepxion.permission.entity.UserEntity;
+
+@RestController
+public class UserResourceImpl implements UserResource {
+    private static final Logger LOG = LoggerFactory.getLogger(UserResourceImpl.class);
 
     // 根据Token获取User实体
-    @RequestMapping(value = "/getUserEntity/{token}", method = RequestMethod.GET)
-    public UserEntity getUserEntity(@PathVariable(value = "token") String token) {
+    @Override
+    public UserEntity getUser(@PathVariable(value = "token") String token) {
         // 当前端登录后，它希望送token到后端，查询出用户信息(并以此调用authorize接口做权限验证，permission-aop已经实现，使用者并不需要关心)
         // 需要和单点登录系统，例如OAuth或者JWT等系统做对接
         // 示例描述token为abcd1234对应的用户为lisi
+        LOG.info("Token：{}", token);
         if (StringUtils.equals(token, "abcd1234")) {
-            UserEntity userEntity = new UserEntity();
-            userEntity.setUserId("lisi");
-            userEntity.setUserType("LDAP");
+            UserEntity user = new UserEntity();
+            user.setUserId("lisi");
+            user.setUserType("LDAP");
 
-            return userEntity;
+            return user;
         }
 
         return null;
