@@ -80,8 +80,13 @@ public class PermissionResourceImpl implements PermissionResource {
     @Override
     public List<PermissionEntity> indicateBoundPermissions(@RequestBody List<PermissionEntity> permissions) {
         //        for (PermissionEntity permission : permissions) {
-        //            List<Long> roleIds = rolePermissionMapper.queryRoleIdsByPermissionId(permission.getId());
-        //            permission.setBoundType(CollectionUtils.isNotEmpty(roleIds) ? BoundType.YES : BoundType.NO);
+        //            Long permissionId = permission.getId();
+        //            List<Long> roleIds = rolePermissionMapper.queryRoleIdsByPermissionId(permissionId);
+        //            if (CollectionUtils.isNotEmpty(roleIds)) {
+        //                permission.setBoundStatus(BoundStatus.YES.getValue());
+        //            } else {
+        //                permission.setBoundStatus(BoundStatus.NO.getValue());
+        //            }
         //        }
 
         return permissions;
