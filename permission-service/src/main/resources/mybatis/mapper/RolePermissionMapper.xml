@@ -24,15 +24,15 @@
         id, role_id, permission_id, name, label, description, service_name, create_owner, create_time, update_owner, update_time
     </sql>
 
-    <select id="queryRolePermission" parameterType="java.lang.Long" resultMap="baseResultMap">
+    <select id="getRolePermission" parameterType="java.lang.Long" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from role_permission where id=#{id, jdbcType=BIGINT}
     </select>
 
-    <select id="queryAllRolePermissions" resultMap="baseResultMap">
+    <select id="getAllRolePermissions" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from role_permission
     </select>
 
-    <select id="queryRolePermissions" parameterType="java.util.List" resultMap="baseResultMap">
+    <select id="getRolePermissions" parameterType="java.util.List" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from role_permission
         where id in
         <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
@@ -40,25 +40,25 @@
         </foreach>
     </select>
 
-    <select id="queryRolePermissionsByServiceName" parameterType="java.lang.String" resultMap="baseResultMap">
+    <select id="getRolePermissionsByServiceName" parameterType="java.lang.String" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from role_permission where service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
 
-    <select id="queryRolePermissionsByServiceNameForIO" parameterType="java.lang.String" resultMap="baseResultMap">
+    <select id="getRolePermissionsByServiceNameForIO" parameterType="java.lang.String" resultMap="baseResultMap">
         select r.`name` roleName, p.`name` permissionName, p.type permissionType, rp.`name`, rp.label , rp.description, rp.service_name serviceName, rp.create_owner createOwner, rp.update_owner updateOwner 
         from role_permission rp inner join role r on rp.role_id = r.id inner join permission p on rp.permission_id = p.id 
         where rp.service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
 
-    <select id="queryRolePermissionsByRoleIdAndServiceName" resultMap="baseResultMap">
+    <select id="getRolePermissionsByRoleIdAndServiceName" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from role_permission where role_id=#{roleId, jdbcType=BIGINT} and service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
 
-    <select id="queryPermissionIdsByRoleId" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <select id="getPermissionIdsByRoleId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select permission_id from role_permission where role_id=#{roleId, jdbcType=BIGINT}
     </select>
 
-    <select id="queryRoleIdsByPermissionId" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <select id="getRoleIdsByPermissionId" parameterType="java.lang.Long" resultType="java.lang.Long">
         select role_id from role_permission where permission_id=#{permissionId, jdbcType=BIGINT}
     </select>
 
