@@ -22,8 +22,12 @@ import com.nepxion.permission.entity.UserEntity;
 public class UserResourceImpl implements UserResource {
     private static final Logger LOG = LoggerFactory.getLogger(UserResourceImpl.class);
 
+    // 根据Token获取User实体
     @Override
     public UserEntity getUser(@PathVariable(value = "token") String token) {
+        // 当前端登录后，它希望送token到后端，查询出用户信息(并以此调用authorize接口做权限验证，permission-aop已经实现，使用者并不需要关心)
+        // 需要和单点登录系统，例如OAuth或者JWT等系统做对接
+        // 示例描述token为abcd1234对应的用户为lisi
         LOG.info("Token：{}", token);
         if (StringUtils.equals(token, "abcd1234")) {
             UserEntity user = new UserEntity();
