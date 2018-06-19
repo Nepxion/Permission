@@ -40,7 +40,7 @@
         select <include refid="baseColumnList" /> from role where service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
 
-    <select id="queryRoleByNameAndServiceName" resultMap="baseResultMap">
+    <select id="getRoleByNameAndServiceName" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from role where name=#{name, jdbcType=VARCHAR} and service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
 

@@ -70,8 +70,8 @@ public class RoleResourceImpl implements RoleResource {
     public List<RoleEntity> indicateBoundRoles(@RequestBody List<RoleEntity> roles) {
         //        for (RoleEntity role : roles) {
         //            Long roleId = role.getId();
-        //            List<UserEntity> users = userRoleMapper.queryUsersByRoleId(roleId);
-        //            List<Long> permissionIds = rolePermissionMapper.queryPermissionIdsByRoleId(roleId);
+        //            List<UserEntity> users = userRoleMapper.getUsersByRoleId(roleId);
+        //            List<Long> permissionIds = rolePermissionMapper.getPermissionIdsByRoleId(roleId);
         //            if (CollectionUtils.isNotEmpty(users) || CollectionUtils.isNotEmpty(permissionIds)) {
         //                role.setBoundStatus(BoundStatus.YES.getValue());
         //            } else {

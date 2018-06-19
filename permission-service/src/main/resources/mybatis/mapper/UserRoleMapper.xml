@@ -35,15 +35,15 @@
         user_id, user_type
     </sql>
 
-    <select id="queryUserRole" parameterType="java.lang.Long" resultMap="baseResultMap">
+    <select id="getUserRole" parameterType="java.lang.Long" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from user_role where id=#{id, jdbcType=BIGINT}
     </select>
 
-    <select id="queryAllUserRoles" resultMap="baseResultMap">
+    <select id="getAllUserRoles" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from user_role
     </select>
 
-    <select id="queryUserRoles" parameterType="java.util.List" resultMap="baseResultMap">
+    <select id="getUserRoles" parameterType="java.util.List" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from user_role
         where id in
         <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
@@ -51,28 +51,28 @@
         </foreach>
     </select>
 
-    <select id="queryUserRolesByServiceName" parameterType="java.lang.String" resultMap="baseResultMap">
+    <select id="getUserRolesByServiceName" parameterType="java.lang.String" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from user_role where service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
 
-    <select id="queryUserRolesByServiceNameForIO" parameterType="java.lang.String" resultMap="baseResultMap">
+    <select id="getUserRolesByServiceNameForIO" parameterType="java.lang.String" resultMap="baseResultMap">
         select ur.user_id userId, ur.user_type userType, r.`name` roleName, ur.`name`, ur.label, ur.description, ur.service_name serviceName, ur.create_owner createOwner, ur.update_owner updateOwner 
         from user_role ur inner join role r on ur.role_id = r.id where r.service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
 
-    <select id="queryUserRolesByUserIdAndUserTypeAndServiceName" resultMap="baseResultMap">
+    <select id="getUserRolesByUserIdAndUserTypeAndServiceName" resultMap="baseResultMap">
         select <include refid="baseColumnList" /> from user_role where user_id=#{userId, jdbcType=CHAR} and user_type=#{userType, jdbcType=CHAR} and service_name=#{serviceName, jdbcType=VARCHAR}
     </select>
 
-    <select id="queryRoleIdsByUserIdAndUserType" resultType="java.lang.Long">
+    <select id="getRoleIdsByUserIdAndUserType" resultType="java.lang.Long">
         select role_id from user_role where user_id=#{userId, jdbcType=CHAR} and user_type=#{userType, jdbcType=CHAR}
     </select>
 
-    <select id="queryUsersByRoleId" parameterType="java.lang.Long" resultMap="userResultMap">
+    <select id="getUsersByRoleId" parameterType="java.lang.Long" resultMap="userResultMap">
         select <include refid="userColumnList" /> from user_role where role_id=#{roleId, jdbcType=BIGINT}
     </select>
 
-    <select id="queryUserRolesByPermissonId" parameterType="java.lang.Long" resultMap="baseResultMap">
+    <select id="getUserRolesByPermissonId" parameterType="java.lang.Long" resultMap="baseResultMap">
         select ur.user_id, ur.user_type from permission p inner join role_permission rp on p.id = rp.permission_id inner join user_role ur on ur.role_id = rp.role_id where p.id = #{permissionId, jdbcType=BIGINT}
     </select>
 
