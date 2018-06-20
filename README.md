@@ -11,7 +11,7 @@ Nepxion Permission是一款基于Redis分布式缓存权限调用系统，实现
     1. 实现权限自动扫描入库（可通过配置文件开启关闭）
     2. 实现权限验证从分布式缓存和API调用获取两种方式（缓存获取可通过配置文件开启关闭）
     3. 实现权限验证走UserId和Token两种方式，通过注解来决定
-    4. 实现提供Delegate接口实现到数据库数据交互的扩展
+    4. 实现提供Feign接口，使用者实现到数据库和缓存数据交互的扩展
     5. 实现根据Java8的特性来获取注解对应方法上的变量名(不是变量类型)，支持标准反射和字节码CGLIG(ASM library)来获取，前者适用于接口代理，后者适用于类代理
        标准反射的方式，需要在IDE和Maven里设置"-parameters"的Compiler Argument。参考如下：
        1)Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
