@@ -26,7 +26,7 @@ public class BoundStatus extends BasicType {
         super(name, value);
     }
 
-    public BoundStatus fromString(String value) {
+    public static BoundStatus fromString(String value) {
         if (StringUtils.equals(value, YES.getValue())) {
             return YES;
         } else if (StringUtils.equals(value, NO.getValue())) {

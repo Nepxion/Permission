@@ -26,7 +26,7 @@ public class PermissionType extends BasicType {
         super(name, value);
     }
 
-    public PermissionType fromString(String value) {
+    public static PermissionType fromString(String value) {
         if (StringUtils.equals(value, API.getValue())) {
             return API;
         } else if (StringUtils.equals(value, GATEWAY.getValue())) {
