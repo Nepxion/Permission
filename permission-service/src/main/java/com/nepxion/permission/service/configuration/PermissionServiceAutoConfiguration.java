@@ -23,7 +23,7 @@ public class PermissionServiceAutoConfiguration {
         System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
         System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
         System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
-        System.out.println("Nepxion Permission  v1.0.12");
+        System.out.println("Nepxion Permission  v1.0.13");
         System.out.println("");
     }
 }
