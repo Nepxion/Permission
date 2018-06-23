@@ -1,4 +1,4 @@
-package com.nepxion.permission.config;
+package com.nepxion.permission.configuration;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -21,7 +21,7 @@ import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.context.PermissionFeignBeanFactoryPostProcessor;
 
 @Configuration
-public class PermissionAopConfig {
+public class PermissionAopConfiguration {
     @Value("${" + PermissionConstant.PERMISSION_SCAN_PACKAGES + ":}")
     private String scanPackages;
 

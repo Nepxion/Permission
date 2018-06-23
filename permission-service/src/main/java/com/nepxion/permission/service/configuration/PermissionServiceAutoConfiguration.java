@@ -1,4 +1,4 @@
-package com.nepxion.permission.service.config;
+package com.nepxion.permission.service.configuration;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages = { "com.nepxion.permission.service" })
-public class PermissionServiceConfig {
+public class PermissionServiceAutoConfiguration {
     static {
         System.out.println("");
         System.out.println("╔═══╗");
