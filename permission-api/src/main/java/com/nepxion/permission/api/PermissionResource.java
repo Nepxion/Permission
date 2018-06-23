@@ -21,9 +21,9 @@ import com.nepxion.permission.entity.PermissionEntity;
 
 @FeignClient(value = "${permission.service.name}")
 public interface PermissionResource {
-    @RequestMapping(value = "/permission/persist", method = RequestMethod.POST)
+    @RequestMapping(path = "/permission/persist", method = RequestMethod.POST)
     void persist(@RequestBody List<PermissionEntity> permissions);
 
-    @RequestMapping(value = "/authorization/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
+    @RequestMapping(path = "/authorization/authorize/{userId}/{userType}/{permissionName}/{permissionType}/{serviceName}", method = RequestMethod.GET)
     boolean authorize(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "permissionName") String permissionName, @PathVariable(value = "permissionType") String permissionType, @PathVariable(value = "serviceName") String serviceName);
 }

@@ -18,6 +18,6 @@ import com.nepxion.permission.entity.UserEntity;
 
 @FeignClient(value = "${permission.service.name}")
 public interface UserResource {
-    @RequestMapping(value = "/user/getUser/{token}", method = RequestMethod.GET)
+    @RequestMapping(path = "/user/getUser/{token}", method = RequestMethod.GET)
     UserEntity getUser(@PathVariable(value = "token") String token);
 }
