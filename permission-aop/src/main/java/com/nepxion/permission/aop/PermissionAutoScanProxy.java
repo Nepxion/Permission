@@ -30,18 +30,6 @@ import com.nepxion.permission.exception.PermissionAopException;
 public class PermissionAutoScanProxy extends DefaultAutoScanProxy {
     private static final long serialVersionUID = 3188054573736878865L;
 
-    static {
-        System.out.println("");
-        System.out.println("╔═══╗");
-        System.out.println("║╔═╗║");
-        System.out.println("║╚═╝╠══╦═╦╗╔╦╦══╦══╦╦══╦══╗");
-        System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
-        System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
-        System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
-        System.out.println("Nepxion Permission  v1.0.17");
-        System.out.println("");
-    }
-
     @Value("${" + PermissionConstant.PERMISSION_AUTOMATIC_PERSIST_ENABLED + ":true}")
     private Boolean automaticPersistEnabled;
 

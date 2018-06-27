@@ -22,6 +22,18 @@ import com.nepxion.permission.context.PermissionFeignBeanFactoryPostProcessor;
 
 @Configuration
 public class PermissionAopConfiguration {
+    static {
+        System.out.println("");
+        System.out.println("╔═══╗");
+        System.out.println("║╔═╗║");
+        System.out.println("║╚═╝╠══╦═╦╗╔╦╦══╦══╦╦══╦══╗");
+        System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
+        System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
+        System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
+        System.out.println("Nepxion Permission  v1.0.18");
+        System.out.println("");
+    }
+
     @Value("${" + PermissionConstant.PERMISSION_SCAN_PACKAGES + ":}")
     private String scanPackages;
 
