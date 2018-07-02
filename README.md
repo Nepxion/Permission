@@ -7,26 +7,25 @@
 Nepxion Permission是一款基于Redis分布式缓存权限调用系统，实现对业务系统中API的权限控制。它采用Nepxion Matrix AOP框架进行切面架构，提供注解调用方式
 
 ## 简介
+- 实现权限自动扫描入库（可通过配置文件开启关闭）
+- 实现权限验证从分布式缓存和API调用获取两种方式（缓存获取可通过配置文件开启关闭）
+- 实现权限验证走UserId和Token两种方式，通过注解来决定
+- 实现提供Feign接口，使用者实现到数据库和缓存数据交互的扩展
+- 实现根据Java8的特性来获取注解对应方法上的变量名(不是变量类型)，支持标准反射和字节码CGLIG(ASM library)来获取，前者适用于接口代理，后者适用于类代理
 
-    1. 实现权限自动扫描入库（可通过配置文件开启关闭）
-    2. 实现权限验证从分布式缓存和API调用获取两种方式（缓存获取可通过配置文件开启关闭）
-    3. 实现权限验证走UserId和Token两种方式，通过注解来决定
-    4. 实现提供Feign接口，使用者实现到数据库和缓存数据交互的扩展
-    5. 实现根据Java8的特性来获取注解对应方法上的变量名(不是变量类型)，支持标准反射和字节码CGLIG(ASM library)来获取，前者适用于接口代理，后者适用于类代理
-       标准反射的方式，需要在IDE和Maven里设置"-parameters"的Compiler Argument。参考如下：
-       1)Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
-       2)Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
+  标准反射的方式，需要在IDE和Maven里设置"-parameters"的Compiler Argument。参考如下：
+  - Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
+  - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
 
 ### 注意
 
 Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-client-example），并非是全面的权限管理和调用系统，鉴于不同公司有不同权限架构，那么使用者需要自行去实现如下模块（参考permission-springcloud-service-example）：
-
-    1. 实现基于权限-角色-用户三层体系的数据库模型(Pojo类已在permission-entity里实现)，并提供相关的增删改查接口
-    2. 实现基于界面的权限-角色-用户的操作功能
-    3. 实现和相关用户系统等多对接
-    4. 实现基于权限验证的分布式缓存功能，例如验证缓存和失效(如果使用者有这样的需求)
-    5. 实现基于Token的权限验证功能，和相关单点登录系统等做对接(如果使用者有这样的需求)
-    6. 实现提供UI权限和API GATEWAY权限的接入(如果使用者有这样的需求)
+- 实现基于权限-角色-用户三层体系的数据库模型(Pojo类已在permission-entity里实现)，并提供相关的增删改查接口
+- 实现基于界面的权限-角色-用户的操作功能
+- 实现和相关用户系统等多对接
+- 实现基于权限验证的分布式缓存功能，例如验证缓存和失效(如果使用者有这样的需求)
+- 实现基于Token的权限验证功能，和相关单点登录系统等做对接(如果使用者有这样的需求)
+- 实现提供UI权限和API GATEWAY权限的接入(如果使用者有这样的需求)
 
 ### 依赖
 
