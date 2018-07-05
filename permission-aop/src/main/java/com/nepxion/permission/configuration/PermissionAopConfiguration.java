@@ -30,7 +30,7 @@ public class PermissionAopConfiguration {
         System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
         System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
         System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
-        System.out.println("Nepxion Permission  v1.0.18");
+        System.out.println("Nepxion Permission  v1.0.19");
         System.out.println("");
     }
 
