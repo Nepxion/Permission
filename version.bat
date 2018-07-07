@@ -15,6 +15,6 @@
 @title Nepxion Permission
 @color 0a
 
-call mvn versions:set -DnewVersion=1.0.21
+call mvn versions:set -DnewVersion=1.0.22
 
 pause
