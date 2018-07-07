@@ -6,7 +6,7 @@
     <name>Nepxion Permission</name>
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0.25</version>
+    <version>1.0.26</version>
     <description>Nepxion Permission is a permission system based on Redis with Nepxion Matrix AOP framework and Aquarius framework</description>
     <url>http://www.nepxion.com</url>
 
@@ -23,7 +23,7 @@
 
     <properties>
         <matrix.version>1.0.20</matrix.version>
-        <aquarius.version>1.0.23</aquarius.version>
+        <aquarius.version>1.0.25</aquarius.version>
         <commons.lang3.version>3.6</commons.lang3.version>
         <commons.collections4.version>4.1</commons.collections4.version>
         <commons.io.version>2.5</commons.io.version>
