@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = { "com.nepxion.permission.service" })
+@ComponentScan(basePackages = { "com.nepxion.permission.service.impl" })
 public class PermissionServiceAutoConfiguration {
     static {
         System.out.println("");
