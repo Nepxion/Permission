@@ -17,6 +17,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 public class PermissionApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(PermissionApplication.class).web(true).run(args);
+        new SpringApplicationBuilder(PermissionApplication.class).run(args);
     }
 }
