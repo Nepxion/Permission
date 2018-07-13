@@ -17,8 +17,7 @@ Nepxion Permission是一款基于Redis分布式缓存权限调用系统，实现
   - Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
   - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
 
-### 注意
-
+## 注意
 Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-client-example），并非是全面的权限管理和调用系统，鉴于不同公司有不同权限架构，那么使用者需要自行去实现如下模块（参考permission-springcloud-service-example）：
 - 实现基于权限-角色-用户三层体系的数据库模型(Pojo类已在permission-entity里实现)，并提供相关的增删改查接口
 - 实现基于界面的权限-角色-用户的操作功能
@@ -27,8 +26,12 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 - 实现基于Token的权限验证功能，和相关单点登录系统等做对接(如果使用者有这样的需求)
 - 实现提供UI权限和API GATEWAY权限的接入(如果使用者有这样的需求)
 
-### 依赖
+## 兼容
+最新版本兼容
+- Spring 4.x.x和Spring Boot 1.x.x
+- Spring 5.x.x和Spring Boot 2.x.x，但需要手工去除第三方包引入的低版本Spring依赖包	
 
+## 依赖
 客户端依赖
 ```xml
 <dependency>
@@ -48,9 +51,7 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 ```
 
 ## 示例
-
 ### 客户端
-
 客户端配置
 ```xml
 # Spring cloud config
@@ -160,9 +161,7 @@ public class MyApplication {
 ```
 
 ### 服务端
-
 需要实现permission-api的两个Feign接口PermissionResource和UserResource
-
 模拟实现权限对数据库的相关接口，请自行实现相关和数据库，缓存等操作逻辑
 ```java
 package com.nepxion.permission.service.impl;
