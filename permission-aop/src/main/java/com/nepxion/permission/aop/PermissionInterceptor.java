@@ -26,7 +26,6 @@ import com.nepxion.permission.annotation.Permission;
 import com.nepxion.permission.annotation.Token;
 import com.nepxion.permission.annotation.UserId;
 import com.nepxion.permission.annotation.UserType;
-import com.nepxion.permission.api.PermissionResource;
 import com.nepxion.permission.api.UserResource;
 import com.nepxion.permission.constant.PermissionConstant;
 import com.nepxion.permission.entity.PermissionType;
@@ -47,9 +46,6 @@ public class PermissionInterceptor extends AbstractInterceptor {
 
     @Value("${" + PermissionConstant.PERMISSION_USER_TYPE_WHITELIST + ":}")
     private String whitelist;
-
-    @Autowired
-    private PermissionResource permissionResource;
 
     @Autowired
     private UserResource userResource;
