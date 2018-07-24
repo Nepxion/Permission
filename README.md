@@ -6,6 +6,11 @@
 
 Nepxion Permission是一款基于Redis分布式缓存权限调用系统，实现对业务系统中API的权限控制。它采用Nepxion Matrix AOP框架进行切面架构，提供注解调用方式
 
+## 请联系我
+- 请加微信群或者微信
+
+![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信群-1.jpg) ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
+
 ## 简介
 - 实现权限自动扫描入库（可通过配置文件开启关闭）
 - 实现权限验证从分布式缓存和API调用获取两种方式（缓存获取可通过配置文件开启关闭）
