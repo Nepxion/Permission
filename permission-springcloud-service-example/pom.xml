@@ -27,6 +27,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>permission</artifactId>
+                <version>${permission.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring.cloud.version}</version>
@@ -40,7 +48,6 @@
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>permission-service-starter</artifactId>
-            <version>${permission.version}</version>
         </dependency>
 
         <dependency>
