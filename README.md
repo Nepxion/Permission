@@ -37,21 +37,29 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 - Spring 5.x.x和Spring Boot 2.x.x，但需要手工去除第三方包引入的低版本Spring依赖包	
 
 ## 依赖
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>permission</artifactId>
+    <version>${permission.version}</version>
+    <type>pom</type>
+    <scope>import</scope>
+</dependency>
+```
+
 客户端依赖
 ```xml
 <dependency>
-  <groupId>com.nepxion</groupId>
-  <artifactId>permission-aop-starter</artifactId>
-  <version>${permission.version}</version>
+    <groupId>com.nepxion</groupId>
+    <artifactId>permission-aop-starter</artifactId>
 </dependency>
 ```
 
 服务端依赖
 ```xml
 <dependency>
-  <groupId>com.nepxion</groupId>
-  <artifactId>permission-entity</artifactId>
-  <version>${permission.version}</version>
+    <groupId>com.nepxion</groupId>
+    <artifactId>permission-entity</artifactId>
 </dependency>
 ```
 
