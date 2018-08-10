@@ -40,7 +40,7 @@ public class PermissionFeignInterceptor implements RequestInterceptor {
             String headerName = headerNames.nextElement();
             String header = request.getHeader(headerName);
 
-            if (PermissionFeignConstant.PERMISSION_FEIGN_HEADERS.contains(headerName)) {
+            if (PermissionFeignConstant.PERMISSION_FEIGN_HEADERS.contains(headerName.toLowerCase())) {
                 requestTemplate.header(headerName, header);
             }
         }
