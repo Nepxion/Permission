@@ -19,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.nepxion.aquarius.common.constant.AquariusConstant;
 import com.nepxion.matrix.proxy.aop.AbstractInterceptor;
@@ -100,21 +102,17 @@ public class PermissionInterceptor extends AbstractInterceptor {
             LOG.info("Intercepted for annotation - Permission [name={}, label={}, description={}, proxyType={}, proxiedClass={}, method={}]", name, label, description, proxyType, proxiedClassName, methodName);
         }
 
-        // 获取方法参数上的注解值
-        String userId = getValueByParameterAnnotation(invocation, UserId.class, String.class);
-        String userType = getValueByParameterAnnotation(invocation, UserType.class, String.class);
-        String token = getValueByParameterAnnotation(invocation, Token.class, String.class);
-
-        if (StringUtils.isEmpty(token) && (StringUtils.isEmpty(userId) || StringUtils.isEmpty(userType))) {
-            throw new PermissionAopException("Annotation [Token] or [UserId] && [UserType] must be in target method");
+        UserEntity user = getUserEntityByIdAndType(invocation);
+        if (user == null) {
+            user = getUserEntityByToken(invocation);
         }
 
-        // 根据token获取userId和userType
-        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(userType)) {
-            UserEntity user = userResource.getUser(token);
-            userId = user.getUserId();
-            userType = user.getUserType();
+        if (user == null) {
+            throw new PermissionAopException("No user context found");
         }
+
+        String userId = user.getUserId();
+        String userType = user.getUserType();
 
         // 检查用户类型白名单，决定某个类型的用户是否要执行权限验证拦截
         boolean checkUserTypeFilters = checkUserTypeFilters(userType);
@@ -130,6 +128,62 @@ public class PermissionInterceptor extends AbstractInterceptor {
         }
 
         return invocation.proceed();
+    }
+
+    private UserEntity getUserEntityByIdAndType(MethodInvocation invocation) {
+        // 获取方法参数上的注解值
+        String userId = getValueByParameterAnnotation(invocation, UserId.class, String.class);
+        String userType = getValueByParameterAnnotation(invocation, UserType.class, String.class);
+
+        if (StringUtils.isEmpty(userId) && StringUtils.isNotEmpty(userType)) {
+            throw new PermissionAopException("Annotation [UserId]'s value is null or empty");
+        }
+
+        if (StringUtils.isNotEmpty(userId) && StringUtils.isEmpty(userType)) {
+            throw new PermissionAopException("Annotation [UserType]'s value is null or empty");
+        }
+
+        if (StringUtils.isEmpty(userId) && StringUtils.isEmpty(userType)) {
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            if (attributes != null) {
+                userId = attributes.getRequest().getHeader(PermissionConstant.USER_ID);
+                userType = attributes.getRequest().getHeader(PermissionConstant.USER_TYPE);
+            }
+        }
+
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(userType)) {
+            return null;
+        }
+
+        UserEntity user = new UserEntity();
+        user.setUserId(userId);
+        user.setUserType(userType);
+
+        return user;
+    }
+
+    private UserEntity getUserEntityByToken(MethodInvocation invocation) {
+        // 获取方法参数上的注解值
+        String token = getValueByParameterAnnotation(invocation, Token.class, String.class);
+
+        if (StringUtils.isEmpty(token)) {
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            if (attributes != null) {
+                token = attributes.getRequest().getHeader(PermissionConstant.TOKEN);
+            }
+        }
+
+        if (StringUtils.isEmpty(token)) {
+            return null;
+        }
+
+        // 根据token获取userId和userType
+        UserEntity user = userResource.getUser(token);
+        if (user == null) {
+            throw new PermissionAopException("No user found for token=" + token);
+        }
+
+        return user;
     }
 
     private boolean checkUserTypeFilters(String userType) {

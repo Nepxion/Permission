@@ -16,20 +16,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
 
 import com.nepxion.permission.aop.PermissionImportSelector;
-import com.nepxion.permission.api.PermissionResource;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
 @Import(PermissionImportSelector.class)
-@EnableDiscoveryClient
-@EnableFeignClients(basePackageClasses = { PermissionResource.class })
 public @interface EnablePermission {
 
 }
