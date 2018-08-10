@@ -21,6 +21,7 @@
         <module>permission-service-starter</module>
         <module>permission-springcloud-service-example</module>
         <module>permission-springcloud-client-example</module>
+        <module>permission-springcloud-feign-example</module>
     </modules>
 
     <properties>

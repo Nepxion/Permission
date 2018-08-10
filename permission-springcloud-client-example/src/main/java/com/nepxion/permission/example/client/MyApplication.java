@@ -13,30 +13,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.nepxion.aquarius.cache.annotation.EnableCache;
 import com.nepxion.permission.annotation.EnablePermission;
-import com.nepxion.permission.example.client.service.MyService;
 
 @SpringBootApplication
 @EnablePermission
 @EnableCache
+@EnableDiscoveryClient
+@EnableFeignClients(basePackages = { "com.nepxion.permission.api" })
 public class MyApplication {
     private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class, args);
 
-        MyService myService = applicationContext.getBean(MyService.class);
+        MyController myController = applicationContext.getBean(MyController.class);
         try {
-            LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
+            LOG.info("Result : {}", myController.doA("zhangsan", "LDAP", "valueA"));
         } catch (Exception e) {
             LOG.error("Error", e);
         }
-        
+
         try {
-            LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
+            LOG.info("Result : {}", myController.doB("abcd1234", "valueB"));
         } catch (Exception e) {
             LOG.error("Error", e);
         }

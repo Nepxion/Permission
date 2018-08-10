@@ -11,8 +11,8 @@ package com.nepxion.permission.constant;
 
 public class PermissionFeignConstant {
     public static final String TOKEN = "token";
-    public static final String USER_ID = "userId";
-    public static final String USER_TYPE = "userType";
+    public static final String USER_ID = "userid";
+    public static final String USER_TYPE = "usertype";
 
     public static final String PERMISSION_FEIGN_HEADERS = TOKEN + ";" + USER_ID + ";" + USER_TYPE;
 }

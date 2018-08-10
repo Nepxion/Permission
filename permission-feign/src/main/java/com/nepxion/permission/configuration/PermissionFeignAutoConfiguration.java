@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import com.nepxion.permission.aop.PermissionFeignInterceptor;
 
 @Configuration
-public class PermissionFeignConfiguration {
+public class PermissionFeignAutoConfiguration {
     @Bean
     public PermissionFeignInterceptor permissionFeignInterceptor() {
         return new PermissionFeignInterceptor();
