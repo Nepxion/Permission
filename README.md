@@ -381,4 +381,4 @@ Exception in thread "main" com.nepxion.permission.exception.PermissionException:
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/permission-doc/Permission1.jpg)
 
 基于Token的权限验证。如图所示，该Token对应的用户对该API无权限
-![Alt text](https://github.com/Nepxion/Docs/blob/master/permission-doc/Permission1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/permission-doc/Permission2.jpg)
