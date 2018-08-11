@@ -356,7 +356,7 @@ public class UserResourceImpl implements UserResource {
 }
 ```
 
-### 调用结果
+### 基于注解调用结果
 ```java
 permission 2018-01-18 17:18:33,382 INFO [main] c.n.p.a.PermissionInterceptor [PermissionInterceptor.java:103] - Intercepted for annotation - Permission [name=A-Permission, label=A权限, description=, proxyType=Reflective Aop Proxy, proxiedClass=com.nepxion.permission.service.MyServiceImpl, method=doA]
 permission 2018-01-18 17:18:33,442 INFO [main] c.n.a.c.a.CacheInterceptor [CacheInterceptor.java:120] - Intercepted for annotation - Cacheable [key=permission_cache_zhangsan_LDAP_A-Permission_SERVICE_permission-springcloud-example, expire=-1, proxyType=Cglib Aop Proxy, proxiedClass=com.nepxion.permission.aop.PermissionAuthorization, method=authorizeCache]
@@ -375,3 +375,10 @@ Exception in thread "main" com.nepxion.permission.exception.PermissionException:
 	at com.nepxion.permission.MyApplication.main(MyApplication.java:31)
 
 ``` 
+
+### 基于Rest调用结果
+基于UserId和UserType的权限验证。如图所示，该用户对该API有权限
+![Alt text](https://github.com/Nepxion/Docs/blob/master/permission-doc/Permission1.jpg)
+
+基于Token的权限验证。如图所示，该Token对应的用户对该API无权限
+![Alt text](https://github.com/Nepxion/Docs/blob/master/permission-doc/Permission1.jpg)
