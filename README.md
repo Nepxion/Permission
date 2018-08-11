@@ -4,7 +4,7 @@
 [![Javadocs](http://www.javadoc.io/badge/com.nepxion/permission-aop.svg)](http://www.javadoc.io/doc/com.nepxion/permission-aop)
 [![Build Status](https://travis-ci.org/Nepxion/Permission.svg?branch=master)](https://travis-ci.org/Nepxion/Permission)
 
-Nepxion Permission是一款基于Redis分布式缓存权限调用系统，实现对业务系统中API的权限控制。它采用Nepxion Matrix AOP框架进行切面架构，提供注解调用方式
+Nepxion Permission是一款基于Spring Cloud的微服务API权限框架，并通过Redis分布式缓存进行权限缓存。它采用Nepxion Matrix AOP框架进行切面架构，提供注解调用方式，同时也提供Rest调用
 
 ## 请联系我
 - 请加微信群或者微信
@@ -16,6 +16,7 @@ Nepxion Permission是一款基于Redis分布式缓存权限调用系统，实现
 - 实现权限验证从分布式缓存和API调用获取两种方式（缓存获取可通过配置文件开启关闭）
 - 实现权限验证走UserId和Token两种方式，通过注解来决定
 - 实现提供Feign接口，使用者实现到数据库和缓存数据交互的扩展
+- 实现提供显式基于注解的权限验证，参数通过注解传递；实现提供基于Rest请求的权限验证，参数通过Header传递
 - 实现根据Java8的特性来获取注解对应方法上的变量名(不是变量类型)，支持标准反射和字节码CGLIG(ASM library)来获取，前者适用于接口代理，后者适用于类代理
 
   标准反射的方式，需要在IDE和Maven里设置"-parameters"的Compiler Argument。参考如下：
@@ -47,7 +48,7 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 </dependency>
 ```
 
-客户端依赖
+AOP依赖
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -55,11 +56,11 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 </dependency>
 ```
 
-服务端依赖
+Feign依赖
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
-    <artifactId>permission-entity</artifactId>
+    <artifactId>permission-feign-starter</artifactId>
 </dependency>
 ```
 
@@ -72,6 +73,10 @@ spring.application.name=permission-springcloud-client-example
 server.port=1234
 eureka.instance.metadataMap.owner=Haojun Ren
 eureka.client.serviceUrl.defaultZone=http://10.0.75.1:9528/eureka/
+
+# Ribbon config
+ribbon.ReadTimeout=60000
+ribbon.ConnectTimeout=60000
 
 # Permission config
 # 权限拦截开启和关闭，不加这行，视为开启
@@ -87,10 +92,20 @@ permission.user.type.whitelist=LDAP
 
 # Cache config
 prefix=permission
-cache.enabled=true
 cache.type=redisCache
+cache.plugin=redisPlugin
 # 扫描含有@Cacheable，@CacheEvict，@CachePut等注解的接口或者类所在目录
 cache.scan.packages=com.nepxion.permission
+
+# Redis config
+spring.redis.host=localhost
+spring.redis.port=6379
+spring.redis.password=
+spring.redis.database=0
+spring.redis.pool.max-active=8
+spring.redis.pool.max-wait=-1
+spring.redis.pool.max-idle=8
+spring.redis.pool.min-idle=0
 
 # Frequent log print
 frequent.log.print=true
@@ -122,6 +137,64 @@ public interface MyService {
     // 基于token的权限验证
     @Permission(name = "B-Permission", label = "B权限", description = "B权限的描述")
     String doB(@Token String token, String value);
+}
+```
+
+在实现类上添加@Permission注解，实现API权限验证功能
+```java
+package com.nepxion.permission.example.client;
+
+/**
+ * <p>Title: Nepxion Permission</p>
+ * <p>Description: Nepxion Permission</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nepxion.permission.annotation.Permission;
+import com.nepxion.permission.annotation.Token;
+import com.nepxion.permission.annotation.UserId;
+import com.nepxion.permission.annotation.UserType;
+
+@RestController
+public class MyController {
+    private static final Logger LOG = LoggerFactory.getLogger(MyController.class);
+
+    // 显式基于UserId和UserType注解的权限验证，参数通过注解传递
+    @RequestMapping(path = "/doA/{userId}/{userType}/{value}", method = RequestMethod.GET)
+    @Permission(name = "A-Permission", label = "A权限", description = "A权限的描述")
+    public int doA(@PathVariable(value = "userId") @UserId String userId, @PathVariable(value = "userType") @UserType String userType, @PathVariable(value = "value") String value) {
+        LOG.info("===== doA被调用");
+
+        return 123;
+    }
+
+    // 显式基于Token注解的权限验证，参数通过注解传递
+    @RequestMapping(path = "/doB/{token}/{value}", method = RequestMethod.GET)
+    @Permission(name = "B-Permission", label = "B权限", description = "B权限的描述")
+    public String doB(@PathVariable(value = "token") @Token String token, @PathVariable(value = "value") String value) {
+        LOG.info("----- doB被调用");
+
+        return "abc";
+    }
+
+    // 隐式基于Rest请求的权限验证，参数通过Header传递
+    @RequestMapping(path = "/doC/{value}", method = RequestMethod.GET)
+    @Permission(name = "C-Permission", label = "C权限", description = "C权限的描述")
+    public boolean doC(@PathVariable(value = "value") String value) {
+        LOG.info("----- doC被调用");
+
+        return true;
+    }
 }
 ```
 

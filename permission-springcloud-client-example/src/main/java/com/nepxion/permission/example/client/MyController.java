@@ -25,7 +25,7 @@ import com.nepxion.permission.annotation.UserType;
 public class MyController {
     private static final Logger LOG = LoggerFactory.getLogger(MyController.class);
 
-    // 显式基于UserId和UserType的权限验证，参数通过注解传递
+    // 显式基于UserId和UserType注解的权限验证，参数通过注解传递
     @RequestMapping(path = "/doA/{userId}/{userType}/{value}", method = RequestMethod.GET)
     @Permission(name = "A-Permission", label = "A权限", description = "A权限的描述")
     public int doA(@PathVariable(value = "userId") @UserId String userId, @PathVariable(value = "userType") @UserType String userType, @PathVariable(value = "value") String value) {
@@ -34,7 +34,7 @@ public class MyController {
         return 123;
     }
 
-    // 显式基于Token的权限验证，参数通过注解传递
+    // 显式基于Token注解的权限验证，参数通过注解传递
     @RequestMapping(path = "/doB/{token}/{value}", method = RequestMethod.GET)
     @Permission(name = "B-Permission", label = "B权限", description = "B权限的描述")
     public String doB(@PathVariable(value = "token") @Token String token, @PathVariable(value = "value") String value) {
