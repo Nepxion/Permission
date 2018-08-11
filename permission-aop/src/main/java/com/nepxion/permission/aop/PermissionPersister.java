@@ -32,6 +32,12 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
     @Value("${" + PermissionConstant.PERMISSION_AUTOMATIC_PERSIST_ENABLED + ":true}")
     private Boolean automaticPersistEnabled;
 
+    @Value("${" + PermissionConstant.PERMISSION_AUTOMATIC_PERSIST_RETRY_TIMES + ":5}")
+    private Integer automaticPersistRetryTimes;
+
+    @Value("${" + PermissionConstant.PERMISSION_AUTOMATIC_PERSIST_RETRY_INTERVAL + ":10000}")
+    private Long automaticPersistRetryInterval;
+
     @Autowired
     private PermissionAutoScanProxy permissionAutoScanProxy;
 
@@ -54,11 +60,35 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
                     for (PermissionEntity permission : permissions) {
                         LOG.info("Permission={}", permission);
                     }
-                    permissionResource.persist(permissions);
+
+                    persist(permissions, automaticPersistRetryTimes + 1);
                 } else {
                     LOG.warn("Permission list is empty");
                 }
                 LOG.info("------------------------------------------------------------");
+            }
+        }
+    }
+
+    private void persist(List<PermissionEntity> permissions, int forceTimes) {
+        try {
+            permissionResource.persist(permissions);
+
+            LOG.info("Permissions persist successfully");
+        } catch (Exception e) {
+            LOG.error("Permissions persist failed", e);
+
+            forceTimes--;
+            if (forceTimes > 0) {
+                LOG.info("Try {} times for Permissions persist after {}ms", forceTimes, automaticPersistRetryInterval);
+
+                try {
+                    Thread.sleep(automaticPersistRetryInterval);
+                } catch (InterruptedException ex) {
+
+                }
+
+                persist(permissions, forceTimes);
             }
         }
     }
