@@ -10,6 +10,8 @@ package com.nepxion.permission.constant;
  */
 
 public class PermissionFeignConstant {
+    public static final String PERMISSION_FEIGN_ENABLED = "permission.feign.enabled";
+
     public static final String TOKEN = "token";
     public static final String USER_ID = "user-id";
     public static final String USER_TYPE = "user-type";

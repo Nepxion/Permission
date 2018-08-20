@@ -1,4 +1,4 @@
-package com.nepxion.permission.service.aop;
+package com.nepxion.permission.feign.aop;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -14,13 +14,13 @@ import org.springframework.core.annotation.Order;
 
 import com.nepxion.matrix.selector.AbstractImportSelector;
 import com.nepxion.matrix.selector.RelaxedPropertyResolver;
-import com.nepxion.permission.service.annotation.EnablePermissionSerivce;
-import com.nepxion.permission.service.constant.PermissionServiceConstant;
+import com.nepxion.permission.constant.PermissionFeignConstant;
+import com.nepxion.permission.feign.annotation.EnablePermissionFeign;
 
 @Order(Ordered.LOWEST_PRECEDENCE - 100)
-public class PermissionServiceImportSelector extends AbstractImportSelector<EnablePermissionSerivce> {
+public class PermissionFeignImportSelector extends AbstractImportSelector<EnablePermissionFeign> {
     @Override
     protected boolean isEnabled() {
-        return new RelaxedPropertyResolver(getEnvironment()).getProperty(PermissionServiceConstant.PERMISSION_SERVICE_ENABLED, Boolean.class, Boolean.TRUE);
+        return new RelaxedPropertyResolver(getEnvironment()).getProperty(PermissionFeignConstant.PERMISSION_FEIGN_ENABLED, Boolean.class, Boolean.TRUE);
     }
 }

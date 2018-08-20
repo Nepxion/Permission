@@ -21,10 +21,10 @@ import com.nepxion.aquarius.cache.annotation.EnableCache;
 import com.nepxion.permission.annotation.EnablePermission;
 
 @SpringBootApplication
-@EnablePermission
-@EnableCache
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = { "com.nepxion.permission.api" })
+@EnablePermission
+@EnableCache
 public class MyApplication {
     private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
 

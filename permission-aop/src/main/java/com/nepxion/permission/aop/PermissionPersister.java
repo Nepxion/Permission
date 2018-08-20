@@ -80,7 +80,7 @@ public class PermissionPersister implements ApplicationListener<ContextRefreshed
 
             forceTimes--;
             if (forceTimes > 0) {
-                LOG.info("Try {} times for Permissions persist after {}ms", forceTimes, automaticPersistRetryInterval);
+                LOG.info("Try {} times for Permissions persist after {} ms", forceTimes, automaticPersistRetryInterval);
 
                 try {
                     Thread.sleep(automaticPersistRetryInterval);

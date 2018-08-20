@@ -17,9 +17,9 @@ import com.nepxion.aquarius.cache.annotation.EnableCache;
 import com.nepxion.permission.service.annotation.EnablePermissionSerivce;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 @EnablePermissionSerivce
 @EnableCache
-@EnableDiscoveryClient
 public class PermissionApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder(PermissionApplication.class).run(args);

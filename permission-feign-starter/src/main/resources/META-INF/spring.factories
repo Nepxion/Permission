@@ -1,2 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.nepxion.permission.configuration.PermissionFeignAutoConfiguration
+com.nepxion.permission.feign.annotation.EnablePermissionFeign=\
+com.nepxion.permission.configuration.PermissionFeignConfiguration

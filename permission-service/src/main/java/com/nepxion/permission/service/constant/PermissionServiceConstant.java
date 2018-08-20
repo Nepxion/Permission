@@ -9,6 +9,6 @@ package com.nepxion.permission.service.constant;
  * @version 1.0
  */
 
-public class PermissionConstant {
+public class PermissionServiceConstant {
     public static final String PERMISSION_SERVICE_ENABLED = "permission.service.enabled";
 }
