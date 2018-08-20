@@ -417,6 +417,125 @@ public class MyController {
 }
 ```
 
+### 模拟业务客户端，基于Feign调用
+业务客户端配置
+```xml
+# Spring cloud config
+spring.application.name=permission-springcloud-my-client-example
+server.port=1212
+eureka.client.serviceUrl.defaultZone=http://10.0.75.1:9528/eureka/
+
+# Ribbon config
+ribbon.ReadTimeout=60000
+ribbon.ConnectTimeout=60000
+
+# Permission config
+# 权限Feign拦截开启和关闭，不加这行，视为开启
+permission.feign.enabled=true
+```
+
+SpringCloud应用入口，需要加上@EnablePermissionFeign注解激活权限Feign拦截功能（当然也可以在配置文件里面permission.feign.enabled=false关闭它），该注解可以把Rest调用的Header数据传送到后端业务服务来
+```java
+package com.nepxion.permission.example.client;
+
+/**
+ * <p>Title: Nepxion Permission</p>
+ * <p>Description: Nepxion Permission</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+
+import com.nepxion.permission.feign.annotation.EnablePermissionFeign;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients
+@EnablePermissionFeign
+public class MyApplication {
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(MyApplication.class).run(args);
+    }
+}
+```
+
+基于Feign的调用
+```java
+package com.nepxion.permission.example.client;
+
+/**
+ * <p>Title: Nepxion Permission</p>
+ * <p>Description: Nepxion Permission</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
+import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@FeignClient(value = "permission-springcloud-my-service-example")
+public interface MyFeign {
+    @RequestMapping(path = "/doA/{userId}/{userType}/{value}", method = RequestMethod.GET)
+    int doA(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "value") String value);
+
+    @RequestMapping(path = "/doB/{token}/{value}", method = RequestMethod.GET)
+    String doB(@PathVariable(value = "token") String token, @PathVariable(value = "value") String value);
+
+    @RequestMapping(path = "/doC/{value}", method = RequestMethod.GET)
+    boolean doC(@PathVariable(value = "value") String value);
+}
+```
+
+```java
+package com.nepxion.permission.example.client;
+
+/**
+ * <p>Title: Nepxion Permission</p>
+ * <p>Description: Nepxion Permission</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+    @Autowired
+    private MyFeign myFeign;
+
+    @RequestMapping(path = "/doA/{userId}/{userType}/{value}", method = RequestMethod.GET)
+    public int doA(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "value") String value) {
+        return myFeign.doA(userId, userType, value);
+    }
+
+    @RequestMapping(path = "/doB/{token}/{value}", method = RequestMethod.GET)
+    public String doB(@PathVariable(value = "token") String token, @PathVariable(value = "value") String value) {
+        return myFeign.doB(token, value);
+    }
+
+    @RequestMapping(path = "/doC/{value}", method = RequestMethod.GET)
+    public boolean doC(@PathVariable(value = "value") String value) {
+        return myFeign.doC(value);
+    }
+}
+```
+
 ### 基于注解调用结果
 ```java
 permission 2018-01-18 17:18:33,382 INFO [main] c.n.p.a.PermissionInterceptor [PermissionInterceptor.java:103] - Intercepted for annotation - Permission [name=A-Permission, label=A权限, description=, proxyType=Reflective Aop Proxy, proxiedClass=com.nepxion.permission.service.MyServiceImpl, method=doA]
