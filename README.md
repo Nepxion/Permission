@@ -63,39 +63,40 @@ Feign依赖
 ```
 
 ## 示例
-### 客户端
-客户端配置
+### 权限服务端
+服务端配置
 ```xml
 # Spring cloud config
-spring.application.name=permission-springcloud-client-example
-server.port=1234
+spring.application.name=permission-springcloud-service-example
+server.port=4321
 eureka.instance.metadataMap.owner=Haojun Ren
-eureka.client.serviceUrl.defaultZone=http://10.0.75.1:9528/eureka/
-
-# Ribbon config
-ribbon.ReadTimeout=60000
-ribbon.ConnectTimeout=60000
+eureka.client.serviceUrl.defaultZone=http://localhost:9528/eureka/
 
 # Permission config
-# 权限拦截开启和关闭，不加这行，视为开启
-permission.enabled=true
-# 权限系统的服务名，作为Feign的寻址名
-permission.service.name=permission-springcloud-service-example
-# 扫描含有@Permission注解的接口或者类所在目录
-permission.scan.packages=com.nepxion.permission.example.client.service
-# 如果开启，默认每次服务启动时候，会往权限系统的数据库插入权限（权限不存在则插入，权限存在则覆盖）
-permission.automatic.persist.enabled=true
-# 权限自动入库第一次失败后，还有重试的机会。下面配置项为重试的次数
-permission.automatic.persist.retry.times=5
-# 权限自动入库第一次失败后，还有重试的机会。下面配置项为每次重试的间隔时间
-permission.automatic.persist.retry.interval=10000
-# 权限系统验证拦截的用户类型白名单（例如用户类型是LDAP，那么对LDAP的用户做权限验证拦截）,多个值以“;”分隔
-permission.user.type.whitelist=LDAP
+# 权限服务开启和关闭，不加这行，视为开启
+permission.service.enabled=true
+
+# Datasource config
+database.driverClassName=com.mysql.jdbc.Driver
+database.url=jdbc:mysql://127.0.0.1:3306/permission?useUnicode=true&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;failOverReadOnly=false
+database.username=root
+database.password=111111
+pool.init=10
+pool.min=10
+pool.max=20
+pool.max.wait=60000
+pool.time.between.eviction.runs.millis=60000
+pool.min.evictable.idle.time.millis=300000
+pool.remove.abandoned.timeout=120
 
 # Cache config
 prefix=permission
+cache.enabled=true
 cache.type=redisCache
-cache.plugin=redisPlugin
+# 当切面拦截出现异常，如果忽略该异常，则不影响当前业务方法调用，否则中断当前业务方法调用，缺省为true
+# cache.aop.exception.ignore=true
+# 全局缓存过期值，单位毫秒（小于等于零，表示永不过期），当注解上没配置该值的时候，以全局值为准，缺省为-1
+# cache.expire=-1
 # 扫描含有@Cacheable，@CacheEvict，@CachePut等注解的接口或者类所在目录
 cache.scan.packages=com.nepxion.permission
 
@@ -113,9 +114,9 @@ spring.redis.pool.min-idle=0
 frequent.log.print=true
 ```
 
-在接口上添加@Permission注解，实现API权限验证功能
+SpringCloud应用入口，需要加上@EnablePermissionSerivce注解激活权限服务（当然也可以在配置文件里面permission.service.enabled=false关闭它），@EnableCache从缓存获取权限数据
 ```java
-package com.nepxion.permission.example.client.service;
+package com.nepxion.permission.example.service;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -126,129 +127,24 @@ package com.nepxion.permission.example.client.service;
  * @version 1.0
  */
 
-import com.nepxion.permission.annotation.Permission;
-import com.nepxion.permission.annotation.Token;
-import com.nepxion.permission.annotation.UserId;
-import com.nepxion.permission.annotation.UserType;
-
-public interface MyService {
-    // 基于userId和userType的权限验证
-    @Permission(name = "A-Permission", label = "A权限", description = "A权限的描述")
-    int doA(@UserId String userId, @UserType String userType, String value);
-
-    // 基于token的权限验证
-    @Permission(name = "B-Permission", label = "B权限", description = "B权限的描述")
-    String doB(@Token String token, String value);
-}
-```
-
-在实现类上添加@Permission注解，实现API权限验证功能
-```java
-package com.nepxion.permission.example.client;
-
-/**
- * <p>Title: Nepxion Permission</p>
- * <p>Description: Nepxion Permission</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- * @author Haojun Ren
- * @version 1.0
- */
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.nepxion.permission.annotation.Permission;
-import com.nepxion.permission.annotation.Token;
-import com.nepxion.permission.annotation.UserId;
-import com.nepxion.permission.annotation.UserType;
-
-@RestController
-public class MyController {
-    private static final Logger LOG = LoggerFactory.getLogger(MyController.class);
-
-    // 显式基于UserId和UserType注解的权限验证，参数通过注解传递
-    @RequestMapping(path = "/doA/{userId}/{userType}/{value}", method = RequestMethod.GET)
-    @Permission(name = "A-Permission", label = "A权限", description = "A权限的描述")
-    public int doA(@PathVariable(value = "userId") @UserId String userId, @PathVariable(value = "userType") @UserType String userType, @PathVariable(value = "value") String value) {
-        LOG.info("===== doA被调用");
-
-        return 123;
-    }
-
-    // 显式基于Token注解的权限验证，参数通过注解传递
-    @RequestMapping(path = "/doB/{token}/{value}", method = RequestMethod.GET)
-    @Permission(name = "B-Permission", label = "B权限", description = "B权限的描述")
-    public String doB(@PathVariable(value = "token") @Token String token, @PathVariable(value = "value") String value) {
-        LOG.info("----- doB被调用");
-
-        return "abc";
-    }
-
-    // 隐式基于Rest请求的权限验证，参数通过Header传递
-    @RequestMapping(path = "/doC/{value}", method = RequestMethod.GET)
-    @Permission(name = "C-Permission", label = "C权限", description = "C权限的描述")
-    public boolean doC(@PathVariable(value = "value") String value) {
-        LOG.info("----- doC被调用");
-
-        return true;
-    }
-}
-```
-
-SpringCloud应用入口，需要加上@EnablePermission注解激活权限拦截功能（当然也可以在配置文件里面permission.enabled=false关闭它），@EnableCache从缓存获取权限数据
-```java
-package com.nepxion.permission.example.client;
-
-/**
- * <p>Title: Nepxion Permission</p>
- * <p>Description: Nepxion Permission</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- * @author Haojun Ren
- * @version 1.0
- */
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import com.nepxion.aquarius.cache.annotation.EnableCache;
-import com.nepxion.permission.annotation.EnablePermission;
-import com.nepxion.permission.example.client.service.MyService;
+import com.nepxion.permission.service.annotation.EnablePermissionSerivce;
 
 @SpringBootApplication
-@EnablePermission
+@EnableDiscoveryClient
+@EnablePermissionSerivce
 @EnableCache
-public class MyApplication {
-    private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
-
+public class PermissionApplication {
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class, args);
-
-        MyService myService = applicationContext.getBean(MyService.class);
-        try {
-            LOG.info("Result : {}", myService.doA("zhangsan", "LDAP", "valueA"));
-        } catch (Exception e) {
-            LOG.error("Error", e);
-        }
-        
-        try {
-            LOG.info("Result : {}", myService.doB("abcd1234", "valueB"));
-        } catch (Exception e) {
-            LOG.error("Error", e);
-        }
+        new SpringApplicationBuilder(PermissionApplication.class).run(args);
     }
 }
 ```
 
-### 服务端
 需要实现permission-api的两个Feign接口PermissionResource和UserResource
 模拟实现权限对数据库的相关接口，请自行实现相关和数据库，缓存等操作逻辑
 ```java
@@ -354,6 +250,169 @@ public class UserResourceImpl implements UserResource {
         }
 
         return null;
+    }
+}
+```
+
+### 模拟业务服务端
+业务服务端配置
+```xml
+# Spring cloud config
+spring.application.name=permission-springcloud-my-service-example
+server.port=1234
+eureka.instance.metadataMap.owner=Haojun Ren
+eureka.client.serviceUrl.defaultZone=http://10.0.75.1:9528/eureka/
+
+# Ribbon config
+ribbon.ReadTimeout=60000
+ribbon.ConnectTimeout=60000
+
+# Permission config
+# 权限拦截开启和关闭，不加这行，视为开启
+permission.enabled=true
+# 权限系统的服务名，作为Feign的寻址名
+permission.service.name=permission-springcloud-service-example
+# 扫描含有@Permission注解的接口或者类所在目录
+permission.scan.packages=com.nepxion.permission.example.client.service
+# 如果开启，默认每次服务启动时候，会往权限系统的数据库插入权限（权限不存在则插入，权限存在则覆盖）
+permission.automatic.persist.enabled=true
+# 权限自动入库第一次失败后，还有重试的机会。下面配置项为重试的次数
+permission.automatic.persist.retry.times=5
+# 权限自动入库第一次失败后，还有重试的机会。下面配置项为每次重试的间隔时间
+permission.automatic.persist.retry.interval=10000
+# 权限系统验证拦截的用户类型白名单（例如用户类型是LDAP，那么对LDAP的用户做权限验证拦截）,多个值以“;”分隔
+permission.user.type.whitelist=LDAP
+
+# Cache config
+prefix=permission
+cache.enabled=true
+cache.type=redisCache
+# 当切面拦截出现异常，如果忽略该异常，则不影响当前业务方法调用，否则中断当前业务方法调用，缺省为true
+# cache.aop.exception.ignore=true
+# 全局缓存过期值，单位毫秒（小于等于零，表示永不过期），当注解上没配置该值的时候，以全局值为准，缺省为-1
+# cache.expire=-1
+# 扫描含有@Cacheable，@CacheEvict，@CachePut等注解的接口或者类所在目录
+cache.scan.packages=com.nepxion.permission
+
+# Redis config
+spring.redis.host=localhost
+spring.redis.port=6379
+spring.redis.password=
+spring.redis.database=0
+spring.redis.pool.max-active=8
+spring.redis.pool.max-wait=-1
+spring.redis.pool.max-idle=8
+spring.redis.pool.min-idle=0
+
+# Frequent log print
+frequent.log.print=true
+```
+
+SpringCloud应用入口，需要加上@EnablePermission注解激活权限拦截功能（当然也可以在配置文件里面permission.enabled=false关闭它），@EnableCache从缓存获取权限数据
+```java
+package com.nepxion.permission.example.service;
+
+/**
+ * <p>Title: Nepxion Permission</p>
+ * <p>Description: Nepxion Permission</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import com.nepxion.aquarius.cache.annotation.EnableCache;
+import com.nepxion.permission.annotation.EnablePermission;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients(basePackages = { "com.nepxion.permission.api" })
+@EnablePermission
+@EnableCache
+public class MyApplication {
+    private static final Logger LOG = LoggerFactory.getLogger(MyApplication.class);
+
+    public static void main(String[] args) {
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(MyApplication.class, args);
+
+        MyController myController = applicationContext.getBean(MyController.class);
+        try {
+            LOG.info("Result : {}", myController.doA("zhangsan", "LDAP", "valueA"));
+        } catch (Exception e) {
+            LOG.error("Error", e);
+        }
+
+        try {
+            LOG.info("Result : {}", myController.doB("abcd1234", "valueB"));
+        } catch (Exception e) {
+            LOG.error("Error", e);
+        }
+    }
+}
+```
+
+在RestController添加@Permission注解，实现API权限验证功能
+```java
+package com.nepxion.permission.example.service;
+
+/**
+ * <p>Title: Nepxion Permission</p>
+ * <p>Description: Nepxion Permission</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nepxion.permission.annotation.Permission;
+import com.nepxion.permission.annotation.Token;
+import com.nepxion.permission.annotation.UserId;
+import com.nepxion.permission.annotation.UserType;
+
+@RestController
+public class MyController {
+    private static final Logger LOG = LoggerFactory.getLogger(MyController.class);
+
+    // 显式基于UserId和UserType注解的权限验证，参数通过注解传递
+    @RequestMapping(path = "/doA/{userId}/{userType}/{value}", method = RequestMethod.GET)
+    @Permission(name = "A-Permission", label = "A权限", description = "A权限的描述")
+    public int doA(@PathVariable(value = "userId") @UserId String userId, @PathVariable(value = "userType") @UserType String userType, @PathVariable(value = "value") String value) {
+        LOG.info("===== doA被调用");
+
+        return 123;
+    }
+
+    // 显式基于Token注解的权限验证，参数通过注解传递
+    @RequestMapping(path = "/doB/{token}/{value}", method = RequestMethod.GET)
+    @Permission(name = "B-Permission", label = "B权限", description = "B权限的描述")
+    public String doB(@PathVariable(value = "token") @Token String token, @PathVariable(value = "value") String value) {
+        LOG.info("----- doB被调用");
+
+        return "abc";
+    }
+
+    // 隐式基于Rest请求的权限验证，参数通过Header传递
+    @RequestMapping(path = "/doC/{value}", method = RequestMethod.GET)
+    @Permission(name = "C-Permission", label = "C权限", description = "C权限的描述")
+    public boolean doC(@PathVariable(value = "value") String value) {
+        LOG.info("----- doC被调用");
+
+        return true;
     }
 }
 ```
