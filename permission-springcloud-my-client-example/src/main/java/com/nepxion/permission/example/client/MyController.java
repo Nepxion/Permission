@@ -1,4 +1,4 @@
-package com.nepxion.permission.example.feign;
+package com.nepxion.permission.example.client;
 
 /**
  * <p>Title: Nepxion Permission</p>

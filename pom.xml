@@ -20,8 +20,8 @@
         <module>permission-service</module>
         <module>permission-service-starter</module>
         <module>permission-springcloud-service-example</module>
-        <module>permission-springcloud-client-example</module>
-        <module>permission-springcloud-feign-example</module>
+        <module>permission-springcloud-my-service-example</module>
+        <module>permission-springcloud-my-client-example</module>
     </modules>
 
     <properties>

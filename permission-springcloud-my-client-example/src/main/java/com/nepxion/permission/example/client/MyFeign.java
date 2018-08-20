@@ -1,4 +1,4 @@
-package com.nepxion.permission.example.feign;
+package com.nepxion.permission.example.client;
 
 /**
  * <p>Title: Nepxion Permission</p>
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "permission-springcloud-client-example")
+@FeignClient(value = "permission-springcloud-my-service-example")
 public interface MyFeign {
     @RequestMapping(path = "/doA/{userId}/{userType}/{value}", method = RequestMethod.GET)
     int doA(@PathVariable(value = "userId") String userId, @PathVariable(value = "userType") String userType, @PathVariable(value = "value") String value);
