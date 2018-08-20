@@ -1,3 +1,2 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.nepxion.permission.service.configuration.PermissionServiceAutoConfiguration
+com.nepxion.permission.service.annotation.EnablePermissionSerivce=\
+com.nepxion.permission.service.configuration.PermissionServiceConfiguration

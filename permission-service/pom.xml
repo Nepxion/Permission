@@ -19,5 +19,15 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>permission-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>matrix-aop-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aquarius-cache-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -13,7 +13,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+import com.nepxion.aquarius.cache.annotation.EnableCache;
+import com.nepxion.permission.service.annotation.EnablePermissionSerivce;
+
 @SpringBootApplication
+@EnablePermissionSerivce
+@EnableCache
 @EnableDiscoveryClient
 public class PermissionApplication {
     public static void main(String[] args) {
