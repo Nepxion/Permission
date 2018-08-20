@@ -15,11 +15,12 @@ import org.springframework.core.annotation.Order;
 import com.nepxion.matrix.selector.AbstractImportSelector;
 import com.nepxion.matrix.selector.RelaxedPropertyResolver;
 import com.nepxion.permission.annotation.EnablePermission;
+import com.nepxion.permission.constant.PermissionConstant;
 
 @Order(Ordered.LOWEST_PRECEDENCE - 100)
 public class PermissionImportSelector extends AbstractImportSelector<EnablePermission> {
     @Override
     protected boolean isEnabled() {
-        return new RelaxedPropertyResolver(getEnvironment()).getProperty("permission.enabled", Boolean.class, Boolean.TRUE);
+        return new RelaxedPropertyResolver(getEnvironment()).getProperty(PermissionConstant.PERMISSION_ENABLED, Boolean.class, Boolean.TRUE);
     }
 }
