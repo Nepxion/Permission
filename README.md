@@ -1,10 +1,10 @@
 # Nepxion Permission
+![CoL](https://tokei.rs/b1/github/Nepxion/Permission)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Permission/blob/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/permission.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20permission)
 [![Javadocs](http://www.javadoc.io/badge/com.nepxion/permission-aop.svg)](http://www.javadoc.io/doc/com.nepxion/permission-aop)
 [![Build Status](https://travis-ci.org/Nepxion/Permission.svg?branch=master)](https://travis-ci.org/Nepxion/Permission)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/06ee5cfb85b946cc95affcb6e10ee45c)](https://www.codacy.com/project/HaojunRen/Permission/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Permission&amp;utm_campaign=Badge_Grade_Dashboard)
-![CoL](https://tokei.rs/b1/github/Nepxion/Permission)
 
 Nepxion Permission是一款基于Spring Cloud的微服务API权限框架，并通过Redis分布式缓存进行权限缓存。它采用Nepxion Matrix AOP框架进行切面架构，提供注解调用方式，同时也提供Rest调用
 
