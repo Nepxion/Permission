@@ -6,7 +6,6 @@
 [![Build Status](https://travis-ci.org/Nepxion/Permission.svg?branch=master)](https://travis-ci.org/Nepxion/Permission)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/06ee5cfb85b946cc95affcb6e10ee45c)](https://www.codacy.com/project/HaojunRen/Permission/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Permission&amp;utm_campaign=Badge_Grade_Dashboard)
 
-
 Nepxion Permission是一款基于Spring Cloud的微服务API权限框架，并通过Redis分布式缓存进行权限缓存。它采用Nepxion Matrix AOP框架进行切面架构，提供注解调用方式，同时也提供Rest调用
 
 ## 请联系我
