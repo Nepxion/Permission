@@ -9,7 +9,10 @@
 Nepxion Permission是一款基于Spring Cloud的微服务API权限框架，并通过Redis分布式缓存进行权限缓存。它采用Nepxion Matrix AOP框架进行切面架构，提供注解调用方式，也提供Rest调用
 
 ## 请联系我
+微信和公众号
+
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/公众号-1.jpg)
 
 ## 简介
 - 实现权限自动扫描入库（可通过配置文件开启关闭）
