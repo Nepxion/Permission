@@ -12,7 +12,7 @@ package com.nepxion.permission.example.client;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import com.nepxion.permission.feign.annotation.EnablePermissionFeign;
 
