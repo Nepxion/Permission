@@ -36,9 +36,9 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 - 实现提供UI权限和API GATEWAY权限的接入(如果使用者有这样的需求)
 
 ## 兼容
-最新版本兼容
-- Spring 4.x.x和Spring Boot 1.x.x
-- Spring 5.x.x和Spring Boot 2.x.x，但需要手工去除第三方包引入的低版本Spring依赖包	
+版本兼容情况
+- Spring Cloud F版，请采用3.x.x版本，具体代码参考master分支
+- Spring Cloud E版，请采用2.x.x版本，具体代码参考Edgware分支
 
 ## 依赖
 ```xml
