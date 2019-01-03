@@ -37,7 +37,7 @@ import com.nepxion.permission.exception.PermissionAopException;
 public class PermissionInterceptor extends AbstractInterceptor {
     private static final Logger LOG = LoggerFactory.getLogger(PermissionInterceptor.class);
 
-    @Value("${" + AquariusConstant.FREQUENT_LOG_PRINT + "}")
+    @Value("${" + AquariusConstant.FREQUENT_LOG_PRINT + ":false}")
     private Boolean frequentLogPrint;
 
     @Value("${" + PermissionConstant.PERMISSION_INTERCEPTION_ENABLED + ":true}")
