@@ -27,7 +27,7 @@ public class PermissionServiceConfiguration {
         System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
         System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
         System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
-        System.out.println("Nepxion Permission  v3.0.0");
+        System.out.println("Nepxion Permission  v3.0.1");
         System.out.println("");
     }
 
