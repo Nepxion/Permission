@@ -20,15 +20,18 @@ import com.nepxion.permission.service.impl.UserResourceImpl;
 @Configuration
 public class PermissionServiceConfiguration {
     static {
-        System.out.println("");
-        System.out.println("╔═══╗");
-        System.out.println("║╔═╗║");
-        System.out.println("║╚═╝╠══╦═╦╗╔╦╦══╦══╦╦══╦══╗");
-        System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
-        System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
-        System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
-        System.out.println("Nepxion Permission  v3.0.1");
-        System.out.println("");
+        String logoShown = System.getProperty("nepxion.logo.shown", "true");
+        if (Boolean.valueOf(logoShown)) {
+            System.out.println("");
+            System.out.println("╔═══╗");
+            System.out.println("║╔═╗║");
+            System.out.println("║╚═╝╠══╦═╦╗╔╦╦══╦══╦╦══╦══╗");
+            System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
+            System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
+            System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
+            System.out.println("Nepxion Permission  v3.0.2");
+            System.out.println("");
+        }
     }
 
     @Bean

@@ -23,15 +23,18 @@ import com.nepxion.permission.context.PermissionFeignBeanFactoryPostProcessor;
 @Configuration
 public class PermissionAopConfiguration {
     static {
-        System.out.println("");
-        System.out.println("╔═══╗");
-        System.out.println("║╔═╗║");
-        System.out.println("║╚═╝╠══╦═╦╗╔╦╦══╦══╦╦══╦══╗");
-        System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
-        System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
-        System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
-        System.out.println("Nepxion Permission  v3.0.1");
-        System.out.println("");
+        String logoShown = System.getProperty("nepxion.logo.shown", "true");
+        if (Boolean.valueOf(logoShown)) {
+            System.out.println("");
+            System.out.println("╔═══╗");
+            System.out.println("║╔═╗║");
+            System.out.println("║╚═╝╠══╦═╦╗╔╦╦══╦══╦╦══╦══╗");
+            System.out.println("║╔══╣║═╣╔╣╚╝╠╣══╣══╬╣╔╗║╔╗║");
+            System.out.println("║║  ║║═╣║║║║║╠══╠══║║╚╝║║║║");
+            System.out.println("╚╝  ╚══╩╝╚╩╩╩╩══╩══╩╩══╩╝╚╝");
+            System.out.println("Nepxion Permission  v3.0.2");
+            System.out.println("");
+        }
     }
 
     @Value("${" + PermissionConstant.PERMISSION_SCAN_PACKAGES + ":}")
