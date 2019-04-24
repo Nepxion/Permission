@@ -10,7 +10,7 @@ package com.nepxion.permission.service.constant;
  */
 
 public class PermissionServiceConstant {
-    public static final String PERMISSION_VERSION = "3.0.4";
+    public static final String PERMISSION_VERSION = "3.0.5";
 
     public static final String PERMISSION_SERVICE_ENABLED = "permission.service.enabled";
 }
