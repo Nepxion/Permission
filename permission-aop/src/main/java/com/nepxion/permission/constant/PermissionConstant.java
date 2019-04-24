@@ -10,6 +10,8 @@ package com.nepxion.permission.constant;
  */
 
 public class PermissionConstant {
+    public static final String PERMISSION_VERSION = "2.0.11";
+
     public static final String TOKEN = "token";
     public static final String USER_ID = "user-id";
     public static final String USER_TYPE = "user-type";
