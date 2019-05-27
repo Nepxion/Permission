@@ -567,3 +567,7 @@ Exception in thread "main" com.nepxion.permission.exception.PermissionException:
 
 基于Token的权限验证。如图所示，该Token对应的用户对该API无权限
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/permission-doc/Permission2.jpg)
+
+## Star走势图
+
+[![Stargazers over time](https://starchart.cc/Nepxion/Permission.svg)](https://starchart.cc/Nepxion/Permission)
