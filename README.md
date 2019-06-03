@@ -41,21 +41,12 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 - Spring Cloud E版，请采用2.x.x版本，具体代码参考Edgware分支
 
 ## 依赖
-```xml
-<dependency>
-    <groupId>com.nepxion</groupId>
-    <artifactId>permission</artifactId>
-    <version>${permission.version}</version>
-    <type>pom</type>
-    <scope>import</scope>
-</dependency>
-```
-
 AOP依赖
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
     <artifactId>permission-aop-starter</artifactId>
+    <version>${permission.version}</version>
 </dependency>
 ```
 
@@ -64,6 +55,7 @@ Feign依赖
 <dependency>
     <groupId>com.nepxion</groupId>
     <artifactId>permission-feign-starter</artifactId>
+    <version>${permission.version}</version>
 </dependency>
 ```
 
