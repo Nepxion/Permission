@@ -1,5 +1,5 @@
 # Nepxion Permission
-[![Total lines](https://tokei.rs/b1/github/Nepxion/Permission?category=lines)](https://github.com/Nepxion/Permission)
+[![Total lines](https://tokei.rs/b1/github/Nepxion/Permission?category=lines)](https://tokei.rs/b1/github/Nepxion/Permission?category=lines)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Permission/blob/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/permission.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20permission)
 [![Javadocs](http://www.javadoc.io/badge/com.nepxion/permission-aop.svg)](http://www.javadoc.io/doc/com.nepxion/permission-aop)
