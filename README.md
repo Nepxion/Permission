@@ -6,7 +6,7 @@ Nepxion Permission是一款基于Spring Cloud的微服务API权限框架，并�
 ## 请联系我
 微信和公众号
 
-![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/HaojunRen/Docs/raw/master/zxing-doc/公众号-1.jpg)
 
 ## 简介
 - 实现权限自动扫描入库（可通过配置文件开启关闭）
@@ -549,10 +549,10 @@ Exception in thread "main" com.nepxion.permission.exception.PermissionException:
 
 ### 基于Rest调用结果
 基于UserId和UserType的权限验证。如图所示，该用户对该API有权限
-![Alt text](https://github.com/Nepxion/Docs/raw/master/permission-doc/Permission1.jpg)
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/permission-doc/Permission1.jpg)
 
 基于Token的权限验证。如图所示，该Token对应的用户对该API无权限
-![Alt text](https://github.com/Nepxion/Docs/raw/master/permission-doc/Permission2.jpg)
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/permission-doc/Permission2.jpg)
 
 ## Star走势图
 
