@@ -15,6 +15,6 @@
 @title Nepxion Permission
 @color 0a
 
-call mvn versions:set -DnewVersion=2.0.15
+call mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.15
 
 pause
