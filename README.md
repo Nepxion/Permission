@@ -32,7 +32,7 @@ Nepxion Permission提供简单易用的AOP框架（参考permission-springcloud-
 ## 兼容
 版本兼容情况
 - Spring Cloud F版，请采用3.x.x版本，具体代码参考master分支
-- Spring Cloud E版，请采用2.x.x版本，具体代码参考Edgware分支
+- Spring Cloud E版，请采用2.x.x版本，具体代码参考2.0.x分支
 
 ## 依赖
 AOP依赖
