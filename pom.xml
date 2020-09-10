@@ -25,16 +25,14 @@
     </modules>
 
     <properties>
-        <matrix.version>2.0.7</matrix.version>
-        <aquarius.version>2.0.10</aquarius.version>
+        <matrix.version>2.0.8</matrix.version>
+        <aquarius.version>2.0.12</aquarius.version>
         <banner.version>1.0.2</banner.version>
         <commons.lang3.version>3.6</commons.lang3.version>
         <commons.collections4.version>4.1</commons.collections4.version>
         <commons.io.version>2.5</commons.io.version>
         <spring.cloud.version>Finchley.SR4</spring.cloud.version>
         <spring.boot.version>2.0.7.RELEASE</spring.boot.version>
-        <disruptor.version>3.3.7</disruptor.version>
-        <log4j.version>2.9.1</log4j.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -142,27 +140,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-            <version>${disruptor.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-1.2-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
