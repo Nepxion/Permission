@@ -555,5 +555,4 @@ Exception in thread "main" com.nepxion.permission.exception.PermissionException:
 ![](http://nepxion.gitee.io/docs/permission-doc/Permission2.jpg)
 
 ## Star走势图
-
 [![Stargazers over time](https://starchart.cc/Nepxion/Permission.svg)](https://starchart.cc/Nepxion/Permission)
