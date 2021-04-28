@@ -6,7 +6,7 @@ Nepxion Permission是一款基于Spring Cloud的微服务API权限框架，并�
 ## 请联系我
 微信、钉钉、公众号和文档
 
-![](http://nepxion.gitee.io/docs/zxing-doc/微信-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/钉钉-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/公众号-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/文档-1.jpg)
+![](http://nepxion.gitee.io/discovery/docs/zxing-doc/微信-1.jpg)![](http://nepxion.gitee.io/discovery/docs/zxing-doc/钉钉-1.jpg)![](http://nepxion.gitee.io/discovery/docs/zxing-doc/公众号-1.jpg)![](http://nepxion.gitee.io/discovery/docs/zxing-doc/文档-1.jpg)
 
 ## 简介
 - 实现权限自动扫描入库（可通过配置文件开启关闭）
@@ -549,10 +549,10 @@ Exception in thread "main" com.nepxion.permission.exception.PermissionException:
 
 ### 基于Rest调用结果
 基于UserId和UserType的权限验证。如图所示，该用户对该API有权限
-![](http://nepxion.gitee.io/docs/permission-doc/Permission1.jpg)
+![](http://nepxion.gitee.io/discovery/docs/permission-doc/Permission1.jpg)
 
 基于Token的权限验证。如图所示，该Token对应的用户对该API无权限
-![](http://nepxion.gitee.io/docs/permission-doc/Permission2.jpg)
+![](http://nepxion.gitee.io/discovery/docs/permission-doc/Permission2.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Permission.svg)](https://starchart.cc/Nepxion/Permission)
