@@ -53,7 +53,7 @@ Feign依赖
 ## 示例
 ### 权限服务端
 服务端配置
-```xml
+```
 # Spring cloud config
 spring.application.name=permission-springcloud-service-example
 server.port=4321
@@ -244,7 +244,7 @@ public class UserResourceImpl implements UserResource {
 
 ### 模拟业务服务端
 业务服务端配置
-```xml
+```
 # Spring cloud config
 spring.application.name=permission-springcloud-my-service-example
 server.port=1234
@@ -407,7 +407,7 @@ public class MyController {
 
 ### 模拟业务客户端，基于Feign调用
 业务客户端配置
-```xml
+```
 # Spring cloud config
 spring.application.name=permission-springcloud-my-client-example
 server.port=1212
@@ -525,7 +525,7 @@ public class MyController {
 ```
 
 ### 基于注解调用结果
-```java
+```
 permission 2018-01-18 17:18:33,382 INFO [main] c.n.p.a.PermissionInterceptor [PermissionInterceptor.java:103] - Intercepted for annotation - Permission [name=A-Permission, label=A权限, description=, proxyType=Reflective Aop Proxy, proxiedClass=com.nepxion.permission.service.MyServiceImpl, method=doA]
 permission 2018-01-18 17:18:33,442 INFO [main] c.n.a.c.a.CacheInterceptor [CacheInterceptor.java:120] - Intercepted for annotation - Cacheable [key=permission_cache_zhangsan_LDAP_A-Permission_SERVICE_permission-springcloud-example, expire=-1, proxyType=Cglib Aop Proxy, proxiedClass=com.nepxion.permission.aop.PermissionAuthorization, method=authorizeCache]
 permission 2018-01-18 17:18:33,582 INFO [main] c.n.a.c.r.i.RedisCacheDelegateImpl [RedisCacheDelegateImpl.java:54] - Before invocation, Cacheable key=permission_cache_zhangsan_LDAP_A-Permission_SERVICE_permission-springcloud-example, cache=true in Redis
