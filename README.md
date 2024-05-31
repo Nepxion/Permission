@@ -1,7 +1,7 @@
 # Nepxion Permission
 ![Total visits](https://visitor-badge.laobi.icu/badge?page_id=Nepxion&title=total%20visits)  [![Total lines](https://tokei.rs/b1/github/Nepxion/Permission?category=lines)](https://tokei.rs/b1/github/Nepxion/Permission?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Permission/blob/master/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/permission.svg?label=maven)](https://search.maven.org/artifact/com.nepxion/permission)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/permission-aop.svg)](http://www.javadoc.io/doc/com.nepxion/permission-aop)  [![Build Status](https://github.com/Nepxion/Permission/workflows/build/badge.svg)](https://github.com/Nepxion/Permission/actions)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/061d4a44fe9140648b13b46e41089757)](https://www.codacy.com/gh/Nepxion/Permission/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Permission&amp;utm_campaign=Badge_Grade)  [![Stars](https://img.shields.io/github/stars/Nepxion/Permission.svg?label=Stars&style=flat&logo=GitHub)](https://github.com/Nepxion/Permission/stargazers)  [![Stars](https://gitee.com/Nepxion/Permission/badge/star.svg)](https://gitee.com/Nepxion/Permission/stargazers)
 
-<a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/github.png"></a>&nbsp;  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/gitee.png"></a>&nbsp;  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/maven.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/wechat.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/wechat.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/dingding.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/gongzhonghao.png"></a>&nbsp;  <a href="mailto:1394997@qq.com" tppabs="#"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/email.png"></a>
+<a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/github.png"></a>&nbsp;  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/gitee.png"></a>&nbsp;  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/maven.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/wechat.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/wechat.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/dingding.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/gongzhonghao.png"></a>&nbsp;  <a href="mailto:1394997@qq.com" tppabs="#"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/email.png"></a>
 
 Nepxion Permission是一款基于Spring Cloud的微服务API权限框架，并通过Redis分布式缓存进行权限缓存。它采用Nepxion Matrix AOP框架进行切面实现，支持注解调用方式，也支持Rest调用方式
 
@@ -546,15 +546,15 @@ Exception in thread "main" com.nepxion.permission.exception.PermissionException:
 
 ### 基于Rest调用结果
 基于UserId和UserType的权限验证。如图所示，该用户对该API有权限
-![](https://nepxion.github.io/Discovery//docs/permission-doc/Permission1.jpg)
+![](https://nepxion.github.io/Discovery/docs/permission-doc/Permission1.jpg)
 
 基于Token的权限验证。如图所示，该Token对应的用户对该API无权限
-![](https://nepxion.github.io/Discovery//docs/permission-doc/Permission2.jpg)
+![](https://nepxion.github.io/Discovery/docs/permission-doc/Permission2.jpg)
 
 ## 请联系我
 微信、钉钉、公众号和文档
 
-![](https://nepxion.github.io/Discovery//docs/contact-doc/wechat-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/dingding-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/gongzhonghao-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/document-1.jpg)
+![](https://nepxion.github.io/Discovery/docs/contact-doc/wechat-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/dingding-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/gongzhonghao-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/document-1.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Permission.svg)](https://starchart.cc/Nepxion/Permission)
